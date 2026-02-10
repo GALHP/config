@@ -31,10 +31,10 @@
     "install-hooks": "bun simple-git-hooks"
   },
   "exports": {
-    "./eslint": "./dist/eslint/index.js",
-    "./scripts/eslint": "./dist/scripts/eslint.js",
-    "./stylelint": "./dist/stylelint/index.js",
-    "./scripts/stylelint": "./dist/scripts/stylelint.js"
+    "./eslint": "./dist/eslint/index.mjs",
+    "./scripts/eslint": "./dist/scripts/eslint.mjs",
+    "./stylelint": "./dist/stylelint/index.mjs",
+    "./scripts/stylelint": "./dist/scripts/stylelint.mjs"
   },
   "files": [
     "./conf/eslint.config.mjs.example",
