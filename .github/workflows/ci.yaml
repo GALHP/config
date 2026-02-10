@@ -710,7 +710,7 @@ jobs:
 
               const createResponse = await retryFetch('https://packagist.org/api/create-package', packagistCreateOrUpdateRequest);
 
-              if (!createResponse || createResponse.status !== 201) {
+              if (!createResponse || createResponse.status !== 202) {
                 core.setFailed(`Failed to create Packagist package: ${createResponse?.status ?? 'unknown error'}`);
 
                 return;
