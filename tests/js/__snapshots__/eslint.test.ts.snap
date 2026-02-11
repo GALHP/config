@@ -2935,7 +2935,12 @@ exports[`expected eslint config 1`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -8057,7 +8062,12 @@ exports[`expected eslint config 2`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -13179,7 +13189,12 @@ exports[`expected eslint config 3`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -17915,7 +17930,12 @@ exports[`expected eslint config 4`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -22651,7 +22671,12 @@ exports[`expected eslint config 5`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -27387,7 +27412,12 @@ exports[`expected eslint config 6`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -32518,7 +32548,12 @@ exports[`expected eslint config 7`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -37649,7 +37684,12 @@ exports[`expected eslint config 8`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -42780,7 +42820,12 @@ exports[`expected eslint config 9`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -47902,7 +47947,12 @@ exports[`expected eslint config 10`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -52638,7 +52688,12 @@ exports[`expected eslint config 11`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -57341,7 +57396,12 @@ exports[`expected eslint config 12`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -62730,7 +62790,12 @@ exports[`expected eslint config 13`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -67730,7 +67795,12 @@ exports[`expected eslint config 14`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -84988,7 +85058,12 @@ exports[`expected eslint config 23`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -90291,7 +90366,12 @@ exports[`expected eslint config 24`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -95594,7 +95674,12 @@ exports[`expected eslint config 25`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -100511,7 +100596,12 @@ exports[`expected eslint config 26`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -105428,7 +105518,12 @@ exports[`expected eslint config 27`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
@@ -110345,7 +110440,12 @@ exports[`expected eslint config 28`] = `
       2
     ],
     "import/no-cycle": [
-      2
+      2,
+      {
+        "maxDepth": 3,
+        "ignoreExternal": false,
+        "allowUnsafeDynamicCyclicDependency": false
+      }
     ],
     "import/no-default-export": [
       0
