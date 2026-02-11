@@ -86,5 +86,5 @@ export const getConfig = (
   return config;
 };
 
-// eslint-disable-next-line import/no-default-export -- Explicitly expose this module with a default export to allow for direct re-exporting from eslint config file
+// eslint-disable-next-line import/no-default-export -- Explicitly expose this module with a default export to allow for direct re-exporting from stylelint config file
 export default getConfig();
