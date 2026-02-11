@@ -162,8 +162,5 @@ export const getConfig = (
   return composer;
 };
 
-const getDefaultConfig = async (): Promise<FlatConfigComposer<Config, ConfigNames>> => getConfig();
-
-// NOTICE: Wrap async default export in a function to ensure eslint can resolve it in all environments
 // eslint-disable-next-line import/no-default-export -- Explicitly expose this module with a default export to allow for direct re-exporting from eslint config file
-export default getDefaultConfig;
+export default getConfig();
