@@ -19,7 +19,7 @@ use function getcwd;
  * @internal
  */
 #[CoversNothing]
-final class PhpstanTest extends TestCase
+final class PhpStanTest extends TestCase
 {
     use MatchesSnapshots;
 
