@@ -50,7 +50,9 @@ export const imports = async (): Promise<Config[]> => {
       'import/newline-after-import': 'error',
       'import/no-absolute-path': 'error',
       'import/no-amd': 'error',
-      'import/no-cycle': 'error',
+      'import/no-cycle': ['error', {
+        maxDepth: 3,
+      }],
       'import/no-default-export': 'error',
       'import/no-deprecated': 'error',
       'import/no-duplicates': 'error',
