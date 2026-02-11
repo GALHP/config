@@ -21,13 +21,13 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 
 use function array_filter;
+use function array_first;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_values;
 use function count;
-use function current;
 use function file_get_contents;
 use function get_debug_type;
 use function in_array;
@@ -239,7 +239,7 @@ final class SetupCommand extends AbstractCommand
         }
 
         return array_values(array_filter(
-            current($moduleNamesToInstall) === self::ANSWER_ALL ? $moduleNames : $moduleNamesToInstall,
+            array_first($moduleNamesToInstall) === self::ANSWER_ALL ? $moduleNames : $moduleNamesToInstall,
             $this->isNotAllOrNoneAnswer(...),
         ));
     }
@@ -261,7 +261,7 @@ final class SetupCommand extends AbstractCommand
 
         $optionalPackages = array_values(array_filter(
             count($moduleInfo['packages']['optional'] ?? []) === 1
-                ? [current($moduleInfo['packages']['optional'])]
+                ? [array_first($moduleInfo['packages']['optional'])]
                 : $moduleInfo['packages']['optional'] ?? [],
             static fn (string $package): bool => $doForceUpdate ? true : !Module::isPackageInstalled($package),
         ));
@@ -282,7 +282,7 @@ final class SetupCommand extends AbstractCommand
             }
 
             if ($optionalPackageCount === 1) {
-                $optionalPackage = current($optionalPackages);
+                $optionalPackage = array_first($optionalPackages);
 
                 $doInstallOptionalPackage = $doForceUpdate ?: $this->console->isConfirmed(sprintf(
                     'Module "%s" includes an optional dependency that is not yet installed ("%s"). Do you want to install it as well?',
@@ -320,7 +320,7 @@ final class SetupCommand extends AbstractCommand
         return [
             ...$packages,
             ...array_values(array_filter(
-                current($optionalPackagesToInstall) === self::ANSWER_ALL ? $optionalPackages : $optionalPackagesToInstall,
+                array_first($optionalPackagesToInstall) === self::ANSWER_ALL ? $optionalPackages : $optionalPackagesToInstall,
                 $this->isNotAllOrNoneAnswer(...),
             )),
         ];
