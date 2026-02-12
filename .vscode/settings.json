@@ -334,5 +334,30 @@
         "var"
       ]
     }
-  }
+  },
+
+  // JSON
+  "json.schemas": [
+    {
+      "url": "https://getcomposer.org/schema.json",
+      "fileMatch": [
+        "composer.json",
+        "*.composer.json"
+      ]
+    },
+    {
+      "url": "https://json.schemastore.org/package",
+      "fileMatch": [
+        "package.json",
+        "*.package.json"
+      ]
+    },
+    {
+      "url": "https://json.schemastore.org/tsconfig",
+      "fileMatch": [
+        "tsconfig.json",
+        "*.tsconfig.json"
+      ]
+    }
+  ]
 }
