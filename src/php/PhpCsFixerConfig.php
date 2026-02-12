@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Brnshkr\Config;
 
 use PhpCsFixer\Config as BaseConfig;
-use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 use PhpCsFixerCustomFixers\Fixer;
 use PhpCsFixerCustomFixers\Fixers;
 use RuntimeException;
@@ -39,7 +38,6 @@ final readonly class PhpCsFixerConfig
         $config = new BaseConfig();
 
         $config
-            ->setParallelConfig(ParallelConfigFactory::detect())
             ->setCacheFile($directory . '/.cache/.php-cs-fixer.cache.json')
             ->setFinder($finder)
             ->setRiskyAllowed(true)

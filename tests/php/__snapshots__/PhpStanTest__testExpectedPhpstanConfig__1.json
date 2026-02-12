@@ -25,6 +25,7 @@
         "rememberPossiblyImpureFunctionValues": false,
         "reportAlwaysTrueInLastCondition": true,
         "reportAnyTypeWideningInVarTag": true,
+        "reportNonIntStringArrayKey": true,
         "reportPossiblyNonexistentConstantArrayOffset": true,
         "reportPossiblyNonexistentGeneralArrayOffset": true,
         "featureToggles": {
