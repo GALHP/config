@@ -201,8 +201,7 @@ final class SetupCommand extends AbstractCommand
         $this->copyFilesIfApplicable($modulesToInstall, $doCopyConfigFilesAutomatically, $doCreateMakeFileAutomatically, $doCreateGitignoreFileAutomatically);
         $this->console->writeNotice('Setup process completed successfully.');
 
-        if (in_array(Module::PACKAGE_PHP_STAN_ERROR_FORMATTER, $packagesToInstall, true)
-            && Module::isPackageInstalled(Module::PACKAGE_PHP_STAN_ERROR_FORMATTER)) {
+        if (in_array(Module::PACKAGE_PHP_STAN_ERROR_FORMATTER, $packagesToInstall, true)) {
             $this->console->writeWarning(sprintf(
                 'You have installed "%s". Ensure that parameters.errorFormat is set to "ticketswap" in the phpstan.dist.neon file.',
                 Module::PACKAGE_PHP_STAN_ERROR_FORMATTER,
