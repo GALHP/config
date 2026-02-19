@@ -185,7 +185,7 @@ final readonly class Console
         array $choices,
         $default,
         bool $isMultiselect = false,
-    ) {
+    ): int|string|array {
         $default = is_array($default)
             ? implode(',', array_map(strval(...), $default))
             : (string) $default;

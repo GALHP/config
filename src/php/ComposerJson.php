@@ -135,7 +135,7 @@ final class ComposerJson
 
         if ($composer !== '' && is_dir($composer)) {
             throw new RuntimeException(sprintf(
-                'The COMPOSER environment variable is set to "%s" which is a directory, this variable should point to a composer.json or be left unset.',
+                'The COMPOSER environment variable is set to "%s" which is a directory, this variable should point to a composer.json file or be left unset.',
                 $composer,
             ));
         }
