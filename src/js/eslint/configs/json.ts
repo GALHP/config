@@ -95,6 +95,7 @@ const getJsoncSortConfigs = (): Config[] => [
             'peerDependenciesMeta',
             'optionalDependencies',
             'devDependencies',
+            'patchedDependencies',
             'overrides',
             'resolutions',
             'workspaces',
