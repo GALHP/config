@@ -37,9 +37,6 @@ final class CommandProvider implements BaseCommandProvider
      */
     public static function getCommandInstances(Composer $composer): array
     {
-        /**
-         * @var ?BaseCommandProvider $provider
-         */
         $provider = $composer->getPluginManager()->getPluginCapability(new Plugin(), BaseCommandProvider::class);
 
         return array_values($provider?->getCommands() ?? []);
