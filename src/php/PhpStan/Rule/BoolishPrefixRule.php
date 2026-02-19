@@ -8,11 +8,13 @@ use Brnshkr\Config\PhpStan\Rule\Trait\RuleTrait;
 use Brnshkr\Config\Str;
 use Override;
 use PhpParser\Node;
+use PhpParser\Node\Const_;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Param;
 use PhpParser\Node\PropertyItem;
+use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Property;
@@ -40,6 +42,7 @@ final readonly class BoolishPrefixRule implements Rule
 {
     use RuleTrait;
 
+    private const string KIND_CONSTANT  = 'constant';
     private const string KIND_FUNCTION  = 'function';
     private const string KIND_METHOD    = 'method';
     private const string KIND_PARAMETER = 'parameter';
@@ -73,6 +76,7 @@ final readonly class BoolishPrefixRule implements Rule
             match (true) {
                 $node instanceof Function_   => [self::processFunctionOrClassMethod($node, self::KIND_FUNCTION)],
                 $node instanceof ClassMethod => [self::processFunctionOrClassMethod($node, self::KIND_METHOD)],
+                $node instanceof ClassConst  => self::processClassConst($node),
                 $node instanceof Property    => self::processProperty($node),
                 $node instanceof Param       => [self::processParam($node)],
                 $node instanceof Assign      => [self::processAssign($node, $scope)],
@@ -94,6 +98,26 @@ final readonly class BoolishPrefixRule implements Rule
             && !self::hasBoolishPrefix($functionOrMethod->name->toString())
             ? self::buildError($kind, $functionOrMethod->name->toString())
             : null;
+    }
+
+    /**
+     * @return list<IdentifierRuleError>
+     *
+     * @throws RuntimeException
+     */
+    private static function processClassConst(ClassConst $classConst): array
+    {
+        if (!$classConst->type instanceof Identifier || Str::toLowerCase($classConst->type->name) !== 'bool') {
+            return [];
+        }
+
+        return array_map(
+            static fn (Const_ $const): IdentifierRuleError => self::buildError(self::KIND_CONSTANT, $const->name->toString()),
+            array_values(array_filter(
+                $classConst->consts,
+                static fn (Const_ $const): bool => !self::hasBoolishPrefix($const->name->toString()),
+            )),
+        );
     }
 
     /**
