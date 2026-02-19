@@ -33,7 +33,7 @@ parameters:
 
   exceptions:
     uncheckedExceptionRegexes:
-      - '/\\Exception\\UnreachableException$/'
+      - /\\Exception\\UnreachableException$/
 
     check:
       missingCheckedExceptionInThrows: true
@@ -52,7 +52,7 @@ parameters:
   ignoreErrors:
     # Since it is not possible to disable a single subrule of "DisallowedConstructs" the errors thrown by "DisallowedShortTernaryRule" are ignored
     -
-      message: '/Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary./'
+      message: /Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary./
       reportUnmatched: false
 
 rules:
@@ -125,9 +125,9 @@ services:
     tags: [phpstan.rules.rule]
     arguments:
       allowedDeclaringNamespaces:
-        - '/^Symfony\\Component\\Console\\Descriptor/'
+        - /^Symfony\\Component\\Console\\Descriptor/
       allowedCallingNamespaces:
-        - '/^Brnshkr\\Config\\Tests/'
+        - /^Brnshkr\\Config\\Tests/
 
   -
     class: Symplify\PHPStanRules\Rules\ForbiddenNodeRule
