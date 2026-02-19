@@ -315,11 +315,11 @@ final class InternalUsageRule implements Rule
         $constName = $classConstFetch->name->toString();
 
         if ($classConstFetch->class instanceof Name) {
-            return $this->checkClassAndConst($scope->resolveName($classConstFetch->class), $constName, $callerNamespace);
+            return $this->processClassAndConst($scope->resolveName($classConstFetch->class), $constName, $callerNamespace);
         }
 
         foreach ($scope->getType($classConstFetch->class)->getObjectClassNames() as $className) {
-            $error = $this->checkClassAndConst($className, $constName, $callerNamespace);
+            $error = $this->processClassAndConst($className, $constName, $callerNamespace);
 
             if ($error instanceof IdentifierRuleError) {
                 return $error;
@@ -332,7 +332,7 @@ final class InternalUsageRule implements Rule
     /**
      * @throws RuntimeException
      */
-    private function checkClassAndConst(string $className, string $constName, string $callerNamespace): ?IdentifierRuleError
+    private function processClassAndConst(string $className, string $constName, string $callerNamespace): ?IdentifierRuleError
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;
