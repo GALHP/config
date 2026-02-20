@@ -1,6 +1,6 @@
 <h1 id="top">
   <a href="#top">
-    <img src="https://raw.githubusercontent.com/brnshkr/config/refs/heads/master/.github/images/project-logo.png" alt="@brnshkr/config project logo" title="@brnshkr/config">
+    <img src="https://raw.githubusercontent.com/brnshkr/brand/refs/heads/master/images/projects/config.png" alt="@brnshkr/config project logo" title="@brnshkr/config">
   </a>
 
   [![Semantic Versioning 2.0.0][semver-2.0.0-shield-url]][semver-2.0.0-url]
