@@ -180,7 +180,7 @@ A few possible ways are listed below:
 Example call, adjust as needed
 
 ```sh
-bun eslint --config ./conf/eslint.config.ts --cache --cache-location ./.cache/eslint.cache.json
+bun eslint --config ./conf/eslint.config.mjs --cache --cache-location ./.cache/eslint.cache.json
 ```
 
 <!-- omit in toc -->
