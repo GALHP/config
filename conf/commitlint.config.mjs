@@ -4,9 +4,9 @@ const SCOPE_MIN_LENGTH = 2;
 const SUBJECT_MIN_LENGTH = 5;
 
 /**
- * @import * as $12$commitlint$l$types from '@commitlint/types';
+ * @import { UserConfig } from '@commitlint/types';
  *
- * @type {$12$commitlint$l$types.UserConfig}
+ * @type {UserConfig}
  */
 // @ts-expect-error -- We cannot mark these array as readonly here, but Commitlint expects them to be readonly. This type annotation is just to help with autocompletion.
 export default {
