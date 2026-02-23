@@ -8,7 +8,7 @@ const SUBJECT_MIN_LENGTH = 5;
  *
  * @type {UserConfig}
  */
-// @ts-expect-error -- We cannot mark these array as readonly here, but Commitlint expects them to be readonly. This type annotation is just to help with autocompletion.
+// @ts-expect-error -- We cannot mark the rule config arrays as readonly here, but Commitlint expects them to be readonly. This type annotation is just to help with autocompletion.
 export default {
   helpUrl: 'https://github.com/brnshkr/config/blob/master/README.md#-commit-style',
   extends: [
