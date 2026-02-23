@@ -52,8 +52,8 @@ final readonly class BoolishPrefixRule implements Rule
     // NOTICE: Keep in sync with ts/naming-convention eslint rule
     private const array BOOLISH_PREFIXES = [
         'is',
-        'do',
         'does',
+        'do',
         'did',
         'has',
         'was',

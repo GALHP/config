@@ -136,8 +136,8 @@ const getNamingConvention = (isTypeAware: boolean): NonNullable<Config['rules']>
       // NOTICE: Keep in sync with boolishPrefix phpstan rule
       prefix: [
         'is',
-        'do',
         'does',
+        'do',
         'did',
         'has',
         'was',
