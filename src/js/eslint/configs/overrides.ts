@@ -23,7 +23,7 @@ import type { Config } from '../types/config';
 const jsOverrides: Config[] = [
   {
     name: buildConfigName(MAIN_SCOPES.OVERRIDES, `${MAIN_SCOPES.JAVASCRIPT}/scripts`),
-    files: GLOB_SCRIPT_FILES.map((glob) => `scripts/${glob}`),
+    files: ['scripts/**/*.?(c)js'],
     languageOptions: {
       sourceType: 'script',
       parserOptions: {
