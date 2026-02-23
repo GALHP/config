@@ -73,6 +73,9 @@ const tsOverrides: Config[] = isModuleEnabled(MODULES.typescript)
         'comments/no-unlimited-disable': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/unambiguous': 'off',
+        'import/no-default-export': 'off',
+        'import/no-named-as-default': 'off',
+        'import/no-named-as-default-member': 'off',
       },
     },
   ]
