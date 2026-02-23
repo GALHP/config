@@ -115,8 +115,12 @@ abstract class AbstractCommand extends BaseCommand
         } catch (Throwable $throwable) {
             try {
                 $this->console->writeError($throwable);
-            } catch (RuntimeException $exception) {
-                throw new LogicException($exception->getMessage(), previous: $exception);
+            } catch (RuntimeException $runtimeException) {
+                throw new LogicException(
+                    message: $runtimeException->getMessage(),
+                    code: (int) $runtimeException->getCode(),
+                    previous: $throwable,
+                );
             }
 
             return self::FAILURE;
