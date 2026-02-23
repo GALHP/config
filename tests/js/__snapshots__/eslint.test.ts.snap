@@ -1105,8 +1105,8 @@ exports[`expected eslint config 1`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -6232,8 +6232,8 @@ exports[`expected eslint config 2`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -11359,8 +11359,8 @@ exports[`expected eslint config 3`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -16486,8 +16486,8 @@ exports[`expected eslint config 4`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -16871,11 +16871,102 @@ exports[`expected eslint config 4`] = `
     "ts/explicit-member-accessibility": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -16883,20 +16974,324 @@ exports[`expected eslint config 4`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2
@@ -21227,8 +21622,8 @@ exports[`expected eslint config 5`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -21612,11 +22007,102 @@ exports[`expected eslint config 5`] = `
     "ts/explicit-member-accessibility": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -21624,20 +22110,324 @@ exports[`expected eslint config 5`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2
@@ -25968,8 +26758,8 @@ exports[`expected eslint config 6`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -26353,11 +27143,102 @@ exports[`expected eslint config 6`] = `
     "ts/explicit-member-accessibility": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -26365,20 +27246,324 @@ exports[`expected eslint config 6`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2
@@ -30709,8 +31894,8 @@ exports[`expected eslint config 7`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -32507,7 +33692,7 @@ exports[`expected eslint config 7`] = `
       2
     ],
     "import/no-named-as-default": [
-      2
+      0
     ],
     "import/no-named-as-default-member": [
       0
@@ -35845,8 +37030,8 @@ exports[`expected eslint config 8`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -37643,7 +38828,7 @@ exports[`expected eslint config 8`] = `
       2
     ],
     "import/no-named-as-default": [
-      2
+      0
     ],
     "import/no-named-as-default-member": [
       0
@@ -40981,8 +42166,8 @@ exports[`expected eslint config 9`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -42779,7 +43964,7 @@ exports[`expected eslint config 9`] = `
       2
     ],
     "import/no-named-as-default": [
-      2
+      0
     ],
     "import/no-named-as-default-member": [
       0
@@ -46117,8 +47302,8 @@ exports[`expected eslint config 10`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -51244,8 +52429,8 @@ exports[`expected eslint config 11`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -51629,11 +52814,102 @@ exports[`expected eslint config 11`] = `
     "ts/explicit-member-accessibility": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -51641,20 +52917,324 @@ exports[`expected eslint config 11`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2
@@ -55985,8 +57565,8 @@ exports[`expected eslint config 12`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -60960,8 +62540,8 @@ exports[`expected eslint config 13`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -66351,8 +67931,8 @@ exports[`expected eslint config 14`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -66736,11 +68316,102 @@ exports[`expected eslint config 14`] = `
     "ts/explicit-member-accessibility": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -66748,20 +68419,324 @@ exports[`expected eslint config 14`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2
@@ -83047,8 +85022,8 @@ exports[`expected eslint config 23`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -88355,8 +90330,8 @@ exports[`expected eslint config 24`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -93663,8 +95638,8 @@ exports[`expected eslint config 25`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -98971,8 +100946,8 @@ exports[`expected eslint config 26`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -99537,11 +101512,102 @@ exports[`expected eslint config 26`] = `
     "test/warn-todo": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -99549,20 +101615,324 @@ exports[`expected eslint config 26`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2
@@ -103893,8 +106263,8 @@ exports[`expected eslint config 27`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -104459,11 +106829,102 @@ exports[`expected eslint config 27`] = `
     "test/warn-todo": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -104471,20 +106932,324 @@ exports[`expected eslint config 27`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2
@@ -108815,8 +111580,8 @@ exports[`expected eslint config 28`] = `
         ],
         "prefix": [
           "is",
-          "do",
           "does",
+          "do",
           "did",
           "has",
           "was",
@@ -109381,11 +112146,102 @@ exports[`expected eslint config 28`] = `
     "test/warn-todo": [
       2
     ],
+    "jsdoc/check-access": [
+      2
+    ],
+    "jsdoc/check-alignment": [
+      2
+    ],
+    "jsdoc/check-examples": [
+      0
+    ],
+    "jsdoc/check-indentation": [
+      2
+    ],
+    "jsdoc/check-line-alignment": [
+      2
+    ],
+    "jsdoc/check-param-names": [
+      2
+    ],
+    "jsdoc/check-property-names": [
+      2
+    ],
+    "jsdoc/check-syntax": [
+      2
+    ],
     "jsdoc/check-tag-names": [
       2,
       {
         "typed": true
       }
+    ],
+    "jsdoc/check-template-names": [
+      2
+    ],
+    "jsdoc/check-types": [
+      2
+    ],
+    "jsdoc/check-values": [
+      2
+    ],
+    "jsdoc/convert-to-jsdoc-comments": [
+      2,
+      {
+        "lineOrBlockStyle": "block"
+      }
+    ],
+    "jsdoc/empty-tags": [
+      2
+    ],
+    "jsdoc/escape-inline-tags": [
+      2
+    ],
+    "jsdoc/implements-on-classes": [
+      2
+    ],
+    "jsdoc/imports-as-dependencies": [
+      2
+    ],
+    "jsdoc/informative-docs": [
+      2
+    ],
+    "jsdoc/lines-before-block": [
+      0
+    ],
+    "jsdoc/match-description": [
+      2
+    ],
+    "jsdoc/match-name": [
+      0
+    ],
+    "jsdoc/multiline-blocks": [
+      2,
+      {
+        "noSingleLineBlocks": true,
+        "singleLineTags": []
+      }
+    ],
+    "jsdoc/no-bad-blocks": [
+      2
+    ],
+    "jsdoc/no-blank-block-descriptions": [
+      2
+    ],
+    "jsdoc/no-blank-blocks": [
+      2
+    ],
+    "jsdoc/no-defaults": [
+      2
+    ],
+    "jsdoc/no-missing-syntax": [
+      0
+    ],
+    "jsdoc/no-multi-asterisks": [
+      2
+    ],
+    "jsdoc/no-restricted-syntax": [
+      0
     ],
     "jsdoc/no-types": [
       2
@@ -109393,20 +112249,324 @@ exports[`expected eslint config 28`] = `
     "jsdoc/no-undefined-types": [
       0
     ],
+    "jsdoc/prefer-import-tag": [
+      2
+    ],
+    "jsdoc/reject-any-type": [
+      2
+    ],
+    "jsdoc/reject-function-type": [
+      2
+    ],
+    "jsdoc/require-asterisk-prefix": [
+      2
+    ],
+    "jsdoc/require-description": [
+      0
+    ],
+    "jsdoc/require-description-complete-sentence": [
+      2
+    ],
+    "jsdoc/require-example": [
+      0
+    ],
+    "jsdoc/require-file-overview": [
+      0
+    ],
+    "jsdoc/require-hyphen-before-param-description": [
+      2
+    ],
+    "jsdoc/require-jsdoc": [
+      0
+    ],
+    "jsdoc/require-next-description": [
+      0
+    ],
+    "jsdoc/require-next-type": [
+      2
+    ],
+    "jsdoc/require-param": [
+      0
+    ],
+    "jsdoc/require-param-description": [
+      0
+    ],
+    "jsdoc/require-param-name": [
+      2
+    ],
     "jsdoc/require-param-type": [
       0
     ],
+    "jsdoc/require-property": [
+      2
+    ],
+    "jsdoc/require-property-description": [
+      0
+    ],
+    "jsdoc/require-property-name": [
+      2
+    ],
     "jsdoc/require-property-type": [
+      0
+    ],
+    "jsdoc/require-rejects": [
+      0
+    ],
+    "jsdoc/require-returns": [
+      0
+    ],
+    "jsdoc/require-returns-check": [
+      2
+    ],
+    "jsdoc/require-returns-description": [
       0
     ],
     "jsdoc/require-returns-type": [
       0
     ],
-    "jsdoc/require-param": [
+    "jsdoc/require-tags": [
       0
     ],
-    "jsdoc/require-returns": [
+    "jsdoc/require-template": [
+      2
+    ],
+    "jsdoc/require-template-description": [
       0
+    ],
+    "jsdoc/require-throws": [
+      2
+    ],
+    "jsdoc/require-throws-description": [
+      0
+    ],
+    "jsdoc/require-throws-type": [
+      2
+    ],
+    "jsdoc/require-yields": [
+      2
+    ],
+    "jsdoc/require-yields-check": [
+      2
+    ],
+    "jsdoc/require-yields-description": [
+      0
+    ],
+    "jsdoc/require-yields-type": [
+      2
+    ],
+    "jsdoc/sort-tags": [
+      2,
+      {
+        "tagSequence": [
+          {
+            "tags": [
+              "import"
+            ]
+          },
+          {
+            "tags": [
+              "deprecated",
+              "ignore",
+              "since",
+              "version",
+              "todo"
+            ]
+          },
+          {
+            "tags": [
+              "author",
+              "copyright",
+              "license"
+            ]
+          },
+          {
+            "tags": [
+              "summary",
+              "typeSummary"
+            ]
+          },
+          {
+            "tags": [
+              "desc",
+              "description",
+              "classdesc"
+            ]
+          },
+          {
+            "tags": [
+              "internal",
+              "namespace",
+              "category",
+              "package",
+              "file",
+              "fileoverview",
+              "overview",
+              "module",
+              "override",
+              "requires",
+              "implements",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "borrows",
+              "constructs",
+              "lends",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "const",
+              "constant",
+              "variation",
+              "var",
+              "member",
+              "memberof",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "hideconstructor"
+            ]
+          },
+          {
+            "tags": [
+              "this",
+              "interface",
+              "enum",
+              "event",
+              "augments",
+              "extends",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "async",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              "generator",
+              "fires",
+              "emits",
+              "listens"
+            ]
+          },
+          {
+            "tags": [
+              "template"
+            ]
+          },
+          {
+            "tags": [
+              "typedef"
+            ]
+          },
+          {
+            "tags": [
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property"
+            ]
+          },
+          {
+            "tags": [
+              "return",
+              "returns"
+            ]
+          },
+          {
+            "tags": [
+              "yield",
+              "yields"
+            ]
+          },
+          {
+            "tags": [
+              "throws",
+              "exception"
+            ]
+          },
+          {
+            "tags": [
+              "satisfies"
+            ]
+          },
+          {
+            "tags": [
+              "default",
+              "defaultvalue"
+            ]
+          },
+          {
+            "tags": [
+              "exports"
+            ]
+          },
+          {
+            "tags": [
+              "see",
+              "tutorial"
+            ]
+          },
+          {
+            "tags": [
+              "example"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": [
+      2,
+      "any",
+      {
+        "maxBlockLines": 1,
+        "startLines": 1
+      }
+    ],
+    "jsdoc/text-escaping": [
+      2,
+      {
+        "escapeHTML": true
+      }
+    ],
+    "jsdoc/ts-method-signature-style": [
+      2
+    ],
+    "jsdoc/ts-no-empty-object-type": [
+      2
+    ],
+    "jsdoc/ts-no-unnecessary-template-expression": [
+      2
+    ],
+    "jsdoc/ts-prefer-function-type": [
+      2
+    ],
+    "jsdoc/type-formatting": [
+      2,
+      {
+        "objectFieldSeparatorOptionalLinebreak": false,
+        "objectTypeBracketSpacing": " ",
+        "separatorForSingleObjectField": true,
+        "stringQuotes": "single",
+        "trailingPunctuationMultilineOnly": true
+      }
+    ],
+    "jsdoc/valid-types": [
+      2
     ],
     "node/no-deprecated-api": [
       2

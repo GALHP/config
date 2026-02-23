@@ -137,6 +137,12 @@ exports[`expected stylelint config 1`] = `
     "no-unknown-custom-properties": [
       true
     ],
+    "selector-class-pattern": [
+      "^[a-z]([-]?[a-z0-9]+)*(__[a-z0-9]([-]?[a-z0-9]+)*)?(--[a-z0-9]([-]?[a-z0-9]+)*)?$",
+      {
+        "resolveNestedSelectors": true
+      }
+    ],
     "string-no-newline": [
       true
     ],
@@ -485,10 +491,6 @@ exports[`expected stylelint config 1`] = `
     ],
     "selector-attribute-quotes": [
       "always"
-    ],
-    "selector-class-pattern": [
-      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-      {}
     ],
     "selector-id-pattern": [
       "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
@@ -1836,6 +1838,12 @@ exports[`expected stylelint config 2`] = `
     "no-unknown-custom-properties": [
       true
     ],
+    "selector-class-pattern": [
+      "^[a-z]([-]?[a-z0-9]+)*(__[a-z0-9]([-]?[a-z0-9]+)*)?(--[a-z0-9]([-]?[a-z0-9]+)*)?$",
+      {
+        "resolveNestedSelectors": true
+      }
+    ],
     "string-no-newline": [
       true
     ],
@@ -2188,10 +2196,6 @@ exports[`expected stylelint config 2`] = `
     ],
     "selector-attribute-quotes": [
       "always"
-    ],
-    "selector-class-pattern": [
-      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-      {}
     ],
     "selector-id-pattern": [
       "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
@@ -3538,6 +3542,12 @@ exports[`expected stylelint config 3`] = `
     "no-unknown-custom-properties": [
       true
     ],
+    "selector-class-pattern": [
+      "^[a-z]([-]?[a-z0-9]+)*(__[a-z0-9]([-]?[a-z0-9]+)*)?(--[a-z0-9]([-]?[a-z0-9]+)*)?$",
+      {
+        "resolveNestedSelectors": true
+      }
+    ],
     "string-no-newline": [
       true
     ],
@@ -3886,10 +3896,6 @@ exports[`expected stylelint config 3`] = `
     ],
     "selector-attribute-quotes": [
       "always"
-    ],
-    "selector-class-pattern": [
-      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-      {}
     ],
     "selector-id-pattern": [
       "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
@@ -5237,6 +5243,12 @@ exports[`expected stylelint config 4`] = `
     "no-unknown-custom-properties": [
       true
     ],
+    "selector-class-pattern": [
+      "^[a-z]([-]?[a-z0-9]+)*(__[a-z0-9]([-]?[a-z0-9]+)*)?(--[a-z0-9]([-]?[a-z0-9]+)*)?$",
+      {
+        "resolveNestedSelectors": true
+      }
+    ],
     "string-no-newline": [
       true
     ],
@@ -5593,10 +5605,6 @@ exports[`expected stylelint config 4`] = `
     ],
     "selector-attribute-quotes": [
       "always"
-    ],
-    "selector-class-pattern": [
-      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-      {}
     ],
     "selector-id-pattern": [
       "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
