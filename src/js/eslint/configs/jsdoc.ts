@@ -36,7 +36,7 @@ export const jsdoc = async (): Promise<Config[]> => {
 
   const createRulesConfig = (isForTypescript: boolean): Config => ({
     name: buildConfigName(MAIN_SCOPES.JSDOC, `${SUB_SCOPES.RULES}${isForTypescript ? '-typescript' : ''}`),
-    files: isForTypescript ? [GLOB_TS, GLOB_SCRIPT_FILES_WITHOUT_TS] : GLOB_SCRIPT_FILES_WITHOUT_TS,
+    files: isForTypescript ? [GLOB_TS] : [GLOB_TS, ...GLOB_SCRIPT_FILES_WITHOUT_TS],
     rules: {
       ...(isForTypescript
         ? {
