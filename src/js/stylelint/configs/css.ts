@@ -48,6 +48,13 @@ export const css = (): Config[] => [
       'no-unknown-animations': true,
       'no-unknown-custom-media': true,
       'no-unknown-custom-properties': true,
+      'selector-class-pattern': [
+        '^[a-z]([-]?[a-z0-9]+)*(__[a-z0-9]([-]?[a-z0-9]+)*)?(--[a-z0-9]([-]?[a-z0-9]+)*)?$',
+        {
+          resolveNestedSelectors: true,
+          message: (value: string): string => `Expected class selector "${value}" to match BEM methodology (https://getbem.com/). Selector validation tool: https://regexr.com/3apms`,
+        },
+      ],
       'string-no-newline': true,
       'unit-no-unknown': true,
       'value-keyword-case': ['lower', {
