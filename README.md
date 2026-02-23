@@ -646,7 +646,7 @@ Distributed under the MIT License. See [LICENSE](./LICENSE) for more information
 [semver-2.0.0-url]: https://semver.org/#semantic-versioning-200
 [semver-2.0.0-shield-url]: https://img.shields.io/badge/semver-2.0.0-blue?label=🔖%20semver&style=flat-square&labelColor=%237f399d&color=%23a5097e
 
-[license-url]: #-license
+[license-url]: https://github.com/brnshkr/config/blob/master/LICENSE
 [license-shield-url]: https://img.shields.io/github/license/brnshkr/config.svg?label=📃%20license&style=flat-square&labelColor=%237f399d&color=%23a5097e
 
 [stars-url]: https://github.com/brnshkr/config/stargazers
