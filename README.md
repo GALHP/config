@@ -8,6 +8,7 @@
   [![Stars][stars-shield-url]][stars-url]
   [![Forks][forks-shield-url]][forks-url]
   [![Issues][issues-shield-url]][issues-url]
+  [![Release][release-shield-url]][release-url]
 </h1>
 
 Centralized collection of configuration and tooling used across all [@brnshkr][@brnshkr-organization-url] projects.
@@ -657,3 +658,7 @@ Distributed under the MIT License. See [LICENSE](./LICENSE) for more information
 
 [issues-url]: https://github.com/brnshkr/config/issues
 [issues-shield-url]: https://img.shields.io/github/issues/brnshkr/config.svg?label=🚨%20issues&style=flat-square&labelColor=%237f399d&color=%23a5097e
+
+<!-- NOTICE: Only use npm version here since both packages are versioned in sync -->
+[release-url]: https://github.com/brnshkr/config/releases
+[release-shield-url]: https://img.shields.io/npm/v/%40brnshkr%2Fconfig?label=📦%20npm%2Fpackagist&style=flat-square&labelColor=%237f399d&color=%23a5097e
