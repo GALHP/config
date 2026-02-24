@@ -1,15 +1,15 @@
 PWD ?= .
 
-PHP_STAN := ${PWD}/vendor/bin/phpstan analyze --memory-limit=-1
-PHP_STAN_CONFIG := --configuration ${PWD}/conf/phpstan.neon
+PHP_STAN ?= ${PWD}/vendor/bin/phpstan analyze --memory-limit=-1
+PHP_STAN_CONFIG ?= --configuration ${PWD}/conf/phpstan.neon
 
-PHP_CS_FIXER := ${PWD}/vendor/bin/php-cs-fixer
-PHP_CS_FIXER_CONFIG := --config ${PWD}/conf/.php-cs-fixer.php
+PHP_CS_FIXER ?= ${PWD}/vendor/bin/php-cs-fixer
+PHP_CS_FIXER_CONFIG ?= --config ${PWD}/conf/.php-cs-fixer.php
 
-RECTOR := ${PWD}/vendor/bin/rector process
-RECTOR_CONFIG := --config ${PWD}/conf/rector.php
+RECTOR ?= ${PWD}/vendor/bin/rector process
+RECTOR_CONFIG ?= --config ${PWD}/conf/rector.php
 
-ARGS := $(wordlist 2,$(words ${MAKECMDGOALS}),${MAKECMDGOALS})
+ARGS ?= $(wordlist 2,$(words ${MAKECMDGOALS}),${MAKECMDGOALS})
 
 $(if $(findstring :,${ARGS}),,$(eval ${ARGS}:;@:))
 
