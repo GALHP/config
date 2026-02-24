@@ -7,7 +7,7 @@ exports[`expected eslint config 1`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -5134,7 +5134,7 @@ exports[`expected eslint config 2`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -10261,7 +10261,7 @@ exports[`expected eslint config 3`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -15388,7 +15388,7 @@ exports[`expected eslint config 4`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -20524,7 +20524,7 @@ exports[`expected eslint config 5`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -25660,7 +25660,7 @@ exports[`expected eslint config 6`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -30796,7 +30796,7 @@ exports[`expected eslint config 7`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -35932,7 +35932,7 @@ exports[`expected eslint config 8`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -41068,7 +41068,7 @@ exports[`expected eslint config 9`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -46204,7 +46204,7 @@ exports[`expected eslint config 10`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -51331,7 +51331,7 @@ exports[`expected eslint config 11`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -56467,7 +56467,7 @@ exports[`expected eslint config 12`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -61442,7 +61442,7 @@ exports[`expected eslint config 13`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -66833,7 +66833,7 @@ exports[`expected eslint config 14`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -72233,7 +72233,7 @@ exports[`expected eslint config 15`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -73748,7 +73748,7 @@ exports[`expected eslint config 16`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -75257,7 +75257,7 @@ exports[`expected eslint config 17`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -76742,7 +76742,7 @@ exports[`expected eslint config 18`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -78176,7 +78176,7 @@ exports[`expected eslint config 19`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -79610,7 +79610,7 @@ exports[`expected eslint config 20`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -81024,7 +81024,7 @@ exports[`expected eslint config 21`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -82437,7 +82437,7 @@ exports[`expected eslint config 22`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -83924,7 +83924,7 @@ exports[`expected eslint config 23`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -89232,7 +89232,7 @@ exports[`expected eslint config 24`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -94540,7 +94540,7 @@ exports[`expected eslint config 25`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -99848,7 +99848,7 @@ exports[`expected eslint config 26`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -105165,7 +105165,7 @@ exports[`expected eslint config 27`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
@@ -110482,7 +110482,7 @@ exports[`expected eslint config 28`] = `
       "mode": "typescript"
     },
     "n": {
-      "version": "24.11.0"
+      "version": "24.3.0"
     },
     "import-x/resolver-next": [
       {
