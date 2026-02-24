@@ -13,14 +13,12 @@ PHP_CS_FIXER_CONFIG ?= --config ${PWD}/conf/.php-cs-fixer.php
 RECTOR ?= ${PWD}/vendor/bin/rector process
 RECTOR_CONFIG ?= --config ${PWD}/conf/rector.php
 
-ARGS ?= $(wordlist 2,$(words ${MAKECMDGOALS}),${MAKECMDGOALS})
-
-$(if $(findstring :,${ARGS}),,$(eval ${ARGS}:;@:))
-
 PREFIX ?= $(if $(DEBUG),,@)
 
-.PHONY: help
+ARGS ?= $(wordlist 2,$(words ${MAKECMDGOALS}),${MAKECMDGOALS})
+$(if $(findstring :,${ARGS}),,$(eval ${ARGS}:;@:))
 
+.PHONY: help
 help: ## show this help
 	${PREFIX}${AWK} 'BEGIN {FS = ":.*##"; printf "\033[4;37mUsage\033[0m\n  \033[1;37mmake\033[0m \033[1;35m<target>\033[0m\n\n\033[4;37mTargets\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[1;35m%-20s\033[0m \033[30m%s\033[0m\n", $$1, $$2 }' ${MAKEFILE_LIST}
 
