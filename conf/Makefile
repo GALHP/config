@@ -1,5 +1,9 @@
 PWD ?= .
 
+MAKE ?= make
+AWK ?= awk
+GREP ?= grep
+
 PHP_STAN ?= ${PWD}/vendor/bin/phpstan analyze --memory-limit=-1
 PHP_STAN_CONFIG ?= --configuration ${PWD}/conf/phpstan.neon
 
@@ -18,7 +22,7 @@ PREFIX ?= $(if $(DEBUG),,@)
 .PHONY: help
 
 help: ## show this help
-	${PREFIX}awk 'BEGIN {FS = ":.*##"; printf "\033[4;37mUsage\033[0m\n  \033[1;37mmake\033[0m \033[1;35m<target>\033[0m\n\n\033[4;37mTargets\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[1;35m%-20s\033[0m \033[30m%s\033[0m\n", $$1, $$2 }' ${MAKEFILE_LIST}
+	${PREFIX}${AWK} 'BEGIN {FS = ":.*##"; printf "\033[4;37mUsage\033[0m\n  \033[1;37mmake\033[0m \033[1;35m<target>\033[0m\n\n\033[4;37mTargets\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[1;35m%-20s\033[0m \033[30m%s\033[0m\n", $$1, $$2 }' ${MAKEFILE_LIST}
 
 phpstan: ## runs phpstan analyze
 	${PREFIX}${PHP_STAN} ${PHP_STAN_CONFIG} ${ARGS}
@@ -30,13 +34,13 @@ phpstan-raw: ## runs phpstan analyze with raw output
 	${PREFIX}${PHP_STAN} --error-format=raw ${PHP_STAN_CONFIG} ${ARGS}
 
 phpstan-list: ## lists processed phpstan files
-	${PREFIX}make phpstan-raw -- --debug 2>&1 | grep -oP "(?<=${PWD}/).+\.php$$"
+	${PREFIX}${MAKE} phpstan-raw -- --debug 2>&1 | ${GREP} -oP "(?<=${PWD}/).+\.php$$"
 
 php-cs-fixer: ## runs php-cs-fixer fix
 	${PREFIX}${PHP_CS_FIXER} fix -v --show-progress=dots ${PHP_CS_FIXER_CONFIG} ${ARGS}
 
 php-cs-fixer-list: ## lists processed php-cs-fixer files
-	${PREFIX}${PHP_CS_FIXER} list-files ${PHP_CS_FIXER_CONFIG} 2>&1 | grep -oP "(?<=\./).+\.php"
+	${PREFIX}${PHP_CS_FIXER} list-files ${PHP_CS_FIXER_CONFIG} 2>&1 | ${GREP} -oP "(?<=\./).+\.php"
 
 rector: ## runs rector process
 	${PREFIX}${RECTOR} ${RECTOR_CONFIG} ${ARGS}
@@ -48,7 +52,7 @@ rector-dry-run: ## runs rector process in dry run mode
 	${PREFIX}${RECTOR} ${RECTOR_CONFIG} --dry-run ${ARGS}
 
 rector-list: ## lists processed rector files
-	${PREFIX}${RECTOR} ${RECTOR_CONFIG} --debug --dry-run | grep -oP "(?<=\[file\] ${PWD}/).+\.php"
+	${PREFIX}${RECTOR} ${RECTOR_CONFIG} --debug --dry-run | ${GREP} -oP "(?<=\[file\] ${PWD}/).+\.php"
 
 %:
 	@:
