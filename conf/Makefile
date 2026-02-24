@@ -9,9 +9,6 @@ PHP_CS_FIXER_CONFIG := --config ${PWD}/conf/.php-cs-fixer.php
 RECTOR := ${PWD}/vendor/bin/rector process
 RECTOR_CONFIG := --config ${PWD}/conf/rector.php
 
-PHP_UNIT := ${PWD}/vendor/bin/pest
-PHP_UNIT_CONFIG := --configuration ${PWD}/conf/phpunit.dist.xml
-
 ARGS := $(wordlist 2,$(words ${MAKECMDGOALS}),${MAKECMDGOALS})
 
 $(if $(findstring :,${ARGS}),,$(eval ${ARGS}:;@:))
@@ -50,14 +47,6 @@ rector-dry-run: ## runs rector process in dry run mode
 
 rector-list: ## lists processed rector files
 	@${RECTOR} ${RECTOR_CONFIG} --debug --dry-run | grep -oP "(?<=\[file\] ${PWD}/).+\.php"
-
-test: ## runs tests
-	@${PHP_UNIT} ${PHP_UNIT_CONFIG} ${ARGS}
-
-test-update: ## runs tests with snapshot update
-	@${PHP_UNIT} ${PHP_UNIT_CONFIG} --update-snapshots ${ARGS}
-
-check: rector php-cs-fixer phpstan test ## runs rector, php-cs-fixer, phpstan and phpunit
 
 %:
 	@:
