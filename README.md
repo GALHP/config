@@ -659,6 +659,6 @@ Distributed under the MIT License. See [LICENSE](./LICENSE) for more information
 [issues-url]: https://github.com/brnshkr/config/issues
 [issues-shield-url]: https://img.shields.io/github/issues/brnshkr/config.svg?label=🚨%20issues&style=flat-square&labelColor=%237f399d&color=%23a5097e
 
-<!-- NOTICE: Only use npm version here since both packages are versioned in sync -->
+<!-- NOTICE: Only use packagist version here since both packages are versioned in sync -->
 [release-url]: https://github.com/brnshkr/config/releases
-[release-shield-url]: https://img.shields.io/npm/v/%40brnshkr%2Fconfig?label=📦%20npm%2Fpackagist&style=flat-square&labelColor=%237f399d&color=%23a5097e
+[release-shield-url]: https://img.shields.io/packagist/v/brnshkr/config?style=flat-square&label=📦%20npm%2Fpackagist&labelColor=7f399d&color=%23a5097e
