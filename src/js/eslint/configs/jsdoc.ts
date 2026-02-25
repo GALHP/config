@@ -54,7 +54,9 @@ export const jsdoc = async (): Promise<Config[]> => {
         }
         : {
           ...pluginJsdoc.configs['flat/recommended-error'].rules,
-          'jsdoc/check-indentation': 'error',
+          'jsdoc/check-indentation': ['error', {
+            allowIndentedSections: true,
+          }],
           'jsdoc/check-line-alignment': 'error',
           'jsdoc/check-syntax': 'error',
           'jsdoc/check-template-names': 'error',
