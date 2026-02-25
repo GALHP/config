@@ -1860,7 +1860,12 @@ exports[`expected stylelint config 2`] = `
       }
     ],
     "plugin/use-baseline": [
-      true
+      true,
+      {
+        "ignoreAtRules": [
+          "function"
+        ]
+      }
     ],
     "plugin/use-defensive-css": [
       true,

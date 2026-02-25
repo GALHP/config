@@ -1494,7 +1494,10 @@ exports[`expected eslint config 1`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -1539,7 +1542,12 @@ exports[`expected eslint config 1`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -1891,14 +1899,7 @@ exports[`expected eslint config 1`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -3592,7 +3593,7 @@ exports[`expected eslint config 1`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -6621,7 +6622,10 @@ exports[`expected eslint config 2`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -6666,7 +6670,12 @@ exports[`expected eslint config 2`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -7018,14 +7027,7 @@ exports[`expected eslint config 2`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -8719,7 +8721,7 @@ exports[`expected eslint config 2`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -11748,7 +11750,10 @@ exports[`expected eslint config 3`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -11793,7 +11798,12 @@ exports[`expected eslint config 3`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -12145,14 +12155,7 @@ exports[`expected eslint config 3`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -13846,7 +13849,7 @@ exports[`expected eslint config 3`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -16881,7 +16884,10 @@ exports[`expected eslint config 4`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -16929,7 +16935,12 @@ exports[`expected eslint config 4`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -17281,14 +17292,7 @@ exports[`expected eslint config 4`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -18982,7 +18986,7 @@ exports[`expected eslint config 4`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -22017,7 +22021,10 @@ exports[`expected eslint config 5`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -22065,7 +22072,12 @@ exports[`expected eslint config 5`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -22417,14 +22429,7 @@ exports[`expected eslint config 5`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -24118,7 +24123,7 @@ exports[`expected eslint config 5`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -27153,7 +27158,10 @@ exports[`expected eslint config 6`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -27201,7 +27209,12 @@ exports[`expected eslint config 6`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -27553,14 +27566,7 @@ exports[`expected eslint config 6`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -29254,7 +29260,7 @@ exports[`expected eslint config 6`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -32289,7 +32295,10 @@ exports[`expected eslint config 7`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -32337,7 +32346,12 @@ exports[`expected eslint config 7`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -32689,14 +32703,7 @@ exports[`expected eslint config 7`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -34390,7 +34397,7 @@ exports[`expected eslint config 7`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -37425,7 +37432,10 @@ exports[`expected eslint config 8`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -37473,7 +37483,12 @@ exports[`expected eslint config 8`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -37825,14 +37840,7 @@ exports[`expected eslint config 8`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -39526,7 +39534,7 @@ exports[`expected eslint config 8`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -42561,7 +42569,10 @@ exports[`expected eslint config 9`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -42609,7 +42620,12 @@ exports[`expected eslint config 9`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -42961,14 +42977,7 @@ exports[`expected eslint config 9`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -44662,7 +44671,7 @@ exports[`expected eslint config 9`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -47691,7 +47700,10 @@ exports[`expected eslint config 10`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -47736,7 +47748,12 @@ exports[`expected eslint config 10`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -48088,14 +48105,7 @@ exports[`expected eslint config 10`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -49789,7 +49799,7 @@ exports[`expected eslint config 10`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -52824,7 +52834,10 @@ exports[`expected eslint config 11`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -52872,7 +52885,12 @@ exports[`expected eslint config 11`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -53224,14 +53242,7 @@ exports[`expected eslint config 11`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -54925,7 +54936,7 @@ exports[`expected eslint config 11`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -59633,7 +59644,7 @@ exports[`expected eslint config 12`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -62929,7 +62940,10 @@ exports[`expected eslint config 13`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -62974,7 +62988,12 @@ exports[`expected eslint config 13`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -63326,14 +63345,7 @@ exports[`expected eslint config 13`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -65027,7 +65039,7 @@ exports[`expected eslint config 13`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -68326,7 +68338,10 @@ exports[`expected eslint config 14`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -68374,7 +68389,12 @@ exports[`expected eslint config 14`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -68726,14 +68746,7 @@ exports[`expected eslint config 14`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -70427,7 +70440,7 @@ exports[`expected eslint config 14`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -85592,7 +85605,10 @@ exports[`expected eslint config 23`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -85637,7 +85653,12 @@ exports[`expected eslint config 23`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -85989,14 +86010,7 @@ exports[`expected eslint config 23`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -87690,7 +87704,7 @@ exports[`expected eslint config 23`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -90900,7 +90914,10 @@ exports[`expected eslint config 24`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -90945,7 +90962,12 @@ exports[`expected eslint config 24`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -91297,14 +91319,7 @@ exports[`expected eslint config 24`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -92998,7 +93013,7 @@ exports[`expected eslint config 24`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -96208,7 +96223,10 @@ exports[`expected eslint config 25`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -96253,7 +96271,12 @@ exports[`expected eslint config 25`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -96605,14 +96628,7 @@ exports[`expected eslint config 25`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -98306,7 +98322,7 @@ exports[`expected eslint config 25`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -101522,7 +101538,10 @@ exports[`expected eslint config 26`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -101570,7 +101589,12 @@ exports[`expected eslint config 26`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -101922,14 +101946,7 @@ exports[`expected eslint config 26`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -103623,7 +103640,7 @@ exports[`expected eslint config 26`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -106839,7 +106856,10 @@ exports[`expected eslint config 27`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -106887,7 +106907,12 @@ exports[`expected eslint config 27`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -107239,14 +107264,7 @@ exports[`expected eslint config 27`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -108940,7 +108958,7 @@ exports[`expected eslint config 27`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
@@ -112156,7 +112174,10 @@ exports[`expected eslint config 28`] = `
       0
     ],
     "jsdoc/check-indentation": [
-      2
+      2,
+      {
+        "allowIndentedSections": true
+      }
     ],
     "jsdoc/check-line-alignment": [
       2
@@ -112204,7 +112225,12 @@ exports[`expected eslint config 28`] = `
       2
     ],
     "jsdoc/informative-docs": [
-      2
+      2,
+      {
+        "excludedTags": [
+          "default"
+        ]
+      }
     ],
     "jsdoc/lines-before-block": [
       0
@@ -112556,14 +112582,7 @@ exports[`expected eslint config 28`] = `
       2
     ],
     "jsdoc/type-formatting": [
-      2,
-      {
-        "objectFieldSeparatorOptionalLinebreak": false,
-        "objectTypeBracketSpacing": " ",
-        "separatorForSingleObjectField": true,
-        "stringQuotes": "single",
-        "trailingPunctuationMultilineOnly": true
-      }
+      0
     ],
     "jsdoc/valid-types": [
       2
@@ -114257,7 +114276,7 @@ exports[`expected eslint config 28`] = `
     "style/lines-around-comment": [
       2,
       {
-        "beforeBlockComment": true,
+        "beforeBlockComment": false,
         "afterHashbangComment": true,
         "allowBlockStart": true,
         "allowObjectStart": true,
