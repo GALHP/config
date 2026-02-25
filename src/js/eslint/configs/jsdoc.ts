@@ -64,7 +64,11 @@ export const jsdoc = async (): Promise<Config[]> => {
             lineOrBlockStyle: 'block',
           }],
           'jsdoc/imports-as-dependencies': 'error',
-          'jsdoc/informative-docs': 'error',
+          'jsdoc/informative-docs': ['error', {
+            excludedTags: [
+              'default',
+            ],
+          }],
           'jsdoc/match-description': 'error',
           'jsdoc/multiline-blocks': ['error', {
             noSingleLineBlocks: true,
