@@ -264,13 +264,17 @@ export const jsdoc = async (): Promise<Config[]> => {
           'jsdoc/ts-method-signature-style': 'error',
           'jsdoc/ts-no-unnecessary-template-expression': 'error',
           'jsdoc/ts-prefer-function-type': 'error',
-          'jsdoc/type-formatting': ['error', {
-            objectFieldSeparatorOptionalLinebreak: false,
-            objectTypeBracketSpacing: ' ',
-            separatorForSingleObjectField: true,
-            stringQuotes: 'single',
-            trailingPunctuationMultilineOnly: true,
-          }],
+          // eslint-disable-next-line no-warning-comments -- (jsdoc)
+          // TODO: Re-add and fine-tune rule when it more mature (still experimental, see: https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/type-formatting.md)
+          // 'jsdoc/type-formatting': ['error', {
+          //   functionOrClassPostReturnMarkerSpacing: ' ',
+          //   objectFieldIndent: ' '.repeat(INDENT),
+          //   objectFieldSeparator: 'semicolon-and-linebreak',
+          //   objectFieldSeparatorTrailingPunctuation: true,
+          //   trailingPunctuationMultilineOnly: true,
+          //   separatorForSingleObjectField: false,
+          //   stringQuotes: QUOTES,
+          // }],
         }),
     },
   });
