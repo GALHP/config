@@ -75,6 +75,7 @@ const getJsoncSortConfigs = (): Config[] => [
             'libc',
             'engines',
             'devEngines',
+            'browserslist',
             'scripts',
             'esnext',
             'module',
