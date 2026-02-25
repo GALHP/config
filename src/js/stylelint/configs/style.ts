@@ -32,7 +32,7 @@ export const style = (): Config[] => {
           alignQuotes: true,
         }],
         '@stylistic/selector-list-comma-newline-before': 'never-multi-line',
-        '@stylistic/string-quotes': 'single',
+        '@stylistic/string-quotes': QUOTES,
         '@stylistic/unicode-bom': 'never',
         '@stylistic/value-list-comma-newline-before': 'never-multi-line',
         '@stylistic/value-list-comma-space-before': 'never-single-line',

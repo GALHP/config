@@ -1,4 +1,4 @@
-import { INDENT, MAX_LEN } from '../../shared/utils/constants';
+import { INDENT, MAX_LEN, QUOTES } from '../../shared/utils/constants';
 import { MAIN_SCOPES, SUB_SCOPES } from '../types/scopes';
 import { buildConfigName, renameRules } from '../utils/config';
 import { GLOB_SCRIPT_FILES } from '../utils/globs';
@@ -19,7 +19,7 @@ export const style = async (): Promise<Config[]> => {
     jsx: true,
     semi: true,
     indent: INDENT,
-    quotes: 'single',
+    quotes: QUOTES,
     quoteProps: 'as-needed',
     arrowParens: true,
     blockSpacing: true,

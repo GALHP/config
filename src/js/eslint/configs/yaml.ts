@@ -46,7 +46,7 @@ export const yaml = async (): Promise<Config[]> => {
         'yaml/no-trailing-zeros': 'error',
         'yaml/quotes': ['error', {
           avoidEscape: true,
-          prefer: 'single',
+          prefer: QUOTES,
         }],
         'yaml/require-string-key': 'error',
       },
