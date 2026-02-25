@@ -103,6 +103,9 @@ export const MODULES = <const>{
       requiredAll: [
         PACKAGES.STYLELINT_CONFIG_STANDARD_SCSS,
       ],
+      optional: [
+        PACKAGES.STYLELINT_PLUGIN_USE_BASELINE,
+      ],
     },
   },
   strict: {

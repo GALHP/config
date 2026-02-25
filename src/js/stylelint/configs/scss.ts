@@ -7,6 +7,7 @@ import type { Config } from '../types/config';
 export const scss = (): Config[] => {
   const {
     requiredAll: [isStylelintConfigStandardScssInstalled],
+    optional: [isStylelintPluginUseBaselineInstalled],
   } = resolvePackages(MODULES.scss);
 
   if (!isStylelintConfigStandardScssInstalled) {
@@ -53,6 +54,15 @@ export const scss = (): Config[] => {
           files: ['**/*.scss'],
           rules: {
             'scss/comment-no-loud': true,
+            ...isStylelintPluginUseBaselineInstalled
+              ? {
+                'plugin/use-baseline': [true, {
+                  ignoreAtRules: [
+                    'function',
+                  ],
+                }],
+              }
+              : undefined,
           },
         },
       ],
