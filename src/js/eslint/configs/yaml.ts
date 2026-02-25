@@ -1,4 +1,4 @@
-import { INDENT } from '../../shared/utils/constants';
+import { INDENT, QUOTES } from '../../shared/utils/constants';
 import { MAIN_SCOPES, SUB_SCOPES } from '../types/scopes';
 import { buildConfigName, renameRules } from '../utils/config';
 import { GLOB_YAML } from '../utils/globs';
