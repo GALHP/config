@@ -1,11 +1,13 @@
 import { RuleConfigSeverity } from '@commitlint/types';
 
+/**
+ * @import { UserConfig } from '@commitlint/types';
+ */
+
 const SCOPE_MIN_LENGTH = 2;
 const SUBJECT_MIN_LENGTH = 5;
 
 /**
- * @import { UserConfig } from '@commitlint/types';
- *
  * @type {UserConfig}
  */
 // @ts-expect-error -- We cannot mark the rule config arrays as readonly here, but Commitlint expects them to be readonly. This type annotation is just to help with autocompletion.
