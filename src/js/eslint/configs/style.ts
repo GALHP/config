@@ -69,7 +69,21 @@ export const style = async (): Promise<Config[]> => {
         'style/line-comment-position': 'error',
         'style/linebreak-style': 'error',
         'style/lines-around-comment': ['error', {
-          beforeBlockComment: true,
+          // eslint-disable-next-line no-warning-comments -- (style)
+          // TODO: Change `beforeBlockComment` back to true eventually
+          //
+          // Problematic case (conflict with padding-line-between-statements):
+          //
+          // const a = 1;
+          //
+          // /**
+          //  * @returns {number}
+          //  */
+          // const b = () => 2;
+          //
+          // @see https://github.com/eslint-stylistic/eslint-stylistic/issues/417
+          // @see https://github.com/eslint-stylistic/eslint-stylistic/issues/989
+          beforeBlockComment: false,
           afterHashbangComment: true,
           allowBlockStart: true,
           allowObjectStart: true,
