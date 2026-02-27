@@ -131,7 +131,7 @@ final class Module
             Str::joinAsQuotedList($packages),
         ));
 
-        Logger::log('info', sprintf('Run `composer req %s` to install.', implode(' ', $packages)));
+        Logger::log('info', sprintf('Run `composer req --dev %s` to install.', implode(' ', $packages)));
 
         throw new RuntimeException('Failed resolving required dependencies.');
     }

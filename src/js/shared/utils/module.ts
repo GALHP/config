@@ -71,7 +71,7 @@ const warnMissingPackages = (
     } module in the config.`,
   );
 
-  log('log', `Run \`bun a -D ${packages.join(' ')}\` to install.`);
+  log('log', `Run \`bun a -D -E ${packages.join(' ')}\` to install.`);
 };
 
 const packageCache: Record<string, unknown> = {};
