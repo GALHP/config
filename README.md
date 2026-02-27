@@ -69,28 +69,28 @@ _[☄️ Bug Reports / Feature Requests »][issues-url]_
 #### Bun
 
 ```sh
-bun a -D @brnshkr/config
+bun a -D -E @brnshkr/config
 ```
 
 <!-- omit in toc -->
 #### Yarn
 
 ```sh
-yarn add -D @brnshkr/config
+yarn add -D -E @brnshkr/config
 ```
 
 <!-- omit in toc -->
 #### PNPM
 
 ```sh
-pnpm add -D @brnshkr/config
+pnpm add -D -E @brnshkr/config
 ```
 
 <!-- omit in toc -->
 #### NPM
 
 ```sh
-npm i -D @brnshkr/config
+npm i -D -E @brnshkr/config
 ```
 
 This repository currently only provides one way to integrate configuration files (An automatic setup is planned, See [🔨 TODOs / Roadmap](#-todos--roadmap)):
