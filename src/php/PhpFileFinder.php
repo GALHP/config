@@ -8,6 +8,8 @@ use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
 /**
+ * @api
+ *
  * @no-named-arguments
  */
 final class PhpFileFinder extends Finder

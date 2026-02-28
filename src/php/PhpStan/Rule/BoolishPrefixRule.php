@@ -34,7 +34,7 @@ use function sprintf;
 use function Symfony\Component\String\s;
 
 /**
- * @internal Brnshkr\Config\PhpStan
+ * @api
  *
  * @implements Rule<NodeAbstract>
  */

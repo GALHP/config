@@ -23,6 +23,8 @@ use function array_map;
 Module::assertInstalled(Module::MODULE_RECTOR);
 
 /**
+ * @api
+ *
  * @no-named-arguments
  */
 final readonly class RectorConfig

@@ -14,7 +14,7 @@ use function sprintf;
 use function Symfony\Component\String\s;
 
 /**
- * @internal Brnshkr\Config\PhpStan\Rule
+ * @internal
  */
 trait RuleTrait
 {

@@ -18,6 +18,8 @@ use function array_merge;
 Module::assertInstalled(Module::MODULE_PHP_CS_FIXER);
 
 /**
+ * @api
+ *
  * @no-named-arguments
  */
 final readonly class PhpCsFixerConfig
