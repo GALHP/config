@@ -169,7 +169,8 @@
         },
         "comment_to_phpdoc": {
             "ignored_tags": [
-                "phpstan-ignore"
+                "phpstan-ignore",
+                "phpstan-ignore-next-line"
             ]
         },
         "concat_space": {
