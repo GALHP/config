@@ -135,6 +135,7 @@ const getNamingConvention = (isTypeAware: boolean): NonNullable<Config['rules']>
       format: ['StrictPascalCase'],
       // NOTICE: Keep in sync with boolishPrefix phpstan rule
       prefix: [
+        'as',
         'is',
         'does',
         'do',
