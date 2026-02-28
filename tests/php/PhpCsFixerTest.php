@@ -14,7 +14,9 @@ use RuntimeException;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
+use Symfony\Component\Finder\Finder;
 
+use function array_keys;
 use function array_map;
 use function getcwd;
 use function is_iterable;
@@ -45,16 +47,18 @@ final class PhpCsFixerTest extends TestCase
         $configArray     = [];
 
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            $value = $reflectionProperty->getValue($config);
+            $value        = $reflectionProperty->getValue($config);
+            $propertyName = $reflectionProperty->getName();
+            $isFinder     = $propertyName === 'finder' && $value instanceof Finder;
 
-            if (is_iterable($value)) {
+            if (!$isFinder && is_iterable($value)) {
                 $value = array_map(
                     static fn ($item) => is_object($item) ? $item::class : $item,
                     iterator_to_array($value),
                 );
             }
 
-            $configArray[$reflectionProperty->getName()] = $value;
+            $configArray[$propertyName] = $isFinder ? array_keys([...$value]) : $value;
         }
 
         $currentWorkingDirectory = getcwd() ?: '.';
