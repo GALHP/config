@@ -21,13 +21,13 @@ final readonly class Str
 
     public static function toLowerCase(string $string): string
     {
-        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_strtolower($string);
     }
 
     public static function doesStartWith(string $haystack, string $needle): bool
     {
-        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_starts_with($haystack, $needle);
     }
 

@@ -31,9 +31,9 @@ final class PhpStanTest extends TestCase
         $currentWorkingDirectory = getcwd() ?: '.';
         $containerFactory        = new ContainerFactory($currentWorkingDirectory);
 
-        // @phpstan-ignore phpstanApi.constructor, phpstanApi.method (Not covered by BC)
+        // @phpstan-ignore-next-line phpstanApi.constructor, phpstanApi.method (Not covered by BC)
         $loader = new LoaderFactory(
-            // @phpstan-ignore phpstanApi.constructor (Not covered by BC)
+            // @phpstan-ignore-next-line phpstanApi.constructor (Not covered by BC)
             fileHelper: new FileHelper($currentWorkingDirectory),
             rootDir: $containerFactory->getRootDirectory(),
             currentWorkingDirectory: $containerFactory->getCurrentWorkingDirectory(),
