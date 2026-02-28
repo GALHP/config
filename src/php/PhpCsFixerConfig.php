@@ -49,7 +49,7 @@ final readonly class PhpCsFixerConfig
             'blank_line_before_statement'       => ['statements' => ['break', 'case', 'continue', 'declare', 'default', 'do', 'exit', 'for', 'foreach', 'goto', 'if', 'include', 'include_once', 'phpdoc', 'require', 'require_once', 'return', 'switch', 'throw', 'try', 'while', 'yield', 'yield_from']],
             'class_attributes_separation'       => ['elements' => ['case' => 'none', 'method' => 'one', 'property' => 'one', 'trait_import' => 'none']],
             'class_definition'                  => ['multi_line_extends_each_single_line' => true, 'single_item_single_line' => true],
-            'comment_to_phpdoc'                 => ['ignored_tags' => ['phpstan-ignore']],
+            'comment_to_phpdoc'                 => ['ignored_tags' => ['phpstan-ignore', 'phpstan-ignore-next-line']],
             'concat_space'                      => ['spacing' => 'one'],
             'date_time_create_from_format_call' => true,
             'date_time_immutable'               => true,
