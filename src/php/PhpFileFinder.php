@@ -4,28 +4,38 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
+use LogicException;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
+
+use function array_keys;
 
 /**
  * @api
  *
  * @no-named-arguments
  */
-final class PhpFileFinder extends Finder
+final class PhpFileFinder
 {
     /**
      * @throws DirectoryNotFoundException
      */
-    public function __construct(string $directory)
+    public static function get(?Finder $finder = null): Finder
     {
-        parent::__construct();
+        if (!$finder instanceof Finder) {
+            $finder = new Finder()->in('.');
+        }
 
-        $this
+        $finder
             ->files()
-            ->in($directory)
             ->name('/\.php$/')
             ->ignoreDotFiles(false)
+            ->sortByCaseInsensitiveName(true)
+            ->notPath([
+                'config/reference.php',
+                '/^tests\/.*\/fixtures/',
+                '/^tests\/coverage/',
+            ])
             ->exclude([
                 '.cache',
                 '.local',
@@ -33,9 +43,24 @@ final class PhpFileFinder extends Finder
                 'var',
                 'vendor',
             ])
-            ->notPath([
-                'config/reference.php',
-            ])
         ;
+
+        try {
+            $finder->getIterator();
+        } catch (LogicException) {
+            $finder->in('.');
+        }
+
+        return $finder;
+    }
+
+    /**
+     * @return list<string>
+     *
+     * @throws DirectoryNotFoundException
+     */
+    public static function getPaths(?Finder $finder = null): array
+    {
+        return array_keys([...self::get($finder)]);
     }
 }

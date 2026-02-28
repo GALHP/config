@@ -15,10 +15,6 @@ use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use RuntimeException;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
-
-use function array_filter;
-use function array_map;
 
 Module::assertInstalled(Module::MODULE_RECTOR);
 
@@ -35,25 +31,13 @@ final readonly class RectorConfig
      * @throws DirectoryNotFoundException
      * @throws RuntimeException
      */
-    public static function get(string $directory = '.', ?Finder $finder = null): RectorConfigBuilder
+    public static function get(?Finder $finder = null): RectorConfigBuilder
     {
-        $finder = $finder instanceof Finder
-            ? $finder->files()->in($directory)->name('/\.php$/')
-            : new PhpFileFinder($directory);
-
-        $paths = array_filter(
-            array_map(
-                static fn (SplFileInfo $file): string|false => $file->getRealPath(),
-                [...$finder],
-            ),
-            is_string(...),
-        );
-
         /** @disregard P1009 because some skipped classes come bundled with rector and are not picked up by intelephense */
         return BaseConfig::configure()
-            ->withCache($directory . '/.cache/rector.cache')
+            ->withCache('.cache/rector.cache')
             ->withRootFiles()
-            ->withPaths($paths)
+            ->withPaths(PhpFileFinder::getPaths($finder))
             ->withPreparedSets(
                 deadCode: true,
                 codeQuality: true,

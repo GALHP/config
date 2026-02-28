@@ -31,17 +31,13 @@ final readonly class PhpCsFixerConfig
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public static function get(string $directory = '.', ?Finder $finder = null): BaseConfig
+    public static function get(?Finder $finder = null): BaseConfig
     {
-        $finder = $finder instanceof Finder
-            ? $finder->files()->in($directory)->name('/\.php$/')
-            : new PhpFileFinder($directory);
-
         $config = new BaseConfig();
 
         $config
-            ->setCacheFile($directory . '/.cache/.php-cs-fixer.cache.json')
-            ->setFinder($finder)
+            ->setCacheFile('.cache/.php-cs-fixer.cache.json')
+            ->setFinder(PhpFileFinder::get($finder))
             ->setRiskyAllowed(true)
         ;
 
