@@ -554,6 +554,7 @@ final class PhpStanConfig
                 ...$forbiddenFunctions,
                 'ucfirst'               => sprintf('Use "%s::title()" instead.', $stringFunction),
                 'mb_ucfirst'            => sprintf('Use "%s::title()" instead.', $stringFunction),
+                'ucwords'               => sprintf('Use "%s::title()" instead.', $stringFunction),
                 'str_pad'               => sprintf('Use "%s::{padBoth,padEnd,padStart}()" instead.', $stringFunction),
                 'mb_str_pad'            => sprintf('Use "%s::{padBoth,padEnd,padStart}()" instead.', $stringFunction),
                 'trim'                  => sprintf('Use "%s::trim()" instead.', $stringFunction),
