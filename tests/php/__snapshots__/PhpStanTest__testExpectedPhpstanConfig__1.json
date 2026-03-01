@@ -23,13 +23,13 @@
             "./src/php/Json.php",
             "./src/php/Logger.php",
             "./src/php/Module.php",
-            "./src/php/PhpCsFixerConfig.php",
+            "./src/php/PhpCsFixer.php",
             "./src/php/PhpFileFinder.php",
+            "./src/php/PhpStan.php",
             "./src/php/PhpStan/Rule/BoolishPrefixRule.php",
             "./src/php/PhpStan/Rule/InternalUsageRule.php",
             "./src/php/PhpStan/Rule/Trait/RuleTrait.php",
-            "./src/php/PhpStanConfig.php",
-            "./src/php/RectorConfig.php",
+            "./src/php/Rector.php",
             "./src/php/Str.php",
             "./tests/php/CommandTest.php",
             "./tests/php/PhpCsFixerTest.php",
@@ -69,6 +69,12 @@
                 "tooWideThrowType": true
             }
         },
+        "ignoreErrors": [
+            {
+                "message": "/^Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.$/",
+                "reportUnmatched": false
+            }
+        ],
         "strictRules": {
             "allRules": true
         },
@@ -76,13 +82,7 @@
             "narrow_return": true,
             "no_mixed": true,
             "null_over_false": true
-        },
-        "ignoreErrors": [
-            {
-                "message": "/^Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.$/",
-                "reportUnmatched": false
-            }
-        ]
+        }
     },
     "rules": [
         "Brnshkr\\Config\\PhpStan\\Rule\\BoolishPrefixRule",
