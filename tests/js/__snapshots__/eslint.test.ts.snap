@@ -1104,6 +1104,7 @@ exports[`expected eslint config 1`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -6232,6 +6233,7 @@ exports[`expected eslint config 2`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -11360,6 +11362,7 @@ exports[`expected eslint config 3`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -16488,6 +16491,7 @@ exports[`expected eslint config 4`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -21625,6 +21629,7 @@ exports[`expected eslint config 5`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -26762,6 +26767,7 @@ exports[`expected eslint config 6`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -31899,6 +31905,7 @@ exports[`expected eslint config 7`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -37036,6 +37043,7 @@ exports[`expected eslint config 8`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -42173,6 +42181,7 @@ exports[`expected eslint config 9`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -47310,6 +47319,7 @@ exports[`expected eslint config 10`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -52438,6 +52448,7 @@ exports[`expected eslint config 11`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -57575,6 +57586,7 @@ exports[`expected eslint config 12`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -62550,6 +62562,7 @@ exports[`expected eslint config 13`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -67942,6 +67955,7 @@ exports[`expected eslint config 14`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -85034,6 +85048,7 @@ exports[`expected eslint config 23`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -90343,6 +90358,7 @@ exports[`expected eslint config 24`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -95652,6 +95668,7 @@ exports[`expected eslint config 25`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -100961,6 +100978,7 @@ exports[`expected eslint config 26`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -106279,6 +106297,7 @@ exports[`expected eslint config 27`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
@@ -111597,6 +111616,7 @@ exports[`expected eslint config 28`] = `
           "StrictPascalCase"
         ],
         "prefix": [
+          "as",
           "is",
           "does",
           "do",
