@@ -358,6 +358,7 @@
     "!**/node_modules",
     "!**/output",
     "!**/temp",
+    "!**/tmp",
     "!**/tests/fixtures",
     "!**/tmp",
     "!**/vendor"
