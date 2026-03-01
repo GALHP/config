@@ -15,7 +15,7 @@ use Symfony\Component\Finder\Finder;
 use function array_fill_keys;
 use function array_merge;
 
-Module::assertInstalled(Module::MODULE_PHP_CS_FIXER);
+Module::warnMissingPackages(Module::MODULE_PHP_CS_FIXER);
 
 /**
  * @api

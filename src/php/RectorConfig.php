@@ -16,7 +16,7 @@ use RuntimeException;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
-Module::assertInstalled(Module::MODULE_RECTOR);
+Module::warnMissingPackages(Module::MODULE_RECTOR);
 
 /**
  * @api

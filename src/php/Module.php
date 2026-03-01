@@ -8,8 +8,12 @@ use RuntimeException;
 use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
 
 use function array_all;
+use function array_diff;
+use function array_merge;
+use function array_values;
 use function implode;
 use function in_array;
+use function is_array;
 use function sprintf;
 
 /**
@@ -109,31 +113,54 @@ final class Module
 
     private static ComposerJson $composerJson;
 
+    /**
+     * @var list<self::PACKAGE_*>
+     */
+    private static array $warnedPackages = [];
+
     private function __construct() {}
 
     /**
-     * @phpstan-param self::MODULE_* $moduleInfo
+     * @phpstan-param ModuleInfo|self::PACKAGE_* $moduleInfoOrPackage
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public static function assertInstalled(array $moduleInfo): void
+    public static function warnMissingPackages(array|string $moduleInfoOrPackage): void
     {
-        $packages = $moduleInfo['packages']['requiredAll'];
+        $isModuleInfo = is_array($moduleInfoOrPackage);
 
-        if (array_all($packages, self::isPackageInstalled(...))) {
+        $allPackages = $isModuleInfo
+            ? $moduleInfoOrPackage['packages']['requiredAll']
+            : [$moduleInfoOrPackage];
+
+        if (array_all($allPackages, self::isPackageInstalled(...))) {
             return;
         }
 
+        $packages = array_values(array_diff($allPackages, self::$warnedPackages));
+
+        if ($packages === []) {
+            return;
+        }
+
+        self::$warnedPackages = array_merge(self::$warnedPackages, $packages);
+
+        $message = $isModuleInfo
+            ? sprintf('Failed resolving required dependencies for module "%s".', $moduleInfoOrPackage['name'])
+            : 'Failed resolving required dependency.';
+
         Logger::log('error', sprintf(
-            'Failed resolving required dependencies for module "%s". Please install %s.',
-            $moduleInfo['name'],
+            $message . ' Please install %s.',
             Str::joinAsQuotedList($packages),
         ));
 
-        Logger::log('info', sprintf('Run `composer req --dev %s` to install.', implode(' ', $packages)));
-
-        throw new RuntimeException('Failed resolving required dependencies.');
+        Logger::log('notice', sprintf(
+            'Run `%scomposer req --dev %s%s` to install.',
+            Logger::ANSI_WHITE_UNDERLINED,
+            implode(' ', $packages),
+            Logger::ANSI_RESET,
+        ));
     }
 
     /**
