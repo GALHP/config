@@ -5,11 +5,15 @@ declare(strict_types=1);
 // TODO: Decide which option to use
 
 // Option 1
-// ----------------------------------
+// ---------------------------------
 use Brnshkr\Config\PhpStanConfig;
 
-return PhpStanConfig::get(/* ... */);
-// ----------------------------------
+return PhpStanConfig::get(/* ... */)
+    // ->setRules([
+    //     // ...
+    // ])
+;
+// ---------------------------------
 
 // Option 2
 // -------------------------------------------------------------------------------
