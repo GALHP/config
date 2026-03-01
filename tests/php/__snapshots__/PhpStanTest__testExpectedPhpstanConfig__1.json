@@ -26,6 +26,7 @@
             "./src/php/PhpCsFixer.php",
             "./src/php/PhpFileFinder.php",
             "./src/php/PhpStan.php",
+            "./src/php/PhpStan/Rule/ApiOrInternalAnnotationRule.php",
             "./src/php/PhpStan/Rule/BoolishPrefixRule.php",
             "./src/php/PhpStan/Rule/InternalUsageRule.php",
             "./src/php/PhpStan/Rule/Trait/RuleTrait.php",
@@ -85,6 +86,7 @@
         }
     },
     "rules": [
+        "Brnshkr\\Config\\PhpStan\\Rule\\ApiOrInternalAnnotationRule",
         "Brnshkr\\Config\\PhpStan\\Rule\\BoolishPrefixRule",
         "Symplify\\PHPStanRules\\Rules\\Complexity\\ForbiddenArrayMethodCallRule",
         "Symplify\\PHPStanRules\\Rules\\Complexity\\ForeachCeptionRule",
