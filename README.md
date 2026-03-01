@@ -400,13 +400,16 @@ return RectorConfig::get(/* customize */);
 <!-- omit in toc -->
 ##### PHPStan
 
-```yaml
-# phpstan.dist.neon
+```php
+// ./phpstan.dist.php
 
-includes:
-  - '%currentWorkingDirectory%/vendor/brnshkr/config/conf/phpstan.dist.neon'
+<?php
 
-# customize
+declare(strict_types=1);
+
+use Brnshkr\Config\PhpStanConfig;
+
+return PhpStanConfig::get(/* customize */);
 ```
 
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
@@ -481,7 +484,7 @@ make rector
 <!-- omit in toc -->
 ###### PHPStan
 
-Expected configuration file: `./conf/phpstan.neon`
+Expected configuration file: `./conf/phpstan.php`
 
 ```sh
 make phpstan
@@ -519,7 +522,7 @@ Install dependencies and setup project tooling with the following commands and a
 composer install \
   && cp -v ./conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php \
   && cp -v ./conf/rector.php.example ./conf/rector.php \
-  && cp -v ./conf/phpstan.neon.example ./conf/phpstan.neon
+  && cp -v ./conf/phpstan.php.example ./conf/phpstan.php
 ```
 
 <!-- omit in toc -->
