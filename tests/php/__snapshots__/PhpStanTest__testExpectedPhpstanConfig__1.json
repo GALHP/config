@@ -220,6 +220,7 @@
                     "file_put_contents": "Use \"Symfony\\Component\\Filesystem\\Filesystem::dumpFile()\" or \"Symfony\\Component\\Filesystem\\Filesystem::appendToFile()\" instead.",
                     "ucfirst": "Use \"Symfony\\Component\\String\\s::title()\" instead.",
                     "mb_ucfirst": "Use \"Symfony\\Component\\String\\s::title()\" instead.",
+                    "ucwords": "Use \"Symfony\\Component\\String\\s::title()\" instead.",
                     "str_pad": "Use \"Symfony\\Component\\String\\s::{padBoth,padEnd,padStart}()\" instead.",
                     "mb_str_pad": "Use \"Symfony\\Component\\String\\s::{padBoth,padEnd,padStart}()\" instead.",
                     "trim": "Use \"Symfony\\Component\\String\\s::trim()\" instead.",
