@@ -60,7 +60,7 @@ const warnMissingPackages = (
   type: 'requiredAll' | 'requiredAny',
 ): void => {
   log(
-    'warn',
+    'error',
     `Failed resolving required dependencies for module "${
       moduleInfo.name
     }". Please install ${joinAsQuotedList(
