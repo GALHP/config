@@ -83,4 +83,6 @@ rector-list: ## lists processed rector files
 	${PREFIX}${PRINTF} '\033[35m[${VENDOR}/${PACKAGE}]\033[0m Run \"\033[4;37mmake help\033[0m\" or just \"\033[4;37mmake\033[0m\" to see a full list of available targets.\n'
 	${PREFIX}exit 1
 
--include ${PWD}/.local/Makefile
+ifneq ($(wildcard ${PWD}/.local/Makefile),)
+include ${PWD}/.local/Makefile
+endif
