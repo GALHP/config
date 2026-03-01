@@ -402,7 +402,7 @@ jobs:
         run: |
           cp ./conf/.php-cs-fixer.php.example ./conf/.php-cs-fixer.php
           cp ./conf/rector.php.example ./conf/rector.php
-          cp ./conf/phpstan.neon.example ./conf/phpstan.neon
+          cp ./conf/phpstan.php.example ./conf/phpstan.php
           make check
 
   build:

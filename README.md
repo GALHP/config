@@ -313,8 +313,8 @@ You can then copy the specific configs to your project:
 ##### PHP CS Fixer
 
 ```sh
-cp -v ./vendor/brnshkr/config/conf/.php-cs-fixer.php.example ./conf/.php-cs-fixer.php \
-  && cp -v ./vendor/brnshkr/config/conf/.php-cs-fixer.dist.php.example ./conf/.php-cs-fixer.dist.php
+cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php \
+  && cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.dist.php.example ./conf/php-cs-fixer.dist.php
 ```
 
 <!-- omit in toc -->
@@ -351,8 +351,8 @@ cp -v ./vendor/brnshkr/config/conf/.gitignore.example ./.gitignore
 ##### All
 
 ```sh
-cp -v ./vendor/brnshkr/config/conf/.php-cs-fixer.php.example ./conf/.php-cs-fixer.php \
-  && cp -v ./vendor/brnshkr/config/conf/.php-cs-fixer.dist.php.example ./conf/.php-cs-fixer.dist.php \
+cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php \
+  && cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.dist.php.example ./conf/php-cs-fixer.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php \
   && cp -v ./vendor/brnshkr/config/conf/rector.dist.php.example ./conf/rector.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php \
@@ -371,7 +371,7 @@ Take a look at the function signatures for exact details.
 ##### PHP CS Fixer
 
 ```php
-// ./.php-cs-fixer.dist.php
+// ./php-cs-fixer.dist.php
 
 <?php
 
@@ -428,7 +428,7 @@ A few possible ways are listed below:
 Example call, adjust as needed
 
 ```sh
-php ./vendor/bin/php-cs-fixer fix -v --show-progress=dots --config ./conf/.php-cs-fixer.php
+php ./vendor/bin/php-cs-fixer fix -v --show-progress=dots --config ./conf/php-cs-fixer.php
 ```
 
 <!-- omit in toc -->
@@ -463,7 +463,7 @@ include ./vendor/brnshkr/config/conf/Makefile
 <!-- omit in toc -->
 ###### PHP CS Fixer
 
-Expected configuration file: `./conf/.php-cs-fixer.php`
+Expected configuration file: `./conf/php-cs-fixer.php`
 
 ```sh
 make php-cs-fixer
@@ -517,7 +517,7 @@ Install dependencies and setup project tooling with the following commands and a
 
 ```sh
 composer install \
-  && cp -v ./conf/.php-cs-fixer.php.example ./conf/.php-cs-fixer.php \
+  && cp -v ./conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php \
   && cp -v ./conf/rector.php.example ./conf/rector.php \
   && cp -v ./conf/phpstan.neon.example ./conf/phpstan.neon
 ```
