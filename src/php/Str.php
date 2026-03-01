@@ -49,8 +49,6 @@ final readonly class Str
         return $result === false
             ? []
             : array_values(array_filter($matches, is_string(...)));
-    }
-    }
 
     /**
      * @phpstan-param list<string> $strings
