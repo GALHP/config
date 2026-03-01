@@ -18,23 +18,40 @@ use const STDOUT;
  */
 final readonly class Logger
 {
+    public const string ANSI_RED              = "\033[31m";
+    public const string ANSI_GREEN            = "\033[32m";
+    public const string ANSI_YELLOW           = "\033[33m";
+    public const string ANSI_MAGENTA          = "\033[35m";
+    public const string ANSI_CYAN             = "\033[36m";
+    public const string ANSI_WHITE_UNDERLINED = "\033[4;37m";
+    public const string ANSI_RESET            = "\033[0m";
+
     private function __construct() {}
 
     /**
-     * @param 'error'|'info' $type
+     * @param 'debug'|'error'|'info'|'notice'|'warn' $level
      *
      * @throws RuntimeException
      */
-    public static function log(string $type, string $message): void
+    public static function log(string $level, string $message): void
     {
+        $ansiColorCode = match ($level) {
+            'debug'  => self::ANSI_CYAN,
+            'error'  => self::ANSI_RED,
+            'info'   => self::ANSI_GREEN,
+            'notice' => self::ANSI_MAGENTA,
+            'warn'   => self::ANSI_YELLOW,
+        };
+
         $message = sprintf(
-            "%s[%s]\e[39m %s",
-            $type === 'error' ? "\e[31m" : "\e[32m",
+            '%s[%s]%s %s',
+            $ansiColorCode,
             ComposerJson::forThisLibrary()->getPackageFullName(),
+            self::ANSI_RESET,
             $message . PHP_EOL,
         );
 
-        if ($type === 'error') {
+        if ($level === 'error' || $level === 'warn') {
             fwrite(STDERR, $message);
         } else {
             fwrite(STDOUT, $message);
