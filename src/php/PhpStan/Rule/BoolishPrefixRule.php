@@ -31,7 +31,6 @@ use function array_values;
 use function implode;
 use function is_string;
 use function sprintf;
-use function Symfony\Component\String\s;
 
 /**
  * @api
@@ -42,12 +41,12 @@ final readonly class BoolishPrefixRule implements Rule
 {
     use RuleTrait;
 
-    private const string KIND_CONSTANT  = 'constant';
-    private const string KIND_FUNCTION  = 'function';
-    private const string KIND_METHOD    = 'method';
-    private const string KIND_PARAMETER = 'parameter';
-    private const string KIND_PROPERTY  = 'property';
-    private const string KIND_VARIABLE  = 'variable';
+    private const string KIND_CONSTANT  = 'Constant';
+    private const string KIND_FUNCTION  = 'Function';
+    private const string KIND_METHOD    = 'Method';
+    private const string KIND_PARAMETER = 'Parameter';
+    private const string KIND_PROPERTY  = 'Property';
+    private const string KIND_VARIABLE  = 'Variable';
 
     // NOTICE: Keep in sync with ts/naming-convention eslint rule
     private const array BOOLISH_PREFIXES = [
@@ -185,7 +184,7 @@ final readonly class BoolishPrefixRule implements Rule
     {
         return self::buildRuleError(sprintf(
             '%s name `%s` must have one of the following prefixes: %s',
-            s($kind)->title()->toString(),
+            $kind,
             $name,
             implode(', ', self::BOOLISH_PREFIXES),
         ));

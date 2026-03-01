@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Brnshkr\Config\PhpStan\Rule;
 
 use Brnshkr\Config\PhpStan\Rule\Trait\RuleTrait;
+use Brnshkr\Config\Str;
 use InvalidArgumentException;
 use Override;
 use PhpParser\Node;
@@ -33,7 +34,6 @@ use function array_find;
 use function array_is_list;
 use function is_string;
 use function sprintf;
-use function Symfony\Component\String\s;
 
 /**
  * @api
@@ -46,14 +46,14 @@ final class InternalUsageRule implements Rule
 
     private const string AT_INTERNAL = '@internal';
 
-    private const string KIND_CLASS     = 'class';
-    private const string KIND_CONSTANT  = 'constant';
-    private const string KIND_ENUM      = 'enum';
-    private const string KIND_FUNCTION  = 'function';
-    private const string KIND_INTERFACE = 'interface';
-    private const string KIND_METHOD    = 'method';
-    private const string KIND_PROPERTY  = 'property';
-    private const string KIND_TRAIT     = 'trait';
+    private const string KIND_CLASS     = 'Class';
+    private const string KIND_CONSTANT  = 'Constant';
+    private const string KIND_ENUM      = 'Enum';
+    private const string KIND_FUNCTION  = 'Function';
+    private const string KIND_INTERFACE = 'Interface';
+    private const string KIND_METHOD    = 'Method';
+    private const string KIND_PROPERTY  = 'Property';
+    private const string KIND_TRAIT     = 'Trait';
 
     /**
      * @param ?list<string> $allowedInternalTargets
@@ -157,8 +157,7 @@ final class InternalUsageRule implements Rule
 
         $functionReflection = $this->reflectionProvider->getFunction($funcCall->name, $scope);
         $internalTarget     = self::resolveInternalTarget($functionReflection->getDocComment());
-        $name               = s($functionReflection->getName());
-        $declaringNamespace = $name->containsAny('\\') ? $name->beforeLast('\\')->toString() : '';
+        $declaringNamespace = Str::match($functionReflection->getName(), '/^(.+)\\\[^\\\]+$/')[1] ?? '';
 
         return $this->buildViolationIfDisallowed(
             $internalTarget,
@@ -371,9 +370,9 @@ final class InternalUsageRule implements Rule
 
     private static function resolveInternalTarget(string|false|null $docComment): ?string
     {
-        $matches = s($docComment ?: '')->match('/\*\s+@internal\s*([\w\\\]*)\s*\n/');
+        $matches = Str::match($docComment ?: '', '/\*\s+@internal\s*([\w\\\]*)\s*\n/');
 
-        return isset($matches[1]) && is_string($matches[1])
+        return isset($matches[1])
             ? ($matches[1] ?: self::AT_INTERNAL)
             : null;
     }
@@ -388,15 +387,15 @@ final class InternalUsageRule implements Rule
 
         foreach ($patternsByValue as $value => $patterns) {
             foreach (($patterns ?? []) as $pattern) {
-                if (s($value)->match($pattern) !== []) {
+                if (Str::match($value, $pattern) !== []) {
                     return true;
                 }
             }
         }
 
         return $internalTarget === self::AT_INTERNAL
-            ? s($callerNamespace)->startsWith($declaringNamespace)
-            : ($callerNamespace === '' || s($callerNamespace)->startsWith($internalTarget));
+            ? Str::doesStartWith($callerNamespace, $declaringNamespace)
+            : ($callerNamespace === '' || Str::doesContain($callerNamespace, $internalTarget));
     }
 
     /**
@@ -421,7 +420,7 @@ final class InternalUsageRule implements Rule
     {
         return self::buildRuleError(sprintf(
             '%s `%s` is internal%sand must not be used from `%s`.',
-            s($kind)->title()->toString(),
+            $kind,
             $symbol,
             $internalTarget === self::AT_INTERNAL ? ' ' : sprintf(' to `%s` ', $internalTarget),
             $callerNamespace,

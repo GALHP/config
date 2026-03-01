@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
+use function array_filter;
 use function array_last;
 use function array_slice;
+use function array_values;
 use function count;
 use function implode;
 use function mb_strtolower;
+use function preg_match;
 use function sprintf;
 use function str_starts_with;
+
+use const PREG_UNMATCHED_AS_NULL;
 
 /**
  * @internal
@@ -29,6 +34,22 @@ final readonly class Str
     {
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_starts_with($haystack, $needle);
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function match(string $string, string $pattern, int $flags = 0): array
+    {
+        $matches = [];
+
+        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        $result = preg_match($pattern . 'u', $string, $matches, $flags | PREG_UNMATCHED_AS_NULL);
+
+        return $result === false
+            ? []
+            : array_values(array_filter($matches, is_string(...)));
+    }
     }
 
     /**
