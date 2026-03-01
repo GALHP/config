@@ -10,7 +10,9 @@ use function array_slice;
 use function array_values;
 use function count;
 use function implode;
+use function mb_strrpos;
 use function mb_strtolower;
+use function mb_substr;
 use function preg_match;
 use function sprintf;
 use function str_contains;
@@ -56,6 +58,12 @@ final readonly class Str
     {
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_contains($haystack, $needle);
+    }
+
+    public static function afterLast(string $haystack, string $needle): string
+    {
+        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        return mb_substr($haystack, mb_strrpos($haystack, $needle) + 1);
     }
 
     /**
