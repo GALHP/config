@@ -47,18 +47,22 @@ final class PhpCsFixerTest extends TestCase
         $configArray     = [];
 
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            $value        = $reflectionProperty->getValue($config);
-            $propertyName = $reflectionProperty->getName();
-            $isFinder     = $propertyName === 'finder' && $value instanceof Finder;
+            $value            = $reflectionProperty->getValue($config);
+            $propertyName     = $reflectionProperty->getName();
+            $isFinderProperty = $propertyName === 'finder';
 
-            if (!$isFinder && is_iterable($value)) {
+            $value = $isFinderProperty && $value instanceof Finder
+                ? array_keys([...$value])
+                : $value;
+
+            if (!$isFinderProperty && is_iterable($value)) {
                 $value = array_map(
                     static fn ($item) => is_object($item) ? $item::class : $item,
                     iterator_to_array($value),
                 );
             }
 
-            $configArray[$propertyName] = $isFinder ? array_keys([...$value]) : $value;
+            $configArray[$propertyName] = $value;
         }
 
         $currentWorkingDirectory = getcwd() ?: '.';
