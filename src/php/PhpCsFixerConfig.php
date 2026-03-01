@@ -36,7 +36,7 @@ final readonly class PhpCsFixerConfig
         $config = new BaseConfig();
 
         $config
-            ->setCacheFile('.cache/.php-cs-fixer.cache.json')
+            ->setCacheFile('.cache/php-cs-fixer.cache.json')
             ->setFinder(PhpFileFinder::get($finder))
             ->setRiskyAllowed(true)
         ;

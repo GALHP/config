@@ -400,7 +400,7 @@ jobs:
       - name: Run PHP Checks
         if: *do-enable-php
         run: |
-          cp ./conf/.php-cs-fixer.php.example ./conf/.php-cs-fixer.php
+          cp ./conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php
           cp ./conf/rector.php.example ./conf/rector.php
           cp ./conf/phpstan.php.example ./conf/phpstan.php
           make check

@@ -351,16 +351,16 @@ final class SetupCommand extends AbstractCommand
         foreach ($moduleInfos as $moduleInfo) {
             $files = match ($moduleInfo['name']) {
                 Module::NAME_PHP_CS_FIXER => [[
-                    'source'      => $libraryRootPath . '/conf/.php-cs-fixer.dist.php.example',
-                    'target'      => $projectRootPath . '/conf/.php-cs-fixer.dist.php',
+                    'source'      => $libraryRootPath . '/conf/php-cs-fixer.dist.php.example',
+                    'target'      => $projectRootPath . '/conf/php-cs-fixer.dist.php',
                     'isVersioned' => true,
                 ], [
-                    'source'      => $libraryRootPath . '/conf/.php-cs-fixer.php.example',
-                    'target'      => $projectRootPath . '/conf/.php-cs-fixer.php.example',
+                    'source'      => $libraryRootPath . '/conf/php-cs-fixer.php.example',
+                    'target'      => $projectRootPath . '/conf/php-cs-fixer.php.example',
                     'isVersioned' => true,
                 ], [
-                    'source'      => $libraryRootPath . '/conf/.php-cs-fixer.php.example',
-                    'target'      => $projectRootPath . '/conf/.php-cs-fixer.php',
+                    'source'      => $libraryRootPath . '/conf/php-cs-fixer.php.example',
+                    'target'      => $projectRootPath . '/conf/php-cs-fixer.php',
                     'isVersioned' => false,
                 ]],
                 Module::NAME_PHP_STAN => [[

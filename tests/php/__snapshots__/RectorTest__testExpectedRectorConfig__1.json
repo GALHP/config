@@ -1,7 +1,7 @@
 {
     "paths": [
-        "./conf/.php-cs-fixer.dist.php",
-        "./conf/.php-cs-fixer.php",
+        "./conf/php-cs-fixer.dist.php",
+        "./conf/php-cs-fixer.php",
         "./conf/phpstan.dist.php",
         "./conf/phpstan.php",
         "./conf/rector.dist.php",
