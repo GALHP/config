@@ -386,7 +386,7 @@ return PhpCsFixerConfig::get(/* customize */);
 ##### Rector
 
 ```php
-// ./rector.php
+// ./rector.dist.php
 
 <?php
 
