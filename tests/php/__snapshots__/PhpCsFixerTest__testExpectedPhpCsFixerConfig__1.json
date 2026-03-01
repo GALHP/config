@@ -85,7 +85,6 @@
         "./src/php/Module.php",
         "./src/php/PhpCsFixerConfig.php",
         "./src/php/PhpFileFinder.php",
-        "./src/php/PhpStan/Rule/ApiOrInternalAnnotationRule.php",
         "./src/php/PhpStan/Rule/BoolishPrefixRule.php",
         "./src/php/PhpStan/Rule/InternalUsageRule.php",
         "./src/php/PhpStan/Rule/Trait/RuleTrait.php",

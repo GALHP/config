@@ -1,4 +1,5 @@
 {
+    "includes": [],
     "parameters": {
         "level": "max",
         "paths": [
@@ -24,7 +25,6 @@
             "./src/php/Module.php",
             "./src/php/PhpCsFixerConfig.php",
             "./src/php/PhpFileFinder.php",
-            "./src/php/PhpStan/Rule/ApiOrInternalAnnotationRule.php",
             "./src/php/PhpStan/Rule/BoolishPrefixRule.php",
             "./src/php/PhpStan/Rule/InternalUsageRule.php",
             "./src/php/PhpStan/Rule/Trait/RuleTrait.php",
@@ -202,8 +202,8 @@
             "arguments": {
                 "forbiddenFunctions": {
                     "eval": "Usage of this function is strongly discouraged. If using this function is really the only option, please disable this rule for this line.",
-                    "compact": "Explictly assign to keys in the array.",
-                    "extract": "Explictly define variables for the entries of the array.",
+                    "compact": "Explicitly assign to keys in the array.",
+                    "extract": "Explicitly define variables for the entries of the array.",
                     "method_exists": "Usage of this function is discouraged. If using this function is really the only option, please disable this rule for this line.",
                     "property_exists": "Usage of this function is discouraged. If using this function is really the only option, please disable this rule for this line.",
                     "class_exists": "Usage of this function is discouraged. If using this function is really the only option, please disable this rule for this line.",
