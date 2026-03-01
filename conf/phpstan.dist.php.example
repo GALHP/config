@@ -8,7 +8,7 @@ declare(strict_types=1);
 // ---------------------------------
 use Brnshkr\Config\PhpStan;
 
-return PhpStan::get(/* ... */)
+return PhpStan::getConfig(/* ... */)
     // ->setRules([
     //     // ...
     // ])
