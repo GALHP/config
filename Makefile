@@ -23,24 +23,24 @@ _APP_TARGETS_: ##
 
 .PHONY: test
 test: ## runs tests
-	@${PHP_UNIT} ${PHP_UNIT_CONFIG} ${ARGS}
+	${PREFIX}${PHP_UNIT} ${PHP_UNIT_CONFIG} ${ARGS}
 
 .PHONY: test-update
 test-update: ## runs tests with snapshot update
-	@${PHP_UNIT} ${PHP_UNIT_CONFIG} --update-snapshots ${ARGS}
+	${PREFIX}${PHP_UNIT} ${PHP_UNIT_CONFIG} --update-snapshots ${ARGS}
 
 .PHONY: check
 check: rector php-cs-fixer phpstan test ## runs rector, php-cs-fixer, phpstan and phpunit
 
 .PHONY: bun-list
 bun-list: ## lists included bun package files
-	@archive_file=$$(${BUN} pm pack 2>&1 | grep -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tgz') \
+	${PREFIX}archive_file=$$(${BUN} pm pack 2>&1 | grep -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tgz') \
 		&& ${TAR} -tf "$$archive_file" | sed 's/^package\///' \
 		&& ${RM} -f "$$archive_file"
 
 .PHONY: bun-pack
 bun-pack: ## publishes the bun package to ./.local/@<VENDOR>/<PACKAGE>
-	@archive_file=$$(${BUN} pm pack 2>&1 | grep -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tgz') \
+	${PREFIX}archive_file=$$(${BUN} pm pack 2>&1 | grep -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tgz') \
 		&& ${RM} -rf ${PWD}/.local/@${VENDOR}/${PACKAGE} \
 		&& ${MKDIR} -p ${PWD}/.local/@${VENDOR}/${PACKAGE} \
 		&& ${TAR} -xzf "$$archive_file" \
@@ -50,13 +50,13 @@ bun-pack: ## publishes the bun package to ./.local/@<VENDOR>/<PACKAGE>
 
 .PHONY: composer-list
 composer-list: ## lists included composer package files
-	@archive_file=$$(${COMPOSER} archive 2>&1 | ${GREP} -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tar') \
+	${PREFIX}archive_file=$$(${COMPOSER} archive 2>&1 | ${GREP} -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tar') \
 		&& ${TAR} -tf "$$archive_file" \
 		&& ${RM} -f "$$archive_file"
 
 .PHONY: composer-pack
 composer-pack: ## publishes the composer package to ./.local/<VENDOR>/<PACKAGE>
-	@archive_file=$$(${COMPOSER} archive 2>&1 | ${GREP} -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tar') \
+	${PREFIX}archive_file=$$(${COMPOSER} archive 2>&1 | ${GREP} -oE -m1 '${VENDOR}-${PACKAGE}-${SEMVER_REGEX}\.tar') \
 		&& ${RM} -rf ${PWD}/.local/${VENDOR}/${PACKAGE} \
 		&& ${MKDIR} -p ${PWD}/.local/${VENDOR}/${PACKAGE} \
 		&& ${MV} "$$archive_file" ${PWD}/.local/${VENDOR}/${PACKAGE}/ \
