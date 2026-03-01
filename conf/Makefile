@@ -79,7 +79,7 @@ rector-list: ## lists processed rector files
 
 .DEFAULT:
 	${PREFIX}echo "\033[31m[${VENDOR}/${PACKAGE}]\033[0m Unknown target \"$@\"."
-	${PREFIX}echo "\033[32m[${VENDOR}/${PACKAGE}]\033[0m Run \"\033[4;37mmake help\033[0m\" or just \"\033[4;37mmake\033[0m\" to see a full list of available targets."
+	${PREFIX}echo "\033[35m[${VENDOR}/${PACKAGE}]\033[0m Run \"\033[4;37mmake help\033[0m\" or just \"\033[4;37mmake\033[0m\" to see a full list of available targets."
 	${PREFIX}exit 1
 
 -include ${PWD}/.local/Makefile
