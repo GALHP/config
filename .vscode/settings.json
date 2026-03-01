@@ -256,7 +256,9 @@
   ],
   "tailwindCSS.emmetCompletions": true,
   "css.lint.unknownAtRules": "ignore",
+  "css.validate": false,
   "scss.lint.unknownAtRules": "ignore",
+  "scss.validate": false,
   "stylelint.validate": [
     "css",
     "html",
