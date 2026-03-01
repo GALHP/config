@@ -9,9 +9,9 @@ use Brnshkr\Config\PhpStanConfig;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Spatie\Snapshots\MatchesSnapshots;
-
-use function is_array;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 
 /**
  * @internal
@@ -22,15 +22,15 @@ final class PhpStanTest extends TestCase
     use MatchesSnapshots;
 
     /**
+     * @throws DirectoryNotFoundException
      * @throws JsonException
+     * @throws RuntimeException
      */
     public function testExpectedPhpstanConfig(): void
     {
         $config = PhpStanConfig::get();
 
-        if (is_array($config['parameters'] ?? null)) {
-            unset($config['parameters']['editorUrl']);
-        }
+        unset($config['parameters']['editorUrl']);
 
         $result = Json::encode($config);
 
