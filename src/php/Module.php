@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Brnshkr\Config;
 
 use RuntimeException;
-use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
 
 use function array_all;
 use function array_diff;
@@ -124,7 +123,6 @@ final class Module
     /**
      * @phpstan-param ModuleInfo|self::PACKAGE_* $moduleInfoOrPackage
      *
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public static function warnMissingPackages(array|string $moduleInfoOrPackage): void
@@ -167,7 +165,6 @@ final class Module
     /**
      * @phpstan-param self::PACKAGE_* $package
      *
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public static function isPackageInstalled(string $package): bool

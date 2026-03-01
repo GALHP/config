@@ -8,7 +8,6 @@ use PhpCsFixer\Config as BaseConfig;
 use PhpCsFixerCustomFixers\Fixer;
 use PhpCsFixerCustomFixers\Fixers;
 use RuntimeException;
-use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
@@ -28,7 +27,6 @@ final readonly class PhpCsFixerConfig
 
     /**
      * @throws DirectoryNotFoundException
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public static function get(?Finder $finder = null): BaseConfig

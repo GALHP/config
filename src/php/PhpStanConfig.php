@@ -13,7 +13,6 @@ use PhpCsFixer\Finder as PhpCsFixerFinder;
 use PhpParser\Node;
 use RuntimeException;
 use SplFileInfo;
-use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
@@ -105,7 +104,6 @@ final class PhpStanConfig
      * @return (TAsInstance is true ? self : Config)
      *
      * @throws DirectoryNotFoundException
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public static function get(?Finder $finder = null, bool $asInstance = false): self|array
@@ -353,7 +351,6 @@ final class PhpStanConfig
      *
      * @see https://github.com/phpstan/phpstan-symfony
      *
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public function setSymfony(array $options): self
@@ -366,7 +363,6 @@ final class PhpStanConfig
     /**
      * @param array<string, mixed> $options
      *
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      *
      * @see https://github.com/phpstan/phpstan-doctrine

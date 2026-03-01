@@ -51,7 +51,6 @@ final class UpdatePhpExtensionsCommand extends AbstractCommand
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     #[Override]

@@ -57,7 +57,6 @@ final class SetupCommand extends AbstractCommand
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     #[Override]

@@ -7,8 +7,6 @@ namespace Brnshkr\Config;
 use Composer\InstalledVersions;
 use JsonException;
 use RuntimeException;
-use Symfony\Component\Filesystem\Exception\InvalidArgumentException;
-use Symfony\Component\Filesystem\Path;
 
 use function array_all;
 use function array_any;
@@ -122,7 +120,6 @@ final class ComposerJson
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public static function forProjectUsingThisLibrary(): self
@@ -141,8 +138,11 @@ final class ComposerJson
             ));
         }
 
-        $path = $composer ?: './composer.json';
-        $path = Path::isAbsolute($path) ? $path : Path::makeAbsolute($path, getcwd() ?: '.');
+        $path = $composer === '' ? 'composer.json' : $composer;
+
+        if ($path[0] !== '/') {
+            $path = (getcwd() ?: '.') . '/' . $path;
+        }
 
         return new self($path);
     }
