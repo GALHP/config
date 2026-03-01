@@ -71,20 +71,20 @@ final class Module
         'name'     => self::NAME_PHP_STAN,
         'packages' => [
             'requiredAll' => [
-                self::PACKAGE_EXTENSION_INSTALLER,
                 self::PACKAGE_FINDER,
-                self::PACKAGE_PHP_STAN_RULES,
-                self::PACKAGE_PHP_STAN_STRICT_RULES,
                 self::PACKAGE_PHP_STAN,
-                self::PACKAGE_TYPE_PERFECT,
             ],
             'optional' => [
+                self::PACKAGE_EXTENSION_INSTALLER,
                 self::PACKAGE_PHP_STAN_DEPRECATION_RULES,
                 self::PACKAGE_PHP_STAN_DOCTRINE,
                 self::PACKAGE_PHP_STAN_ERROR_FORMATTER,
                 self::PACKAGE_PHP_STAN_PHPUNIT,
+                self::PACKAGE_PHP_STAN_RULES,
+                self::PACKAGE_PHP_STAN_STRICT_RULES,
                 self::PACKAGE_PHP_STAN_SYMFONY,
                 self::PACKAGE_PHP_STAN_WEBMOZART_ASSERT,
+                self::PACKAGE_TYPE_PERFECT,
             ],
         ],
     ];

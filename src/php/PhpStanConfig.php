@@ -154,14 +154,6 @@ final class PhpStanConfig
                     'tooWideThrowType'                => true,
                 ],
             ])
-            ->setStrictRules([
-                'allRules' => true,
-            ])
-            ->setTypePerfect([
-                'narrow_return'   => true,
-                'no_mixed'        => true,
-                'null_over_false' => true,
-            ])
             ->setIgnoredErrors([
                 [
                     'message'         => '/^Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.$/',
@@ -178,10 +170,26 @@ final class PhpStanConfig
                         '/^Brnshkr\\\Config\\\Tests/',
                     ],
                 ]),
-                ...self::getNonConfiguredSimplifyRules(),
-                ...self::getConfiguredSimplifyRules(),
             ])
         ;
+
+        if (Module::isPackageInstalled(Module::PACKAGE_PHP_STAN_STRICT_RULES)) {
+            $phpStanConfig->setStrictRules([
+                'allRules' => true,
+            ]);
+        }
+
+        if (Module::isPackageInstalled(Module::PACKAGE_TYPE_PERFECT)) {
+            $phpStanConfig->setTypePerfect([
+                'narrow_return'   => true,
+                'no_mixed'        => true,
+                'null_over_false' => true,
+            ]);
+        }
+
+        if (Module::isPackageInstalled(Module::PACKAGE_PHP_STAN_RULES)) {
+            $phpStanConfig->setRules(self::getSimplifyRules());
+        }
 
         return $asInstance ? $phpStanConfig : $phpStanConfig->toArray();
     }
@@ -330,9 +338,13 @@ final class PhpStanConfig
      * @param array<string, bool> $strictRules
      *
      * @see https://github.com/phpstan/phpstan-strict-rules
+     *
+     * @throws RuntimeException
      */
     public function setStrictRules(array $strictRules): self
     {
+        Module::warnMissingPackages(Module::PACKAGE_PHP_STAN_STRICT_RULES);
+
         return $this->setParameter('strictRules', $strictRules);
     }
 
@@ -340,9 +352,13 @@ final class PhpStanConfig
      * @param array<string, bool> $options
      *
      * @see https://github.com/rectorphp/type-perfect
+     *
+     * @throws RuntimeException
      */
     public function setTypePerfect(array $options): self
     {
+        Module::warnMissingPackages(Module::PACKAGE_TYPE_PERFECT);
+
         return $this->setParameter('type_perfect', $options);
     }
 
@@ -375,9 +391,9 @@ final class PhpStanConfig
     }
 
     /**
-     * @return list<class-string>
+     * @return list<class-string|Service>
      */
-    private static function getNonConfiguredSimplifyRules(): array
+    private static function getSimplifyRules(): array
     {
         return [
             SymplifyPhpStanRules\Complexity\ForbiddenArrayMethodCallRule::class,
@@ -440,15 +456,6 @@ final class PhpStanConfig
             SymplifyPhpStanRules\Symfony\RequireRouteNameToGenerateControllerRouteRule::class,
             SymplifyPhpStanRules\Symfony\SingleArgEventDispatchRule::class,
             SymplifyPhpStanRules\UppercaseConstantRule::class,
-        ];
-    }
-
-    /**
-     * @return list<Service>
-     */
-    private static function getConfiguredSimplifyRules(): array
-    {
-        return [
             self::configureRule(SymplifyPhpStanRules\ForbiddenNodeRule::class, [
                 'forbiddenNodes' => [
                     Node\Expr\Empty_::class,
