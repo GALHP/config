@@ -13,6 +13,7 @@ use function implode;
 use function mb_strtolower;
 use function preg_match;
 use function sprintf;
+use function str_contains;
 use function str_starts_with;
 
 use const PREG_UNMATCHED_AS_NULL;
@@ -49,6 +50,12 @@ final readonly class Str
         return $result === false
             ? []
             : array_values(array_filter($matches, is_string(...)));
+    }
+
+    public static function doesContain(string $haystack, string $needle): bool
+    {
+        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        return str_contains($haystack, $needle);
     }
 
     /**
