@@ -3,6 +3,7 @@ PACKAGE ?= config
 
 PWD ?= .
 
+PRINTF ?= printf
 MAKE ?= make
 AWK ?= awk
 GREP ?= grep
@@ -78,8 +79,8 @@ rector-list: ## lists processed rector files
 	${PREFIX}${RECTOR} ${RECTOR_CONFIG} --debug --dry-run | ${GREP} -oP "(?<=\[file\] ${PWD}/).+\.php"
 
 .DEFAULT:
-	${PREFIX}echo "\033[31m[${VENDOR}/${PACKAGE}]\033[0m Unknown target \"$@\"."
-	${PREFIX}echo "\033[35m[${VENDOR}/${PACKAGE}]\033[0m Run \"\033[4;37mmake help\033[0m\" or just \"\033[4;37mmake\033[0m\" to see a full list of available targets."
+	${PREFIX}${PRINTF} '\033[31m[${VENDOR}/${PACKAGE}]\033[0m Unknown target "$@".\n'
+	${PREFIX}${PRINTF} '\033[35m[${VENDOR}/${PACKAGE}]\033[0m Run \"\033[4;37mmake help\033[0m\" or just \"\033[4;37mmake\033[0m\" to see a full list of available targets.\n'
 	${PREFIX}exit 1
 
 -include ${PWD}/.local/Makefile
