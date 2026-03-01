@@ -329,8 +329,8 @@ cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php \
 ##### PHPStan
 
 ```sh
-cp -v ./vendor/brnshkr/config/conf/phpstan.neon.example ./conf/phpstan.neon \
-  && cp -v ./vendor/brnshkr/config/conf/phpstan.dist.neon.example ./conf/phpstan.dist.neon
+cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php \
+  && cp -v ./vendor/brnshkr/config/conf/phpstan.dist.php.example ./conf/phpstan.dist.php
 ```
 
 <!-- omit in toc -->
@@ -355,8 +355,8 @@ cp -v ./vendor/brnshkr/config/conf/.php-cs-fixer.php.example ./conf/.php-cs-fixe
   && cp -v ./vendor/brnshkr/config/conf/.php-cs-fixer.dist.php.example ./conf/.php-cs-fixer.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php \
   && cp -v ./vendor/brnshkr/config/conf/rector.dist.php.example ./conf/rector.dist.php \
-  && cp -v ./vendor/brnshkr/config/conf/phpstan.neon.example ./conf/phpstan.neon \
-  && cp -v ./vendor/brnshkr/config/conf/phpstan.dist.neon.example ./conf/phpstan.dist.neon \
+  && cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php \
+  && cp -v ./vendor/brnshkr/config/conf/phpstan.dist.php.example ./conf/phpstan.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/Makefile.example ./Makefile \
   && cp -v ./vendor/brnshkr/config/conf/.gitignore.example ./.gitignore
 ```
@@ -446,7 +446,7 @@ php ./vendor/bin/rector process --config ./conf/rector.php
 Example call, adjust as needed
 
 ```sh
-php ./vendor/bin/phpstan analyze --memory-limit=-1 --configuration ./conf/phpstan.neon
+php ./vendor/bin/phpstan analyze --memory-limit=-1 --configuration ./conf/phpstan.php
 ```
 
 <!-- omit in toc -->

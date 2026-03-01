@@ -8,7 +8,7 @@ AWK ?= awk
 GREP ?= grep
 
 PHP_STAN ?= ${PWD}/vendor/bin/phpstan analyze --memory-limit=-1
-PHP_STAN_CONFIG ?= --configuration ${PWD}/conf/phpstan.neon
+PHP_STAN_CONFIG ?= --configuration ${PWD}/conf/phpstan.php
 
 PHP_CS_FIXER ?= ${PWD}/vendor/bin/php-cs-fixer
 PHP_CS_FIXER_CONFIG ?= --config ${PWD}/conf/.php-cs-fixer.php
@@ -51,7 +51,7 @@ phpstan-raw: ## runs phpstan analyze with raw output
 
 .PHONY: phpstan-list
 phpstan-list: ## lists processed phpstan files
-	${PREFIX}${MAKE} phpstan-raw -- --debug 2>&1 | ${GREP} -oP "(?<=${PWD}/).+\.php$$"
+	${PREFIX}${MAKE} phpstan-raw -- --debug 2>&1 | ${GREP} -oP ".+\.php"
 
 .PHONY: php-cs-fixer
 php-cs-fixer: ## runs php-cs-fixer fix

@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 
 use function getcwd;
+use function is_array;
 
 /**
  * @internal
@@ -41,7 +42,12 @@ final class PhpStanTest extends TestCase
             expandRelativePaths: [],
         )->createLoader();
 
-        $config = $loader->load($currentWorkingDirectory . '/conf/phpstan.neon', null);
+        $config = $loader->load($currentWorkingDirectory . '/conf/phpstan.php', null);
+
+        if (is_array($config['parameters'] ?? null)) {
+            unset($config['parameters']['editorUrl']);
+        }
+
         $result = Json::encode($config);
 
         $this->assertMatchesJsonSnapshot($result);

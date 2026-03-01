@@ -73,6 +73,7 @@ final class Module
         'packages' => [
             'requiredAll' => [
                 self::PACKAGE_EXTENSION_INSTALLER,
+                self::PACKAGE_FINDER,
                 self::PACKAGE_PHP_STAN_RULES,
                 self::PACKAGE_PHP_STAN_STRICT_RULES,
                 self::PACKAGE_PHP_STAN,

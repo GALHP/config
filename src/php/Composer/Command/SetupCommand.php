@@ -201,13 +201,6 @@ final class SetupCommand extends AbstractCommand
         $this->copyFilesIfApplicable($modulesToInstall, $doCopyConfigFilesAutomatically, $doCreateMakeFileAutomatically, $doCreateGitignoreFileAutomatically);
         $this->console->writeNotice('Setup process completed successfully.');
 
-        if (in_array(Module::PACKAGE_PHP_STAN_ERROR_FORMATTER, $packagesToInstall, true)) {
-            $this->console->writeWarning(sprintf(
-                'You have installed "%s". Ensure that parameters.errorFormat is set to "ticketswap" in the phpstan.dist.neon file.',
-                Module::PACKAGE_PHP_STAN_ERROR_FORMATTER,
-            ));
-        }
-
         return self::SUCCESS;
     }
 
@@ -219,8 +212,9 @@ final class SetupCommand extends AbstractCommand
      */
     private function getModuleNamesToInstall(): array
     {
-        $moduleNames   = array_keys(Module::NAME_TO_MODULE_MAP);
-        $isAnswerValid = false;
+        $moduleNames          = array_keys(Module::NAME_TO_MODULE_MAP);
+        $isAnswerValid        = false;
+        $moduleNamesToInstall = [];
 
         while (!$isAnswerValid) {
             $moduleNamesToInstall = $this->console->select(
@@ -370,16 +364,16 @@ final class SetupCommand extends AbstractCommand
                     'isVersioned' => false,
                 ]],
                 Module::NAME_PHP_STAN => [[
-                    'source'      => $libraryRootPath . '/conf/phpstan.dist.neon.example',
-                    'target'      => $projectRootPath . '/conf/phpstan.dist.neon',
+                    'source'      => $libraryRootPath . '/conf/phpstan.dist.php.example',
+                    'target'      => $projectRootPath . '/conf/phpstan.dist.php',
                     'isVersioned' => true,
                 ], [
-                    'source'      => $libraryRootPath . '/conf/phpstan.neon.example',
-                    'target'      => $projectRootPath . '/conf/phpstan.neon.example',
+                    'source'      => $libraryRootPath . '/conf/phpstan.php.example',
+                    'target'      => $projectRootPath . '/conf/phpstan.php.example',
                     'isVersioned' => true,
                 ], [
-                    'source'      => $libraryRootPath . '/conf/phpstan.neon.example',
-                    'target'      => $projectRootPath . '/conf/phpstan.neon',
+                    'source'      => $libraryRootPath . '/conf/phpstan.php.example',
+                    'target'      => $projectRootPath . '/conf/phpstan.php',
                     'isVersioned' => false,
                 ]],
                 Module::NAME_RECTOR => [[
