@@ -269,7 +269,10 @@
             ]
         },
         "phpdoc_to_comment": {
-            "allow_before_return_statement": true
+            "allow_before_return_statement": true,
+            "ignored_tags": [
+                "disregard"
+            ]
         },
         "phpdoc_types_order": {
             "null_adjustment": "always_last",
