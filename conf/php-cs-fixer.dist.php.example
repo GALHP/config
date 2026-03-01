@@ -6,9 +6,9 @@ declare(strict_types=1);
 
 // Option 1
 // ------------------------------------
-use Brnshkr\Config\PhpCsFixerConfig;
+use Brnshkr\Config\PhpCsFixer;
 
-return PhpCsFixerConfig::get(/* ... */)
+return PhpCsFixer::getConfig(/* ... */)
     // ->setRules([
     //     // ...
     // ])
@@ -17,7 +17,7 @@ return PhpCsFixerConfig::get(/* ... */)
 
 // Option 2
 // ----------------------------------------------------------------------------------
-// return include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpCsFixerConfig.php';
+// return include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpCsFixer.php';
 // ----------------------------------------------------------------------------------
 
 // Option 3
@@ -27,7 +27,7 @@ return PhpCsFixerConfig::get(/* ... */)
 // /**
 //  * @var Config
 //  */
-// $config = include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpCsFixerConfig.php';
+// $config = include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpCsFixer.php';
 //
 // return $config
 //     // ->setRules([

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
-use PhpCsFixer\Config as BaseConfig;
+use PhpCsFixer\Config as PhpCsFixerConfig;
 use PhpCsFixerCustomFixers\Fixer;
 use PhpCsFixerCustomFixers\Fixers;
 use RuntimeException;
@@ -21,7 +21,7 @@ Module::warnMissingPackages(Module::MODULE_PHP_CS_FIXER);
  *
  * @no-named-arguments
  */
-final readonly class PhpCsFixerConfig
+final readonly class PhpCsFixer
 {
     private function __construct() {}
 
@@ -29,9 +29,9 @@ final readonly class PhpCsFixerConfig
      * @throws DirectoryNotFoundException
      * @throws RuntimeException
      */
-    public static function get(?Finder $finder = null): BaseConfig
+    public static function getConfig(?Finder $finder = null): PhpCsFixerConfig
     {
-        $config = new BaseConfig();
+        $config = new PhpCsFixerConfig();
 
         $config
             ->setCacheFile('.cache/php-cs-fixer.cache.json')
@@ -120,4 +120,4 @@ final readonly class PhpCsFixerConfig
     }
 }
 
-return PhpCsFixerConfig::get();
+return PhpCsFixer::getConfig();

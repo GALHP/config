@@ -8,7 +8,7 @@ use Rector\CodeQuality\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRe
 use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
 use Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector;
-use Rector\Config\RectorConfig as BaseConfig;
+use Rector\Config\RectorConfig;
 use Rector\Configuration\RectorConfigBuilder;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
@@ -23,7 +23,7 @@ Module::warnMissingPackages(Module::MODULE_RECTOR);
  *
  * @no-named-arguments
  */
-final readonly class RectorConfig
+final readonly class Rector
 {
     private function __construct() {}
 
@@ -31,10 +31,10 @@ final readonly class RectorConfig
      * @throws DirectoryNotFoundException
      * @throws RuntimeException
      */
-    public static function get(?Finder $finder = null): RectorConfigBuilder
+    public static function getConfig(?Finder $finder = null): RectorConfigBuilder
     {
         /** @disregard P1009 because some skipped classes come bundled with rector and are not picked up by intelephense */
-        return BaseConfig::configure()
+        return RectorConfig::configure()
             ->withCache('.cache/rector.cache')
             ->withRootFiles()
             ->withPaths(PhpFileFinder::getPaths($finder))
@@ -73,4 +73,4 @@ final readonly class RectorConfig
     }
 }
 
-return RectorConfig::get();
+return Rector::getConfig();

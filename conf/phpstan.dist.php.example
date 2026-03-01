@@ -6,9 +6,9 @@ declare(strict_types=1);
 
 // Option 1
 // ---------------------------------
-use Brnshkr\Config\PhpStanConfig;
+use Brnshkr\Config\PhpStan;
 
-return PhpStanConfig::get(/* ... */)
+return PhpStan::get(/* ... */)
     // ->setRules([
     //     // ...
     // ])
@@ -17,7 +17,7 @@ return PhpStanConfig::get(/* ... */)
 
 // Option 2
 // -------------------------------------------------------------------------------
-// return include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpStanConfig.php';
+// return include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpStan.php';
 // -------------------------------------------------------------------------------
 
 // Option 3
@@ -25,7 +25,7 @@ return PhpStanConfig::get(/* ... */)
 // /**
 //  * @var array<string, mixed>
 //  */
-// $config = include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpStanConfig.php';
+// $config = include __DIR__ . '/../vendor/brnshkr/config/src/php/PhpStan.php';
 //
 // return $config;
 // ----------------------------------------------------------------------------------

@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use Brnshkr\Config\RectorConfig;
+use Brnshkr\Config\Rector;
 
-return RectorConfig::get();
+return Rector::getConfig();

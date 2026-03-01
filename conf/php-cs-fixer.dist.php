@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use Brnshkr\Config\PhpCsFixerConfig;
+use Brnshkr\Config\PhpCsFixer;
 
-return PhpCsFixerConfig::get();
+return PhpCsFixer::getConfig();

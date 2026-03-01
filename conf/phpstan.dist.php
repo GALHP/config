@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use Brnshkr\Config\PhpStanConfig;
+use Brnshkr\Config\PhpStan;
 
-return PhpStanConfig::get();
+return PhpStan::getConfig();

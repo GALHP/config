@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Brnshkr\Config\Tests;
 
 use Brnshkr\Config\Json;
-use Brnshkr\Config\RectorConfig;
+use Brnshkr\Config\Rector;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +38,7 @@ final class RectorTest extends TestCase
      */
     public function testExpectedRectorConfig(): void
     {
-        $rectorConfigBuilder = RectorConfig::get();
+        $rectorConfigBuilder = Rector::getConfig();
         $reflectionClass     = new ReflectionClass($rectorConfigBuilder);
         $configArray         = [];
 

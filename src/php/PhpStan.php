@@ -59,7 +59,7 @@ Module::warnMissingPackages(Module::MODULE_PHP_STAN);
  *     services: list<Service>,
  * }
  */
-final class PhpStanConfig
+final class PhpStan
 {
     private const array RULE_TAG = ['phpstan.rules.rule'];
 
@@ -106,7 +106,7 @@ final class PhpStanConfig
      * @throws DirectoryNotFoundException
      * @throws RuntimeException
      */
-    public static function get(?Finder $finder = null, bool $asInstance = false): self|array
+    public static function getConfig(?Finder $finder = null, bool $asInstance = false): self|array
     {
         $finder ??= new Finder();
 
@@ -692,4 +692,4 @@ final class PhpStanConfig
     }
 }
 
-return PhpStanConfig::get();
+return PhpStan::getConfig();

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Brnshkr\Config\Tests;
 
 use Brnshkr\Config\Json;
-use Brnshkr\Config\PhpCsFixerConfig;
+use Brnshkr\Config\PhpCsFixer;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
@@ -42,7 +42,7 @@ final class PhpCsFixerTest extends TestCase
      */
     public function testExpectedPhpCsFixerConfig(): void
     {
-        $config          = PhpCsFixerConfig::get();
+        $config          = PhpCsFixer::getConfig();
         $reflectionClass = new ReflectionClass($config);
         $configArray     = [];
 

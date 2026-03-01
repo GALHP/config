@@ -6,9 +6,9 @@ declare(strict_types=1);
 
 // Option 1
 // -----------------------------------
-use Brnshkr\Config\RectorConfig;
+use Brnshkr\Config\Rector;
 
-return RectorConfig::get(/* ... */)
+return Rector::get(/* ... */)
     // ->withRules([
     //     // ...
     // ])
@@ -17,7 +17,7 @@ return RectorConfig::get(/* ... */)
 
 // Option 2
 // ------------------------------------------------------------------------------
-// return include __DIR__ . '/../vendor/brnshkr/config/src/php/RectorConfig.php';
+// return include __DIR__ . '/../vendor/brnshkr/config/src/php/Rector.php';
 // ------------------------------------------------------------------------------
 
 // Option 3
@@ -27,7 +27,7 @@ return RectorConfig::get(/* ... */)
 // /**
 //  * @var RectorConfigBuilder
 //  */
-// $config = include __DIR__ . '/../vendor/brnshkr/config/src/php/RectorConfig.php';
+// $config = include __DIR__ . '/../vendor/brnshkr/config/src/php/Rector.php';
 //
 // return $config
 //     // ->withSkip([

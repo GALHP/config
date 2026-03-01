@@ -377,9 +377,9 @@ Take a look at the function signatures for exact details.
 
 declare(strict_types=1);
 
-use Brnshkr\Config\PhpCsFixerConfig;
+use Brnshkr\Config\PhpCsFixer;
 
-return PhpCsFixerConfig::get(/* customize */);
+return PhpCsFixer::getConfig(/* customize */);
 ```
 
 <!-- omit in toc -->
@@ -392,9 +392,9 @@ return PhpCsFixerConfig::get(/* customize */);
 
 declare(strict_types=1);
 
-use Brnshkr\Config\RectorConfig;
+use Brnshkr\Config\Rector;
 
-return RectorConfig::get(/* customize */);
+return Rector::getConfig(/* customize */);
 ```
 
 <!-- omit in toc -->
@@ -407,9 +407,9 @@ return RectorConfig::get(/* customize */);
 
 declare(strict_types=1);
 
-use Brnshkr\Config\PhpStanConfig;
+use Brnshkr\Config\PhpStan;
 
-return PhpStanConfig::get(/* customize */);
+return PhpStan::getConfig(/* customize */);
 ```
 
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
