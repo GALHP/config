@@ -118,7 +118,7 @@ final class PhpStan
 
         $phpStanConfig = new self()
             ->setLevel('max')
-            ->setPaths(PhpFileFinder::getPaths($finder))
+            ->setPaths(PhpFileFinder::getDirectoryPaths($finder))
             ->setTemporaryDirectory('.cache/phpstan.cache')
             ->setParameters([
                 'editorUrl'                                          => self::getEditorUrl(),

@@ -7,8 +7,14 @@ namespace Brnshkr\Config;
 use LogicException;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
+use function array_filter;
 use function array_keys;
+use function array_map;
+use function array_reduce;
+use function is_string;
+use function usort;
 
 /**
  * @api
@@ -59,8 +65,48 @@ final class PhpFileFinder
      *
      * @throws DirectoryNotFoundException
      */
-    public static function getPaths(?Finder $finder = null): array
+    public static function getFilePaths(?Finder $finder = null): array
     {
-        return array_keys([...self::get($finder)]);
+        return self::get($finder)
+            |> iterator_to_array(...)
+            |> array_keys(...);
+    }
+
+    /**
+     * @return list<string>
+     *
+     * @throws DirectoryNotFoundException
+     */
+    public static function getDirectoryPaths(?Finder $finder = null): array
+    {
+        return self::get($finder)
+            |> iterator_to_array(...)
+            |> array_values(...)
+            |> (static fn (array $files): array => array_map(
+                static fn (SplFileInfo $file): string => $file->getPath(),
+                $files,
+            ))
+            |> array_unique(...)
+            |> (
+                static function (array $paths): array {
+                    usort($paths, static fn (string $path1, string $path2): int => Str::length($path1) <=> Str::length($path2));
+
+                    return $paths;
+                }
+            )
+            |> (static fn (array $sortedPaths): array => array_reduce(
+                $sortedPaths,
+                static fn (array $minimalPaths, string $currentPath): array => array_reduce(
+                    $minimalPaths,
+                    static fn (bool $doSkip, mixed $parentPath): bool => $doSkip
+                        || Str::doesStartWith($currentPath, Str::trimEnd(is_string($parentPath) ? $parentPath : '', '/') . '/'),
+                    false,
+                )
+                ? $minimalPaths
+                : [...$minimalPaths, $currentPath],
+                [],
+            ))
+            |> (static fn (array $minimalPaths): array => array_filter($minimalPaths, is_string(...)))
+            |> array_values(...);
     }
 }
