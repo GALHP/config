@@ -30,7 +30,6 @@ use PHPStan\Rules\Rule;
 use RuntimeException;
 
 use function array_filter;
-use function array_find;
 use function array_is_list;
 use function is_string;
 use function sprintf;
@@ -56,37 +55,37 @@ final class InternalUsageRule implements Rule
     private const string KIND_TRAIT     = 'Trait';
 
     /**
+     * @var list<string>
+     */
+    private array $allowedInternalTargets;
+
+    /**
+     * @var list<string>
+     */
+    private array $allowedDeclaringNamespaces;
+
+    /**
+     * @var list<string>
+     */
+    private array $allowedCallingNamespaces;
+
+    /**
      * @param ?list<string> $allowedInternalTargets
      * @param ?list<string> $allowedDeclaringNamespaces
      * @param ?list<string> $allowedCallingNamespaces
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(
         private readonly ReflectionProvider $reflectionProvider,
-        private ?array $allowedInternalTargets = null {
-            /**
-             * @throws InvalidArgumentException
-             */
-            set(?array $allowedInternalTargets) {
-                $this->allowedInternalTargets = self::getValidatedStringList('allowedInternalTargets', $allowedInternalTargets);
-            }
-        },
-        private ?array $allowedDeclaringNamespaces = null {
-            /**
-             * @throws InvalidArgumentException
-             */
-            set(?array $allowedDeclaringNamespaces) {
-                $this->allowedDeclaringNamespaces = self::getValidatedStringList('allowedDeclaringNamespaces', $allowedDeclaringNamespaces);
-            }
-        },
-        private ?array $allowedCallingNamespaces = null {
-            /**
-             * @throws InvalidArgumentException
-             */
-            set(?array $allowedCallingNamespaces) {
-                $this->allowedCallingNamespaces = self::getValidatedStringList('allowedCallingNamespaces', $allowedCallingNamespaces);
-            }
-        },
-    ) {}
+        ?array $allowedInternalTargets = null,
+        ?array $allowedDeclaringNamespaces = null,
+        ?array $allowedCallingNamespaces = null,
+    ) {
+        $this->setAllowedInternalTargets($allowedInternalTargets);
+        $this->setAllowedDeclaringNamespaces($allowedDeclaringNamespaces);
+        $this->setAllowedCallingNamespaces($allowedCallingNamespaces);
+    }
 
     #[Override]
     public function getNodeType(): string
@@ -116,6 +115,36 @@ final class InternalUsageRule implements Rule
             },
             static fn (?IdentifierRuleError $identifierRuleError): bool => $identifierRuleError instanceof IdentifierRuleError,
         );
+    }
+
+    /**
+     * @param ?list<string> $allowedInternalTargets
+     *
+     * @throws InvalidArgumentException
+     */
+    private function setAllowedInternalTargets(?array $allowedInternalTargets): void
+    {
+        $this->allowedInternalTargets = self::getValidatedStringList('allowedInternalTargets', $allowedInternalTargets);
+    }
+
+    /**
+     * @param ?list<string> $allowedDeclaringNamespaces
+     *
+     * @throws InvalidArgumentException
+     */
+    private function setAllowedDeclaringNamespaces(?array $allowedDeclaringNamespaces): void
+    {
+        $this->allowedDeclaringNamespaces = self::getValidatedStringList('allowedDeclaringNamespaces', $allowedDeclaringNamespaces);
+    }
+
+    /**
+     * @param ?list<string> $allowedCallingNamespaces
+     *
+     * @throws InvalidArgumentException
+     */
+    private function setAllowedCallingNamespaces(?array $allowedCallingNamespaces): void
+    {
+        $this->allowedCallingNamespaces = self::getValidatedStringList('allowedCallingNamespaces', $allowedCallingNamespaces);
     }
 
     /**
@@ -440,7 +469,7 @@ final class InternalUsageRule implements Rule
             return [];
         }
 
-        if (!array_is_list($input) || array_find($input, static fn ($item): bool => !is_string($item))) {
+        if (!array_is_list($input) || array_filter($input, static fn ($item): bool => !is_string($item)) !== []) {
             throw new InvalidArgumentException(sprintf(
                 'Value for option "%s" must be a list of strings.',
                 $optionName,

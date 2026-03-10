@@ -26,15 +26,15 @@ use function Symfony\Component\String\s;
  */
 abstract class AbstractCommand extends BaseCommand
 {
-    protected private(set) InputInterface $input;
+    protected InputInterface $input;
 
-    protected private(set) OutputInterface $output;
+    protected OutputInterface $output;
 
-    protected private(set) Composer $composer;
+    protected Composer $composer;
 
-    protected private(set) Console $console;
+    protected Console $console;
 
-    protected private(set) ComposerJson $libraryComposerJson;
+    protected ComposerJson $libraryComposerJson;
 
     /**
      * @throws RuntimeException
