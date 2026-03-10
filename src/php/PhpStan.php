@@ -400,7 +400,59 @@ final class PhpStan
     }
 
     /**
+     * @template TClass of object
+     *
+     * @param class-string<TClass> $class
+     * @param array<array-key, mixed> $arguments
+     *
+     * @return Service
+     */
+    public static function configureRule(string $class, array $arguments = []): array
+    {
+        return [
+            'class'     => $class,
+            'tags'      => self::RULE_TAG,
+            'arguments' => $arguments,
+        ];
+    }
+
+    /**
+     * @return array<class-string, class-string>
+     *
+     * @throws RuntimeException
+     */
+    public static function getPreferredClassesMap(): array
+    {
+        Module::warnMissingPackages(Module::PACKAGE_PHP_STAN_RULES);
+
+        $preferredClassesMap = [
+            // NOTICE: Explicit use of 'DateTime' as a string to prevent php-cs-fixer from fixing this to 'DateTimeImmutable'
+            'DateTime' => DateTimeImmutable::class,
+            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            SplFileInfo::class => SymfonySplFileInfo::class,
+        ];
+
+        /** @disregard P1009 because nesbot/carbon is not a dependency of brnshkr/config */
+        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+        if (class_exists(Carbon::class)) {
+            /** @disregard P1009 because Carbon is not a dependency of brnshkr/config */
+            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            $preferredClassesMap[Carbon::class] = CarbonImmutable::class;
+        }
+
+        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+        if (class_exists(PhpCsFixerFinder::class)) {
+            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            $preferredClassesMap[PhpCsFixerFinder::class] = Finder::class;
+        }
+
+        return $preferredClassesMap;
+    }
+
+    /**
      * @return list<class-string|Service>
+     *
+     * @throws RuntimeException
      */
     private static function getSimplifyRules(): array
     {
@@ -466,17 +518,7 @@ final class PhpStan
             SymplifyPhpStanRules\Symfony\SingleArgEventDispatchRule::class,
             SymplifyPhpStanRules\UppercaseConstantRule::class,
             self::configureRule(SymplifyPhpStanRules\ForbiddenNodeRule::class, [
-                'forbiddenNodes' => [
-                    Node\Expr\Empty_::class,
-                    Node\Expr\ErrorSuppress::class,
-                    Node\Expr\PostDec::class,
-                    Node\Expr\PostInc::class,
-                    Node\Expr\PreDec::class,
-                    Node\Expr\PreInc::class,
-                    Node\InterpolatedStringPart::class,
-                    Node\Scalar\InterpolatedString::class,
-                    Node\Stmt\Switch_::class,
-                ],
+                'forbiddenNodes' => self::getForbiddenNodes(),
             ]),
             self::configureRule(SymplifyPhpStanRules\PreferredClassRule::class, [
                 'oldToPreferredClasses' => self::getPreferredClassesMap(),
@@ -488,49 +530,21 @@ final class PhpStan
     }
 
     /**
-     * @template TClass of object
-     *
-     * @param class-string<TClass> $class
-     * @param array<array-key, mixed> $arguments
-     *
-     * @return Service
+     * @return list<class-string>
      */
-    private static function configureRule(string $class, array $arguments = []): array
+    private static function getForbiddenNodes(): array
     {
         return [
-            'class'     => $class,
-            'tags'      => self::RULE_TAG,
-            'arguments' => $arguments,
+            Node\Expr\Empty_::class,
+            Node\Expr\ErrorSuppress::class,
+            Node\Expr\PostDec::class,
+            Node\Expr\PostInc::class,
+            Node\Expr\PreDec::class,
+            Node\Expr\PreInc::class,
+            Node\InterpolatedStringPart::class,
+            Node\Scalar\InterpolatedString::class,
+            Node\Stmt\Switch_::class,
         ];
-    }
-
-    /**
-     * @return array<class-string, class-string>
-     */
-    private static function getPreferredClassesMap(): array
-    {
-        $preferredClassesMap = [
-            // NOTICE: Explicit use of 'DateTime' as a string to prevent php-cs-fixer from fixing this to 'DateTimeImmutable'
-            'DateTime' => DateTimeImmutable::class,
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
-            SplFileInfo::class => SymfonySplFileInfo::class,
-        ];
-
-        /** @disregard P1009 because nesbot/carbon is not a dependency of brnshkr/config */
-        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
-        if (class_exists(Carbon::class)) {
-            /** @disregard P1009 because Carbon is not a dependency of brnshkr/config */
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
-            $preferredClassesMap[Carbon::class] = CarbonImmutable::class;
-        }
-
-        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
-        if (class_exists(PhpCsFixerFinder::class)) {
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
-            $preferredClassesMap[PhpCsFixerFinder::class] = Finder::class;
-        }
-
-        return $preferredClassesMap;
     }
 
     /**
