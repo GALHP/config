@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Brnshkr\Config\Tests;
 
 use Brnshkr\Config\Json;
-use Brnshkr\Config\PhpCsFixer;
 use JsonException;
+use PhpCsFixer\Config;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -42,7 +42,10 @@ final class PhpCsFixerTest extends TestCase
      */
     public function testExpectedPhpCsFixerConfig(): void
     {
-        $config          = PhpCsFixer::getConfig();
+        $config = include __DIR__ . '/../../conf/php-cs-fixer.dist.php';
+
+        self::assertInstanceOf(Config::class, $config);
+
         $reflectionClass = new ReflectionClass($config);
         $configArray     = [];
 
