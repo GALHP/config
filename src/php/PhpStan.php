@@ -23,7 +23,6 @@ use Symfony\Component\String\AbstractString;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symplify\PHPStanRules\Rules as SymplifyPhpStanRules;
 
-use function array_any;
 use function array_filter;
 use function array_keys;
 use function array_merge;
@@ -116,7 +115,7 @@ final class PhpStan
             'config/reference.php',
         ]);
 
-        $phpStanConfig = new self()
+        $phpStanConfig = (new self())
             ->setLevel('max')
             ->setPaths(PhpFileFinder::getPaths($finder))
             ->setTemporaryDirectory('.cache/phpstan.cache')
@@ -686,11 +685,17 @@ final class PhpStan
      */
     private static function isCommandAvailable(string $command, array $paths): bool
     {
-        return array_any(
-            $paths,
-            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-            static fn (string $path): bool => is_executable(mb_rtrim($path, '/') . '/' . $command),
-        );
+        $found = false;
+
+        foreach ($paths as $path) {
+            if (is_executable(mb_rtrim($path, '/') . '/' . $command)) {
+                $found = true;
+
+                break;
+            }
+        }
+
+        return $found;
     }
 }
 

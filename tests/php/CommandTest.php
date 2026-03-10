@@ -61,7 +61,7 @@ final class CommandTest extends TestCase
     public function testMainCommand(): void
     {
         $arrayInput = new ArrayInput([
-            'command' => new BrnshkrConfigCommand()->getName(),
+            'command' => (new BrnshkrConfigCommand())->getName(),
             '-vvv',
         ]);
 
@@ -127,7 +127,7 @@ EOL;
     public function testExtractPharCommand(): void
     {
         $arrayInput = new ArrayInput([
-            'command' => new ExtractPharCommand()->getName(),
+            'command' => (new ExtractPharCommand())->getName(),
             '-vvv',
             'package' => 'phpstan/phpstan',
         ]);
@@ -147,7 +147,7 @@ EOL;
     public function testSetupCommand(): void
     {
         $arrayInput = new ArrayInput([
-            'command' => new SetupCommand()->getName(),
+            'command' => (new SetupCommand())->getName(),
             '-vvv',
             '--all'      => true,
             '--exact'    => true,
@@ -169,7 +169,7 @@ EOL;
     public function testUpdatePhpExtensionsCommand(): void
     {
         $arrayInput = new ArrayInput([
-            'command' => new UpdatePhpExtensionsCommand()->getName(),
+            'command' => (new UpdatePhpExtensionsCommand())->getName(),
             '-vvv',
             '--allow'     => true,
             '--allow-dev' => true,

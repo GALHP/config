@@ -4,4 +4,6 @@ declare(strict_types=1);
 
 use Brnshkr\Config\Rector;
 
-return Rector::getConfig();
+return Rector::getConfig()
+    ->withDowngradeSets(php83: true)
+;

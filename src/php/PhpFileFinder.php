@@ -23,7 +23,7 @@ final class PhpFileFinder
     public static function get(?Finder $finder = null): Finder
     {
         if (!$finder instanceof Finder) {
-            $finder = new Finder()->in('.');
+            $finder = (new Finder())->in('.');
         }
 
         $finder
