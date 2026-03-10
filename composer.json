@@ -53,7 +53,7 @@
     "rector/rector": "2.3.6",
     "rector/type-perfect": "2.1.2",
     "spatie/phpunit-snapshot-assertions": "5.3.2",
-    "symfony/finder": "8.0.5",
+    "symfony/finder": "v7.4.6",
     "symplify/phpstan-rules": "14.9.11",
     "ticketswap/phpstan-error-formatter": "1.2.4"
   },
@@ -70,7 +70,7 @@
     "phpstan/phpstan-webmozart-assert": "<2.0.0 || >=3",
     "rector/rector": "<2.3.6 || >=3",
     "rector/type-perfect": "<2.1.2 || >=3",
-    "symfony/finder": "<8.0.5 || >=9",
+    "symfony/finder": "< 7 || >=8",
     "symplify/phpstan-rules": "<14.9.11 || >=15",
     "ticketswap/phpstan-error-formatter": "<1.2.4 || >=2"
   },
