@@ -35,7 +35,6 @@ use function in_array;
 use function interface_exists;
 use function is_executable;
 use function is_string;
-use function mb_rtrim;
 use function sprintf;
 use function Symfony\Component\String\s;
 
@@ -704,8 +703,7 @@ final class PhpStan
     {
         return array_any(
             $paths,
-            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-            static fn (string $path): bool => is_executable(mb_rtrim($path, '/') . '/' . $command),
+            static fn (string $path): bool => is_executable(Str::trimEnd($path, '/') . '/' . $command),
         );
     }
 }
