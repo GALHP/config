@@ -62,14 +62,8 @@ Module::warnMissingPackages(Module::MODULE_PHP_STAN);
  */
 final class PhpStan
 {
-    private const array RULE_TAG = ['phpstan.rules.rule'];
-
-    private const string PLACEHOLDER_CWD  = '%currentWorkingDirectory%';
-    private const string PLACEHOLDER_FILE = '%%file%%';
-    private const string PLACEHOLDER_LINE = '%%line%%';
-
-    private const string EDITOR_VSCODE   = 'vscode';
-    private const string EDITOR_PHPSTORM = 'phpstorm';
+    public const string EDITOR_VSCODE   = 'vscode';
+    public const string EDITOR_PHPSTORM = 'phpstorm';
 
     private const array EDITORS = [
         self::EDITOR_VSCODE => [
@@ -84,6 +78,12 @@ final class PhpStan
             'url'     => 'phpstorm://open?file=%s/%s&line=%s',
         ],
     ];
+
+    private const array RULE_TAG = ['phpstan.rules.rule'];
+
+    private const string PLACEHOLDER_CWD  = '%currentWorkingDirectory%';
+    private const string PLACEHOLDER_FILE = '%%file%%';
+    private const string PLACEHOLDER_LINE = '%%line%%';
 
     /**
      * @param Config $config
@@ -365,6 +365,14 @@ final class PhpStan
     }
 
     /**
+     * @param self::EDITOR_* $editor
+     */
+    public function setEditor(string $editor): self
+    {
+        return $this->setParameter('editorUrl', self::getEditorUrl($editor));
+    }
+
+    /**
      * @param array<string, mixed> $options
      *
      * @see https://github.com/phpstan/phpstan-symfony
@@ -616,13 +624,21 @@ final class PhpStan
         return $forbiddenFunctions;
     }
 
-    private static function getEditorUrl(): ?string
+    /**
+     * @template TEditor of ?self::EDITOR_*
+     *
+     * @param TEditor $editor
+     *
+     * @return (TEditor is null ? ?string : string)
+     */
+    private static function getEditorUrl(?string $editor = null): ?string
     {
         $environment = array_merge($_SERVER, $_ENV);
-        $paths       = explode(PATH_SEPARATOR, is_string($environment['PATH'] ?? null) ? $environment['PATH'] : '');
-        $editor      = self::getEditor($environment);
+        $editor ??= self::getEditor($environment);
 
         if ($editor === null) {
+            $paths = explode(PATH_SEPARATOR, is_string($environment['PATH'] ?? null) ? $environment['PATH'] : '');
+
             foreach (self::EDITORS as $editorCandidate => $config) {
                 if (self::isCommandAvailable($config['command'], $paths)) {
                     $editor = $editorCandidate;
