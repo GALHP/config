@@ -34,6 +34,7 @@ use function in_array;
 use function is_array;
 use function is_file;
 use function is_string;
+use function reset;
 use function sprintf;
 
 /**
@@ -230,8 +231,10 @@ final class SetupCommand extends AbstractCommand
             $isAnswerValid = $this->isMultipleChoiceAnswerWithAllAndNoneValid($moduleNamesToInstall);
         }
 
+        $firstAnswer = reset($moduleNamesToInstall);
+
         return array_values(array_filter(
-            $moduleNamesToInstall[array_key_first($moduleNamesToInstall)] === self::ANSWER_ALL ? $moduleNames : $moduleNamesToInstall,
+            $firstAnswer === self::ANSWER_ALL ? $moduleNames : $moduleNamesToInstall,
             $this->isNotAllOrNoneAnswer(...),
         ));
     }
@@ -309,10 +312,12 @@ final class SetupCommand extends AbstractCommand
             $isAnswerValid = $this->isMultipleChoiceAnswerWithAllAndNoneValid($optionalPackagesToInstall);
         }
 
+        $firstOptionalAnswer = reset($optionalPackagesToInstall);
+
         return [
             ...$packages,
             ...array_values(array_filter(
-                $optionalPackagesToInstall[array_key_first($optionalPackagesToInstall)] === self::ANSWER_ALL ? $optionalPackages : $optionalPackagesToInstall,
+                $firstOptionalAnswer === self::ANSWER_ALL ? $optionalPackages : $optionalPackagesToInstall,
                 $this->isNotAllOrNoneAnswer(...),
             )),
         ];

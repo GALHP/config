@@ -171,17 +171,17 @@ final readonly class BoolishPrefixRule implements Rule
 
     private static function hasBoolishPrefix(string $name): bool
     {
-        $found = false;
+        $isFound = false;
 
         foreach (self::BOOLISH_PREFIXES as $prefix) {
             if (Str::doesStartWith(Str::toLowerCase($name), $prefix)) {
-                $found = true;
+                $isFound = true;
 
                 break;
             }
         }
 
-        return $found;
+        return $isFound;
     }
 
     /**

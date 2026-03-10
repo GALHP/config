@@ -34,7 +34,6 @@ use function in_array;
 use function interface_exists;
 use function is_executable;
 use function is_string;
-use function mb_rtrim;
 use function sprintf;
 use function Symfony\Component\String\s;
 
@@ -685,17 +684,17 @@ final class PhpStan
      */
     private static function isCommandAvailable(string $command, array $paths): bool
     {
-        $found = false;
+        $isFound = false;
 
         foreach ($paths as $path) {
-            if (is_executable(mb_rtrim($path, '/') . '/' . $command)) {
-                $found = true;
+            if (is_executable(s($path)->trimEnd('/')->toString() . '/' . $command)) {
+                $isFound = true;
 
                 break;
             }
         }
 
-        return $found;
+        return $isFound;
     }
 }
 

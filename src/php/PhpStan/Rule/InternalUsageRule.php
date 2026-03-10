@@ -415,7 +415,7 @@ final class InternalUsageRule implements Rule
         ];
 
         foreach ($patternsByValue as $value => $patterns) {
-            foreach (($patterns ?? []) as $pattern) {
+            foreach ($patterns as $pattern) {
                 if (Str::match($value, $pattern) !== []) {
                     return true;
                 }
