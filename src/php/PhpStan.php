@@ -687,7 +687,8 @@ final class PhpStan
         $isFound = false;
 
         foreach ($paths as $path) {
-            if (is_executable(s($path)->trimEnd('/')->toString() . '/' . $command)) {
+            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+            if (is_executable(mb_rtrim($path, '/') . '/' . $command)) {
                 $isFound = true;
 
                 break;
