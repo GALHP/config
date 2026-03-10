@@ -16,7 +16,7 @@
   },
   "type": "composer-plugin",
   "require": {
-    "php": ">=8.5",
+    "php": ">=8.3",
     "ext-json": "*",
     "ext-mbstring": "*",
     "composer-plugin-api": "^2.0.0"
