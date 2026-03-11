@@ -19,7 +19,9 @@
     "php": ">=8.3",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "composer-plugin-api": "^2.0.0"
+    "composer-plugin-api": "^2.0.0",
+    "symfony/polyfill-php84": "^1.33",
+    "symfony/polyfill-php85": "^1.33"
   },
   "require-dev": {
     "ext-ctype": "*",
