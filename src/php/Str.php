@@ -10,6 +10,8 @@ use function array_slice;
 use function array_values;
 use function count;
 use function implode;
+use function mb_rtrim;
+use function mb_strlen;
 use function mb_strrpos;
 use function mb_strtolower;
 use function mb_substr;
@@ -27,6 +29,12 @@ final readonly class Str
 {
     private function __construct() {}
 
+    public static function length(string $string): int
+    {
+        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        return mb_strlen($string);
+    }
+
     public static function toLowerCase(string $string): string
     {
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
@@ -37,6 +45,12 @@ final readonly class Str
     {
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_starts_with($haystack, $needle);
+    }
+
+    public static function trimEnd(string $string, ?string $characters = null): string
+    {
+        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        return mb_rtrim($string, $characters);
     }
 
     /**

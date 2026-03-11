@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Brnshkr\Config\Tests;
 
 use Brnshkr\Config\Json;
-use Brnshkr\Config\Rector;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
+use Rector\Configuration\RectorConfigBuilder;
 use ReflectionClass;
 use RuntimeException;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -38,9 +38,12 @@ final class RectorTest extends TestCase
      */
     public function testExpectedRectorConfig(): void
     {
-        $rectorConfigBuilder = Rector::getConfig();
-        $reflectionClass     = new ReflectionClass($rectorConfigBuilder);
-        $configArray         = [];
+        $rectorConfigBuilder = include __DIR__ . '/../../conf/rector.dist.php';
+
+        self::assertInstanceOf(RectorConfigBuilder::class, $rectorConfigBuilder);
+
+        $reflectionClass = new ReflectionClass($rectorConfigBuilder);
+        $configArray     = [];
 
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
             $value = $reflectionProperty->getValue($rectorConfigBuilder);

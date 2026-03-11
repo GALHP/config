@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Brnshkr\Config\Tests;
 
 use Brnshkr\Config\Json;
-use Brnshkr\Config\PhpStan;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
@@ -28,8 +27,11 @@ final class PhpStanTest extends TestCase
      */
     public function testExpectedPhpstanConfig(): void
     {
-        $config = PhpStan::getConfig();
+        $config = include __DIR__ . '/../../conf/phpstan.dist.php';
 
+        self::assertIsArray($config);
+        self::assertArrayHasKey('parameters', $config);
+        self::assertIsArray($config['parameters']);
         unset($config['parameters']['editorUrl']);
 
         $result = Json::encode($config);
