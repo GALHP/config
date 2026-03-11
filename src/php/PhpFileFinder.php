@@ -13,7 +13,10 @@ use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_reduce;
+use function array_unique;
+use function array_values;
 use function is_string;
+use function iterator_to_array;
 use function usort;
 
 /**
