@@ -24,6 +24,7 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use RuntimeException;
 
+use function array_any;
 use function array_filter;
 use function array_map;
 use function array_values;
@@ -171,17 +172,7 @@ final readonly class BoolishPrefixRule implements Rule
 
     private static function hasBoolishPrefix(string $name): bool
     {
-        $isFound = false;
-
-        foreach (self::BOOLISH_PREFIXES as $prefix) {
-            if (Str::doesStartWith(Str::toLowerCase($name), $prefix)) {
-                $isFound = true;
-
-                break;
-            }
-        }
-
-        return $isFound;
+        return array_any(self::BOOLISH_PREFIXES, static fn (string $prefix): bool => Str::doesStartWith(Str::toLowerCase($name), $prefix));
     }
 
     /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Brnshkr\Config;
 
 use function array_filter;
-use function array_key_last;
+use function array_last;
 use function array_slice;
 use function array_values;
 use function count;
@@ -93,7 +93,7 @@ final readonly class Str
                 '"%s" %s "%s"',
                 implode('", "', array_slice($strings, 0, -1)),
                 $type === 'conjunction' ? 'and' : 'or',
-                $strings[array_key_last($strings)],
+                array_last($strings),
             )
             : [
                 0 => '',

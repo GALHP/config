@@ -30,6 +30,7 @@ use PHPStan\Rules\Rule;
 use RuntimeException;
 
 use function array_filter;
+use function array_find;
 use function array_is_list;
 use function is_string;
 use function sprintf;
@@ -469,7 +470,7 @@ final class InternalUsageRule implements Rule
             return [];
         }
 
-        if (!array_is_list($input) || array_filter($input, static fn ($item): bool => !is_string($item)) !== []) {
+        if (!array_is_list($input) || array_find($input, static fn ($item): bool => !is_string($item))) {
             throw new InvalidArgumentException(sprintf(
                 'Value for option "%s" must be a list of strings.',
                 $optionName,

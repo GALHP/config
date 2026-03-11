@@ -23,6 +23,7 @@ use Symfony\Component\String\AbstractString;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symplify\PHPStanRules\Rules as SymplifyPhpStanRules;
 
+use function array_any;
 use function array_filter;
 use function array_keys;
 use function array_merge;
@@ -714,17 +715,10 @@ final class PhpStan
      */
     private static function isCommandAvailable(string $command, array $paths): bool
     {
-        $isFound = false;
-
-        foreach ($paths as $path) {
-            if (is_executable(Str::trimEnd($path, '/') . '/' . $command)) {
-                $isFound = true;
-
-                break;
-            }
-        }
-
-        return $isFound;
+        return array_any(
+            $paths,
+            static fn (string $path): bool => is_executable(Str::trimEnd($path, '/') . '/' . $command),
+        );
     }
 }
 

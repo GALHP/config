@@ -13,6 +13,7 @@ use function array_any;
 use function array_diff;
 use function array_diff_key;
 use function array_filter;
+use function array_find;
 use function array_keys;
 use function array_map;
 use function array_values;
@@ -315,15 +316,11 @@ final class ComposerJson
     {
         $this->rawInstalledVersionData ??= InstalledVersions::getAllRawData();
         $packageFullName = $this->getPackageFullName();
-        $data            = null;
 
-        foreach ($this->rawInstalledVersionData as $installed) {
-            if ($installed['root']['name'] === $packageFullName) {
-                $data = $installed;
-
-                break;
-            }
-        }
+        $data = array_find(
+            $this->rawInstalledVersionData,
+            static fn (array $installed): bool => $installed['root']['name'] === $packageFullName,
+        );
 
         return array_keys($data['versions'] ?? []);
     }
