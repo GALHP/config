@@ -46,6 +46,8 @@ final class PhpFileFinder
         'tests/coverage',
     ];
 
+    private function __construct() {}
+
     /**
      * @throws DirectoryNotFoundException
      */
