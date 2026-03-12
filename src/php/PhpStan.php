@@ -110,14 +110,13 @@ final class PhpStan
     {
         $finder ??= new Finder();
 
-        $finder->notPath([
-            'config/preload.php',
-            'config/reference.php',
-        ]);
-
         $phpStanConfig = new self()
             ->setLevel('max')
-            ->setPaths(PhpFileFinder::getDirectoryPaths($finder))
+            ->setPaths(PhpFileFinder::getDirectoryPaths($finder), [
+                ...PhpFileFinder::EXCLUDED_DIRECTORIES,
+                ...PhpFileFinder::EXCLUDED_PATHS,
+                'config/preload.php',
+            ])
             ->setTemporaryDirectory('.cache/phpstan.cache')
             ->setParameters([
                 'editorUrl'                                          => self::getEditorUrl(),
@@ -271,10 +270,17 @@ final class PhpStan
 
     /**
      * @param list<string> $paths
+     * @param list<string> $excludedPaths
      */
-    public function setPaths(array $paths): self
+    public function setPaths(array $paths, array $excludedPaths = []): self
     {
-        return $this->setParameter('paths', $paths);
+        $this->setParameter('paths', $paths);
+
+        if ($excludedPaths !== []) {
+            $this->setExcludedPaths($excludedPaths);
+        }
+
+        return $this;
     }
 
     /**

@@ -27,6 +27,26 @@ use function usort;
 final class PhpFileFinder
 {
     /**
+     * @internal
+     */
+    public const array EXCLUDED_DIRECTORIES = [
+        '.cache',
+        '.local',
+        'node_modules',
+        'var',
+        'vendor',
+    ];
+
+    /**
+     * @internal
+     */
+    public const array EXCLUDED_PATHS = [
+        '*/fixtures',
+        'config/reference.php',
+        'tests/coverage',
+    ];
+
+    /**
      * @throws DirectoryNotFoundException
      */
     public static function get(?Finder $finder = null): Finder
@@ -40,18 +60,13 @@ final class PhpFileFinder
             ->name('/\.php$/')
             ->ignoreDotFiles(false)
             ->sortByCaseInsensitiveName(true)
-            ->notPath([
-                'config/reference.php',
-                '/^tests\/.*\/fixtures/',
-                '/^tests\/coverage/',
-            ])
-            ->exclude([
-                '.cache',
-                '.local',
-                'node_modules',
-                'var',
-                'vendor',
-            ])
+            ->exclude(self::EXCLUDED_DIRECTORIES)
+            ->notPath(array_map(
+                static fn (string $path): string => Str::doesContain($path, '*')
+                    ? Str::fnmatchToRegex($path)
+                    : $path,
+                self::EXCLUDED_PATHS,
+            ))
         ;
 
         try {

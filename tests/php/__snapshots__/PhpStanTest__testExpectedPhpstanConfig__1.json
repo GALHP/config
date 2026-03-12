@@ -7,6 +7,17 @@
             "./src/php",
             "./tests/php"
         ],
+        "excludePaths": [
+            ".cache",
+            ".local",
+            "node_modules",
+            "var",
+            "vendor",
+            "*/fixtures",
+            "config/reference.php",
+            "tests/coverage",
+            "config/preload.php"
+        ],
         "tmpDir": ".cache/phpstan.cache",
         "editorUrlTitle": "%%relFile%%:%%line%%",
         "errorFormat": "ticketswap",
