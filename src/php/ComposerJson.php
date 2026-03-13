@@ -26,7 +26,6 @@ use function in_array;
 use function is_array;
 use function is_dir;
 use function is_string;
-use function mb_trim;
 use function pathinfo;
 use function preg_replace;
 use function reset;
@@ -124,8 +123,7 @@ final class ComposerJson
      */
     public static function forProjectUsingThisLibrary(): self
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        $composer = mb_trim(match (true) {
+        $composer = Str::trim(match (true) {
             is_string($_SERVER['COMPOSER'] ?? null) => $_SERVER['COMPOSER'],
             is_string($_ENV['COMPOSER'] ?? null)    => $_ENV['COMPOSER'],
             default                                 => (string) getenv('COMPOSER'),

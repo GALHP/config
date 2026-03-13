@@ -723,7 +723,7 @@ final class PhpStan
     {
         return array_any(
             $paths,
-            static fn (string $path): bool => is_executable(Str::trimEnd($path, '/') . '/' . $command),
+            static fn (string $path): bool => is_executable(Str::trim($path, '/', 'end') . '/' . $command),
         );
     }
 }

@@ -10,11 +10,13 @@ use function array_slice;
 use function array_values;
 use function count;
 use function implode;
+use function mb_ltrim;
 use function mb_rtrim;
 use function mb_strlen;
 use function mb_strrpos;
 use function mb_strtolower;
 use function mb_substr;
+use function mb_trim;
 use function preg_match;
 use function preg_quote;
 use function sprintf;
@@ -47,12 +49,6 @@ final readonly class Str
     {
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_starts_with($haystack, $needle);
-    }
-
-    public static function trimEnd(string $string, ?string $characters = null): string
-    {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        return mb_rtrim($string, $characters);
     }
 
     /**
@@ -91,6 +87,24 @@ final readonly class Str
     {
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_substr($haystack, (mb_strrpos($haystack, $needle) ?: -1) + 1);
+    }
+
+    /**
+     * @param 'default'|'end'|'start' $mode
+     */
+    public static function trim(
+        string $string,
+        string $characters = " \t\n\r\0\x0B\x0C\u{A0}\u{FEFF}",
+        string $mode = 'default',
+    ): string {
+        return match ($mode) {
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+            'start' => mb_ltrim($string, $characters),
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+            'end' => mb_rtrim($string, $characters),
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+            'default' => mb_trim($string, $characters),
+        };
     }
 
     /**

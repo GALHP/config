@@ -119,7 +119,7 @@ final class PhpFileFinder
                 static fn (array $minimalPaths, string $currentPath): array => array_reduce(
                     $minimalPaths,
                     static fn (bool $doSkip, mixed $parentPath): bool => $doSkip
-                        || Str::doesStartWith($currentPath, Str::trimEnd(is_string($parentPath) ? $parentPath : '', '/') . '/'),
+                        || Str::doesStartWith($currentPath, Str::trim(is_string($parentPath) ? $parentPath : '', '/', 'end') . '/'),
                     false,
                 )
                 ? $minimalPaths
