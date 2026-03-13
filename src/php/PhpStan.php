@@ -6,6 +6,7 @@ namespace Brnshkr\Config;
 
 use Brnshkr\Config\PhpStan\Rule\ApiOrInternalTagRule;
 use Brnshkr\Config\PhpStan\Rule\BoolishPrefixRule;
+use Brnshkr\Config\PhpStan\Rule\IgnoreDirectiveRule;
 use Brnshkr\Config\PhpStan\Rule\InternalUsageRule;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -162,6 +163,7 @@ final class PhpStan
             ->setRules([
                 ApiOrInternalTagRule::class,
                 BoolishPrefixRule::class,
+                IgnoreDirectiveRule::class,
                 self::configureRule(InternalUsageRule::class, [
                     'allowedDeclaringNamespaces' => [
                         '/^Symfony\\\Component\\\Console\\\Descriptor/',

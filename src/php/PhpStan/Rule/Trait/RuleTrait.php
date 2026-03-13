@@ -22,7 +22,7 @@ trait RuleTrait
     /**
      * @throws RuntimeException
      */
-    private static function buildRuleError(string $message, int $line): IdentifierRuleError
+    private static function buildRuleError(string $message, int $line, bool $isIgnorable = true): IdentifierRuleError
     {
         $className = Str::afterLast(self::class, '\\');
 
@@ -35,10 +35,15 @@ trait RuleTrait
             $ruleName,
         );
 
-        return RuleErrorBuilder::message($message)
+        $ruleErrorBuilder = RuleErrorBuilder::message($message)
             ->identifier($identifier)
             ->line($line)
-            ->build()
         ;
+
+        if (!$isIgnorable) {
+            $ruleErrorBuilder->nonIgnorable();
+        }
+
+        return $ruleErrorBuilder->build();
     }
 }

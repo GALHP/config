@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
+use function array_any;
 use function array_filter;
 use function array_last;
 use function array_slice;
@@ -49,6 +50,17 @@ final readonly class Str
     {
         // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_starts_with($haystack, $needle);
+    }
+
+    /**
+     * @param list<string> $needles
+     */
+    public static function doesStartWithAny(string $haystack, array $needles): bool
+    {
+        return array_any(
+            $needles,
+            static fn (string $needle): bool => self::doesStartWith($haystack, $needle),
+        );
     }
 
     /**
