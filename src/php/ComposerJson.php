@@ -105,7 +105,7 @@ final class ComposerJson
         public readonly string $path,
     ) {
         $this->lockFilePath = pathinfo($path, PATHINFO_EXTENSION) === 'json'
-            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string since this class is shared by all modules and not all of them rely on it)
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string since this class is shared by all modules and not all of them rely on it)
             ? (preg_replace('/\.json$/', '.lock', $path) ?: '')
             : $path . '.lock';
     }
@@ -371,7 +371,7 @@ final class ComposerJson
             ->toString()
         ;
 
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
         if (file_put_contents($this->path, $data) === false) {
             $this->data = $previousData;
 
@@ -398,7 +398,7 @@ final class ComposerJson
         }
 
         try {
-            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
             $this->data = Json::decode($stringToRead ?? file_get_contents($this->path) ?: '[]');
         } catch (JsonException $jsonException) {
             throw new RuntimeException(sprintf(

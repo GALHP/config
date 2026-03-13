@@ -434,21 +434,21 @@ final class PhpStan
         $preferredClassesMap = [
             // NOTICE: Explicit use of 'DateTime' as a string to prevent php-cs-fixer from fixing this to 'DateTimeImmutable'
             'DateTime' => DateTimeImmutable::class,
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            // @phpstan-ignore symplify.preferredClass (We need to disable this rules here of course)
             SplFileInfo::class => SymfonySplFileInfo::class,
         ];
 
-        /** @disregard P1009 because nesbot/carbon is not a dependency of brnshkr/config */
-        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+        /** @disregard P1009 nesbot/carbon is not a dependency of brnshkr/config */
+        // @phpstan-ignore symplify.forbiddenFuncCall (nesbot/carbon is not a dependency of brnshkr/config)
         if (class_exists(Carbon::class)) {
-            /** @disregard P1009 because Carbon is not a dependency of brnshkr/config */
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            /** @disregard P1009 nesbot/carbon is not a dependency of brnshkr/config */
+            // @phpstan-ignore class.notFound, class.notFound (nesbot/carbon is not a dependency of brnshkr/config)
             $preferredClassesMap[Carbon::class] = CarbonImmutable::class;
         }
 
-        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+        // @phpstan-ignore symplify.preferredClass, symplify.forbiddenFuncCall (We need to disable both these rules here of course)
         if (class_exists(PhpCsFixerFinder::class)) {
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            // @phpstan-ignore symplify.preferredClass (We need to disable this rules here of course)
             $preferredClassesMap[PhpCsFixerFinder::class] = Finder::class;
         }
 
@@ -578,7 +578,7 @@ final class PhpStan
             'file_put_contents' => sprintf('Use "%1$s::dumpFile()" or "%1$s::appendToFile()" instead.', Filesystem::class),
         ];
 
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (This is the only way to achieve what we need here)
+        // @phpstan-ignore symplify.forbiddenFuncCall (This is the only way to achieve what we need here)
         if (class_exists(AbstractString::class)) {
             $stringFunction = s(AbstractString::class)
                 ->beforeLast('\\')
@@ -626,15 +626,15 @@ final class PhpStan
             ];
         }
 
-        /** @disregard P1009 because symfony/http-client-contracts is not a dependency of brnshkr/config */
-        // @phpstan-ignore-next-line class.notFound (We need to disable this rule here because symfony/http-client-contracts is not a dependency of brnshkr/config)
+        /** @disregard P1009 symfony/http-client-contracts is not a dependency of brnshkr/config */
+        // @phpstan-ignore symplify.forbiddenFuncCall (symfony/http-client-contracts is not a dependency of brnshkr/config)
         if (interface_exists(HttpClientInterface::class)) {
-            // @phpstan-ignore-next-line class.notFound (We need to disable this rule here because symfony/http-client-contracts is not a dependency of brnshkr/config)
+            // @phpstan-ignore class.notFound (symfony/http-client-contracts is not a dependency of brnshkr/config)
             $forbiddenFunctions['curl_*'] = sprintf('Use an implementation of "%s" or any alternative HTTP client instead.', HttpClientInterface::class);
         }
 
-        /** @disregard P1009 because symfony/serializer is not a dependency of brnshkr/config */
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (This is the only way to achieve what we need here)
+        /** @disregard P1009 symfony/serializer is not a dependency of brnshkr/config */
+        // @phpstan-ignore symplify.forbiddenFuncCall (symfony/serializer is not a dependency of brnshkr/config)
         if (class_exists(JsonEncoder::class)) {
             $forbiddenFunctions['json_decode'] = sprintf('Use "%s::decode()" instead.', JsonEncoder::class);
             $forbiddenFunctions['json_encode'] = sprintf('Use "%s::encode()" instead.', JsonEncoder::class);

@@ -35,19 +35,19 @@ final readonly class Str
 
     public static function length(string $string): int
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_strlen($string);
     }
 
     public static function toLowerCase(string $string): string
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_strtolower($string);
     }
 
     public static function doesStartWith(string $haystack, string $needle): bool
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_starts_with($haystack, $needle);
     }
 
@@ -58,7 +58,7 @@ final readonly class Str
     {
         $matches = [];
 
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall(Avoid using symfony/string here to keep package as lighweight as possible)
         $result = preg_match($pattern . 'u', $string, $matches, PREG_UNMATCHED_AS_NULL);
 
         return $result === false
@@ -68,13 +68,13 @@ final readonly class Str
 
     public static function doesContain(string $haystack, string $needle): bool
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_contains($haystack, $needle);
     }
 
     public static function replace(string $haystack, string $needle, string $replacement): string
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_replace($needle, $replacement, $haystack);
     }
 
@@ -85,7 +85,7 @@ final readonly class Str
 
     public static function afterLast(string $haystack, string $needle): string
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall, symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_substr($haystack, (mb_strrpos($haystack, $needle) ?: -1) + 1);
     }
 

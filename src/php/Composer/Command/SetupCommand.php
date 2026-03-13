@@ -435,7 +435,7 @@ final class SetupCommand extends AbstractCommand
     private function getFileContent(string $path): ?string
     {
         return ($this->filesystem->exists($path) && is_file($path))
-            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using Filesystem::readFile since this method is newer and does no necessarily exist in the version bundled with composer)
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using Filesystem::readFile since this method is newer and does no necessarily exist in the version bundled with composer)
             ? (file_get_contents($path) ?: null)
             : null;
     }

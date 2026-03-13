@@ -33,7 +33,7 @@ final readonly class Rector
      */
     public static function getConfig(?Finder $finder = null): RectorConfigBuilder
     {
-        /** @disregard P1009 because some skipped classes come bundled with rector and are not picked up by intelephense */
+        /** @disregard P1009 Some skipped classes come bundled with rector and are not picked up by intelephense */
         return RectorConfig::configure()
             ->withCache('.cache/rector.cache')
             ->withRootFiles()

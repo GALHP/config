@@ -78,7 +78,7 @@ final class CommandTest extends TestCase
         $title                            = s($titleCasePackageName)->append(sprintf(' (%s)', $packageVersion))->toString();
         $line                             = s('‾')->repeat(s($title)->length())->toString();
 
-        // @phpstan-ignore-next-line symplify.forbiddenNode (Use of encapsed strings to preserve easy readability and adjustability here)
+        // @phpstan-ignore symplify.forbiddenNode (Use of encapsed strings to preserve easy readability and adjustability here)
         $expectedOutput = <<<EOL
    ___               __   __
   / _ )_______  ____/ /  / /__ ____
