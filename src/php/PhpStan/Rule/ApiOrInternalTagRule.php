@@ -26,6 +26,8 @@ use function sprintf;
 /**
  * @api
  *
+ * @no-named-arguments
+ *
  * @implements Rule<NodeAbstract>
  */
 final readonly class ApiOrInternalTagRule implements Rule
