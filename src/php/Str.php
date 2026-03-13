@@ -87,9 +87,10 @@ final readonly class Str
         return '/' . self::replace('\*', preg_quote($pattern, '/'), '.*') . '/';
     }
 
+    public static function afterLast(string $haystack, string $needle): string
     {
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        return mb_substr($haystack, mb_strrpos($haystack, $needle) + 1);
+        return mb_substr($haystack, (mb_strrpos($haystack, $needle) ?: -1) + 1);
     }
 
     /**
