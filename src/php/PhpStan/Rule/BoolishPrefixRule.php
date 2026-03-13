@@ -96,7 +96,7 @@ final readonly class BoolishPrefixRule implements Rule
         return $functionOrMethod->returnType instanceof Identifier
             && Str::toLowerCase($functionOrMethod->returnType->name) === 'bool'
             && !self::hasBoolishPrefix($functionOrMethod->name->toString())
-            ? self::buildError($kind, $functionOrMethod->name->toString())
+            ? self::buildError($kind, $functionOrMethod->name->toString(), $functionOrMethod->getStartLine())
             : null;
     }
 
@@ -112,7 +112,7 @@ final readonly class BoolishPrefixRule implements Rule
         }
 
         return array_map(
-            static fn (Const_ $const): IdentifierRuleError => self::buildError(self::KIND_CONSTANT, $const->name->toString()),
+            static fn (Const_ $const): IdentifierRuleError => self::buildError(self::KIND_CONSTANT, $const->name->toString(), $const->getStartLine()),
             array_values(array_filter(
                 $classConst->consts,
                 static fn (Const_ $const): bool => !self::hasBoolishPrefix($const->name->toString()),
@@ -130,7 +130,7 @@ final readonly class BoolishPrefixRule implements Rule
         return $property->type instanceof Identifier
             && Str::toLowerCase($property->type->name) === 'bool'
             ? array_map(
-                static fn (PropertyItem $propertyItem): IdentifierRuleError => self::buildError(self::KIND_PROPERTY, $propertyItem->name->toString()),
+                static fn (PropertyItem $propertyItem): IdentifierRuleError => self::buildError(self::KIND_PROPERTY, $propertyItem->name->toString(), $propertyItem->getStartLine()),
                 array_values(array_filter(
                     $property->props,
                     static fn (PropertyItem $propertyItem): bool => !self::hasBoolishPrefix($propertyItem->name->toString()),
@@ -152,6 +152,7 @@ final readonly class BoolishPrefixRule implements Rule
             ? self::buildError(
                 $param->flags === 0 ? self::KIND_PARAMETER : self::KIND_PROPERTY,
                 $param->var->name,
+                $param->getStartLine(),
             )
             : null;
     }
@@ -166,7 +167,7 @@ final readonly class BoolishPrefixRule implements Rule
             && $scope->getType($assign->expr)->isBoolean()->yes()
             && !$scope->hasVariableType($assign->var->name)->yes()
             && !self::hasBoolishPrefix($assign->var->name)
-            ? self::buildError(self::KIND_VARIABLE, $assign->var->name)
+            ? self::buildError(self::KIND_VARIABLE, $assign->var->name, $assign->getStartLine())
             : null;
     }
 
@@ -180,13 +181,13 @@ final readonly class BoolishPrefixRule implements Rule
      *
      * @throws RuntimeException
      */
-    private static function buildError(string $kind, string $name): IdentifierRuleError
+    private static function buildError(string $kind, string $name, int $line): IdentifierRuleError
     {
         return self::buildRuleError(sprintf(
             '%s name `%s` must have one of the following prefixes: %s',
             $kind,
             $name,
             implode(', ', self::BOOLISH_PREFIXES),
-        ));
+        ), $line);
     }
 }

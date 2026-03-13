@@ -101,17 +101,18 @@ final class InternalUsageRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $callerNamespace = $scope->getNamespace() ?? '';
+        $line            = $node->getStartLine();
 
         return array_filter(
             match (true) {
-                $node instanceof New_            => [$this->processNameLikeNode($node->class, $scope, $callerNamespace)],
-                $node instanceof Name            => [$this->processNameLikeNode($node, $scope, $callerNamespace)],
-                $node instanceof StaticCall      => [$this->processStaticCall($node, $scope, $callerNamespace)],
-                $node instanceof ClassConstFetch => [$this->processClassConstFetch($node, $scope, $callerNamespace)],
-                $node instanceof MethodCall      => [$this->processMethodCall($node, $scope, $callerNamespace)],
-                $node instanceof PropertyFetch   => [$this->processPropertyFetch($node, $scope, $callerNamespace)],
-                $node instanceof FuncCall        => [$this->processFunctionCall($node, $scope, $callerNamespace)],
-                $node instanceof ConstFetch      => [$this->processConstantFetch($node, $scope, $callerNamespace)],
+                $node instanceof New_            => [$this->processNameLikeNode($node->class, $scope, $callerNamespace, $line)],
+                $node instanceof Name            => [$this->processNameLikeNode($node, $scope, $callerNamespace, $line)],
+                $node instanceof StaticCall      => [$this->processStaticCall($node, $scope, $callerNamespace, $line)],
+                $node instanceof ClassConstFetch => [$this->processClassConstFetch($node, $scope, $callerNamespace, $line)],
+                $node instanceof MethodCall      => [$this->processMethodCall($node, $scope, $callerNamespace, $line)],
+                $node instanceof PropertyFetch   => [$this->processPropertyFetch($node, $scope, $callerNamespace, $line)],
+                $node instanceof FuncCall        => [$this->processFunctionCall($node, $scope, $callerNamespace, $line)],
+                $node instanceof ConstFetch      => [$this->processConstantFetch($node, $scope, $callerNamespace, $line)],
                 default                          => [],
             },
             static fn (?IdentifierRuleError $identifierRuleError): bool => $identifierRuleError instanceof IdentifierRuleError,
@@ -121,7 +122,7 @@ final class InternalUsageRule implements Rule
     /**
      * @throws RuntimeException
      */
-    private function processNameLikeNode(Node|Name $name, Scope $scope, string $callerNamespace): ?IdentifierRuleError
+    private function processNameLikeNode(Node|Name $name, Scope $scope, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$name instanceof Name) {
             return null;
@@ -143,13 +144,14 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::getKindForClassReflection($classReflection),
             $resolvedName,
+            $line,
         );
     }
 
     /**
      * @throws RuntimeException
      */
-    private function processFunctionCall(FuncCall $funcCall, Scope $scope, string $callerNamespace): ?IdentifierRuleError
+    private function processFunctionCall(FuncCall $funcCall, Scope $scope, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$funcCall->name instanceof Name || !$this->reflectionProvider->hasFunction($funcCall->name, $scope)) {
             return null;
@@ -165,13 +167,14 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::KIND_FUNCTION,
             $funcCall->name->toString(),
+            $line,
         );
     }
 
     /**
      * @throws RuntimeException
      */
-    private function processConstantFetch(ConstFetch $constFetch, Scope $scope, string $callerNamespace): ?IdentifierRuleError
+    private function processConstantFetch(ConstFetch $constFetch, Scope $scope, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$this->reflectionProvider->hasConstant($constFetch->name, $scope)) {
             return null;
@@ -191,13 +194,14 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::KIND_CONSTANT,
             $constFetch->name->toString(),
+            $line,
         );
     }
 
     /**
      * @throws RuntimeException
      */
-    private function processStaticCall(StaticCall $staticCall, Scope $scope, string $callerNamespace): ?IdentifierRuleError
+    private function processStaticCall(StaticCall $staticCall, Scope $scope, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$staticCall->class instanceof Name) {
             return null;
@@ -219,6 +223,7 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::getKindForClassReflection($classReflection),
             $resolvedName,
+            $line,
         );
 
         if ($classError instanceof IdentifierRuleError) {
@@ -239,13 +244,14 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::KIND_METHOD,
             $resolvedName . '::' . $methodName,
+            $line,
         );
     }
 
     /**
      * @throws RuntimeException
      */
-    private function processMethodCall(MethodCall $methodCall, Scope $scope, string $callerNamespace): ?IdentifierRuleError
+    private function processMethodCall(MethodCall $methodCall, Scope $scope, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$methodCall->name instanceof Identifier) {
             return null;
@@ -269,13 +275,14 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::KIND_METHOD,
             $classReflection->getName() . '::' . $method->getName(),
+            $line,
         );
     }
 
     /**
      * @throws RuntimeException
      */
-    private function processPropertyFetch(PropertyFetch $propertyFetch, Scope $scope, string $callerNamespace): ?IdentifierRuleError
+    private function processPropertyFetch(PropertyFetch $propertyFetch, Scope $scope, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$propertyFetch->name instanceof Identifier) {
             return null;
@@ -299,13 +306,14 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::KIND_PROPERTY,
             $classReflection->getName() . '::$' . $propertyFetch->name->toString(),
+            $line,
         );
     }
 
     /**
      * @throws RuntimeException
      */
-    private function processClassConstFetch(ClassConstFetch $classConstFetch, Scope $scope, string $callerNamespace): ?IdentifierRuleError
+    private function processClassConstFetch(ClassConstFetch $classConstFetch, Scope $scope, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$classConstFetch->name instanceof Identifier) {
             return null;
@@ -314,11 +322,11 @@ final class InternalUsageRule implements Rule
         $constName = $classConstFetch->name->toString();
 
         if ($classConstFetch->class instanceof Name) {
-            return $this->processClassAndConst($scope->resolveName($classConstFetch->class), $constName, $callerNamespace);
+            return $this->processClassAndConst($scope->resolveName($classConstFetch->class), $constName, $callerNamespace, $line);
         }
 
         foreach ($scope->getType($classConstFetch->class)->getObjectClassNames() as $className) {
-            $error = $this->processClassAndConst($className, $constName, $callerNamespace);
+            $error = $this->processClassAndConst($className, $constName, $callerNamespace, $line);
 
             if ($error instanceof IdentifierRuleError) {
                 return $error;
@@ -331,7 +339,7 @@ final class InternalUsageRule implements Rule
     /**
      * @throws RuntimeException
      */
-    private function processClassAndConst(string $className, string $constName, string $callerNamespace): ?IdentifierRuleError
+    private function processClassAndConst(string $className, string $constName, string $callerNamespace, int $line): ?IdentifierRuleError
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;
@@ -347,6 +355,7 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::getKindForClassReflection($classReflection),
             $className,
+            $line,
         );
 
         if ($classError instanceof IdentifierRuleError) {
@@ -365,6 +374,7 @@ final class InternalUsageRule implements Rule
             $callerNamespace,
             self::KIND_CONSTANT,
             $className . '::' . $constName,
+            $line,
         );
     }
 
@@ -407,16 +417,17 @@ final class InternalUsageRule implements Rule
         string $callerNamespace,
         string $kind,
         string $symbol,
+        int $line,
     ): ?IdentifierRuleError {
         return $internalTarget !== null && !$this->isAllowedInCaller($internalTarget, $declaringNamespace, $callerNamespace)
-            ? self::buildError($kind, $symbol, $internalTarget ?: self::AT_INTERNAL, $callerNamespace)
+            ? self::buildError($kind, $symbol, $internalTarget ?: self::AT_INTERNAL, $callerNamespace, $line)
             : null;
     }
 
     /**
      * @throws RuntimeException
      */
-    private static function buildError(string $kind, string $symbol, string $internalTarget, string $callerNamespace): IdentifierRuleError
+    private static function buildError(string $kind, string $symbol, string $internalTarget, string $callerNamespace, int $line): IdentifierRuleError
     {
         return self::buildRuleError(sprintf(
             '%s `%s` is internal%sand must not be used from `%s`.',
@@ -424,7 +435,7 @@ final class InternalUsageRule implements Rule
             $symbol,
             $internalTarget === self::AT_INTERNAL ? ' ' : sprintf(' to `%s` ', $internalTarget),
             $callerNamespace,
-        ));
+        ), $line);
     }
 
     /**

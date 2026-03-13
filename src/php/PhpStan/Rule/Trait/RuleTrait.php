@@ -22,7 +22,7 @@ trait RuleTrait
     /**
      * @throws RuntimeException
      */
-    private static function buildRuleError(string $message): IdentifierRuleError
+    private static function buildRuleError(string $message, int $line): IdentifierRuleError
     {
         $className = Str::afterLast(self::class, '\\');
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
@@ -36,6 +36,7 @@ trait RuleTrait
 
         return RuleErrorBuilder::message($message)
             ->identifier($identifier)
+            ->line($line)
             ->build()
         ;
     }

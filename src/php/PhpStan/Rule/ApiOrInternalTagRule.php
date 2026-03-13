@@ -66,7 +66,7 @@ final readonly class ApiOrInternalTagRule implements Rule
     {
         return ($class->isAnonymous() || self::hasApiOrInternalTag($class))
             ? null
-            : self::buildError(self::KIND_CLASS, (string) $class->name);
+            : self::buildError(self::KIND_CLASS, (string) $class->name, $class->getStartLine());
     }
 
     /**
@@ -76,7 +76,7 @@ final readonly class ApiOrInternalTagRule implements Rule
     {
         return self::hasApiOrInternalTag($function)
             ? null
-            : self::buildError(self::KIND_FUNCTION, $function->name->toString());
+            : self::buildError(self::KIND_FUNCTION, $function->name->toString(), $function->getStartLine());
     }
 
     /**
@@ -110,12 +110,12 @@ final readonly class ApiOrInternalTagRule implements Rule
      *
      * @throws RuntimeException
      */
-    private static function buildError(string $kind, string $name): IdentifierRuleError
+    private static function buildError(string $kind, string $name, int $line): IdentifierRuleError
     {
         return self::buildRuleError(sprintf(
             '%s `%s` must be annotated with either @internal or @api.',
             $kind,
             $name,
-        ));
+        ), $line);
     }
 }
