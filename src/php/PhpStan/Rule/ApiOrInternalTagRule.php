@@ -68,7 +68,7 @@ final readonly class ApiOrInternalTagRule implements Rule
     {
         return ($class->isAnonymous() || self::hasApiOrInternalTag($class))
             ? null
-            : self::buildError(self::KIND_CLASS, (string) $class->name, $class->getStartLine());
+            : self::buildError(self::KIND_CLASS, self::getClassName($class), $class->getStartLine());
     }
 
     /**

@@ -8,6 +8,7 @@ use Brnshkr\Config\PhpStan\Rule\ApiOrInternalTagRule;
 use Brnshkr\Config\PhpStan\Rule\BoolishPrefixRule;
 use Brnshkr\Config\PhpStan\Rule\IgnoreDirectiveRule;
 use Brnshkr\Config\PhpStan\Rule\InternalUsageRule;
+use Brnshkr\Config\PhpStan\Rule\NoNamedArgumentsTagRule;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use DateTimeImmutable;
@@ -164,6 +165,7 @@ final class PhpStan
                 ApiOrInternalTagRule::class,
                 BoolishPrefixRule::class,
                 IgnoreDirectiveRule::class,
+                NoNamedArgumentsTagRule::class,
                 self::configureRule(InternalUsageRule::class, [
                     'allowedDeclaringNamespaces' => [
                         '/^Symfony\\\Component\\\Console\\\Descriptor/',
