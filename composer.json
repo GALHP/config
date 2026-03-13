@@ -88,7 +88,7 @@
     "rector/rector": "Needed for automatically applying upgrades and refactorings",
     "rector/type-perfect": "Optional type-related PHPStan rules",
     "symfony/finder": "Needed when using PHP CS Fixer, Rector or PHPStan",
-    "symplify/phpstan-rules": "Optional PHPStan rules by Simplify",
+    "symplify/phpstan-rules": "Optional PHPStan rules by Symplify",
     "ticketswap/phpstan-error-formatter": "Optional PHPStan error output formatter"
   },
   "autoload": {

@@ -188,7 +188,7 @@ final class PhpStan
         }
 
         if (Module::isPackageInstalled(Module::PACKAGE_PHP_STAN_RULES)) {
-            $phpStanConfig->setRules(self::getSimplifyRules());
+            $phpStanConfig->setRules(self::getSymplifyRules());
         }
 
         return $asInstance ? $phpStanConfig : $phpStanConfig->toArray();
@@ -460,7 +460,7 @@ final class PhpStan
      *
      * @throws RuntimeException
      */
-    private static function getSimplifyRules(): array
+    private static function getSymplifyRules(): array
     {
         return [
             SymplifyPhpStanRules\Complexity\ForbiddenArrayMethodCallRule::class,
