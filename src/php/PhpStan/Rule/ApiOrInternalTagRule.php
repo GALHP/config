@@ -28,7 +28,7 @@ use function sprintf;
  *
  * @implements Rule<NodeAbstract>
  */
-final readonly class ApiOrInternalAnnotationRule implements Rule
+final readonly class ApiOrInternalTagRule implements Rule
 {
     use RuleTrait;
 
@@ -64,7 +64,7 @@ final readonly class ApiOrInternalAnnotationRule implements Rule
      */
     private static function processClass(Class_ $class): ?IdentifierRuleError
     {
-        return ($class->isAnonymous() || self::hasRequiredAnnotation($class))
+        return ($class->isAnonymous() || self::hasApiOrInternalTag($class))
             ? null
             : self::buildError(self::KIND_CLASS, (string) $class->name);
     }
@@ -74,7 +74,7 @@ final readonly class ApiOrInternalAnnotationRule implements Rule
      */
     private static function processFunction(Function_ $function): ?IdentifierRuleError
     {
-        return self::hasRequiredAnnotation($function)
+        return self::hasApiOrInternalTag($function)
             ? null
             : self::buildError(self::KIND_FUNCTION, $function->name->toString());
     }
@@ -86,7 +86,7 @@ final readonly class ApiOrInternalAnnotationRule implements Rule
      */
     private static function processGlobalConst(ConstStmt $constStmt): array
     {
-        if (self::hasRequiredAnnotation($constStmt)) {
+        if (self::hasApiOrInternalTag($constStmt)) {
             return [];
         }
 
@@ -94,14 +94,15 @@ final readonly class ApiOrInternalAnnotationRule implements Rule
             static fn (ConstNode $constNode): IdentifierRuleError => self::buildError(
                 self::KIND_CONSTANT,
                 $constNode->name->toString(),
+                $constNode->getStartLine(),
             ),
             $constStmt->consts,
         ));
     }
 
-    private static function hasRequiredAnnotation(NodeAbstract $nodeAbstract): bool
+    private static function hasApiOrInternalTag(NodeAbstract $nodeAbstract): bool
     {
-        return Str::match($nodeAbstract->getDocComment()?->getText() ?? '', '/\*\s+@(internal|api)\b/') !== [];
+        return Str::match($nodeAbstract->getDocComment()?->getText() ?? '', '/\*\s+@(api|internal)\b/') !== [];
     }
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
-use Brnshkr\Config\PhpStan\Rule\ApiOrInternalAnnotationRule;
+use Brnshkr\Config\PhpStan\Rule\ApiOrInternalTagRule;
 use Brnshkr\Config\PhpStan\Rule\BoolishPrefixRule;
 use Brnshkr\Config\PhpStan\Rule\InternalUsageRule;
 use Carbon\Carbon;
@@ -160,7 +160,7 @@ final class PhpStan
                 ],
             ])
             ->setRules([
-                ApiOrInternalAnnotationRule::class,
+                ApiOrInternalTagRule::class,
                 BoolishPrefixRule::class,
                 self::configureRule(InternalUsageRule::class, [
                     'allowedDeclaringNamespaces' => [
