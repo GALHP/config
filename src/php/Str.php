@@ -58,12 +58,12 @@ final readonly class Str
     /**
      * @return list<string>
      */
-    public static function match(string $string, string $pattern, int $flags = 0): array
+    public static function match(string $string, string $pattern): array
     {
         $matches = [];
 
         // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        $result = preg_match($pattern . 'u', $string, $matches, $flags | PREG_UNMATCHED_AS_NULL);
+        $result = preg_match($pattern . 'u', $string, $matches, PREG_UNMATCHED_AS_NULL);
 
         return $result === false
             ? []
