@@ -21,7 +21,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-use function sprintf;
 use function Symfony\Component\String\s;
 
 /**
@@ -75,18 +74,16 @@ final class CommandTest extends TestCase
         $firstLetterOfPackageName         = s($packageName)->slice(0, 1)->toString();
         $firstLetterOfPackageOrganization = s($packageOrganization)->slice(0, 1)->toString();
         $titleCasePackageName             = s($packageName)->title()->toString();
-        $title                            = s($titleCasePackageName)->append(sprintf(' (%s)', $packageVersion))->toString();
-        $line                             = s('‾')->repeat(s($title)->length())->toString();
 
         // @phpstan-ignore symplify.forbiddenNode (Use of encapsed strings to preserve easy readability and adjustability here)
-        $expectedOutput = <<<EOL
+        $expectedOutput = <<<EOF
    ___               __   __
   / _ )_______  ____/ /  / /__ ____
  / _  / __/ _ \\(_--/ _ \\/  ´_// __/
 /____/_/ /_//_/___/_//_/_/\\_\\/_/
 
 {$titleCasePackageName} ({$packageVersion})
-{$line}
+
 Description:
   Displays {$packageOrganization}/{$packageName} composer plugin overview
 
@@ -114,7 +111,7 @@ Available commands:
   {$packageOrganization}:{$packageName}:setup                  [{$firstLetterOfPackageOrganization}:{$firstLetterOfPackageName}:s] Runs the {$packageOrganization}/{$packageName} setup process
   {$packageOrganization}:{$packageName}:update-php-extensions  [{$firstLetterOfPackageOrganization}:{$firstLetterOfPackageName}:upe] Updates required PHP extensions in composer.json based on installed vendor files
 
-EOL;
+EOF;
 
         self::assertSame(0, $exitCode);
         self::assertStringContainsStringIgnoringLineEndings($expectedOutput, $outputString);
