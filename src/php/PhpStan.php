@@ -26,19 +26,26 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symplify\PHPStanRules\Rules as SymplifyPhpStanRules;
 
 use function array_any;
+use function array_diff;
 use function array_filter;
 use function array_is_list;
+use function array_keys;
+use function array_map;
 use function array_merge;
+use function array_reduce;
 use function array_unique;
 use function array_values;
 use function class_exists;
 use function explode;
+use function getcwd;
 use function in_array;
 use function interface_exists;
 use function is_executable;
 use function is_string;
+use function iterator_to_array;
 use function sprintf;
 use function Symfony\Component\String\s;
+use function usort;
 
 use const PATH_SEPARATOR;
 
@@ -112,13 +119,13 @@ final class PhpStan
     {
         $finder ??= new Finder();
 
+        $finder->notPath('config/preload.php');
+
+        $analysisPaths = self::getAnalysisPaths($finder);
+
         $phpStanConfig = new self()
             ->setLevel('max')
-            ->setPaths(PhpFileFinder::getDirectoryPaths($finder), [
-                ...PhpFileFinder::EXCLUDED_DIRECTORIES,
-                ...PhpFileFinder::EXCLUDED_PATHS,
-                'config/preload.php',
-            ])
+            ->setPaths($analysisPaths['paths'], $analysisPaths['excludedPaths'])
             ->setTemporaryDirectory('.cache/phpstan.cache')
             ->setParameters([
                 'editorUrl'                                          => self::getEditorUrl(),
@@ -167,6 +174,7 @@ final class PhpStan
                 IgnoreDirectiveRule::class,
                 NoNamedArgumentsTagRule::class,
                 self::configureRule(InternalUsageRule::class, [
+                    // TODO: Remove this here and suppress at error location
                     'allowedDeclaringNamespaces' => [
                         '/^Symfony\\\Component\\\Console\\\Descriptor/',
                     ],
@@ -274,7 +282,10 @@ final class PhpStan
 
     /**
      * @param list<string> $paths
-     * @param list<string> $excludedPaths
+     * @param list<string>|array{
+     *     analyse?: list<string>,
+     *     analyseAndScan?: list<string>,
+     * } $excludedPaths
      */
     public function setPaths(array $paths, array $excludedPaths = []): self
     {
@@ -288,11 +299,19 @@ final class PhpStan
     }
 
     /**
-     * @param list<string> $excludedPaths
+     * @param list<string>|array{
+     *     analyse?: list<string>,
+     *     analyseAndScan?: list<string>,
+     * } $excludedPaths
      */
     public function setExcludedPaths(array $excludedPaths): self
     {
-        return $this->setParameter('excludePaths', $excludedPaths);
+        return $this->setParameter(
+            'excludePaths',
+            array_is_list($excludedPaths)
+                ? ['analyseAndScan' => $excludedPaths]
+                : $excludedPaths,
+        );
     }
 
     /**
@@ -645,6 +664,77 @@ final class PhpStan
         }
 
         return $forbiddenFunctions;
+    }
+
+    /**
+     * @return array{
+     *     paths: list<string>,
+     *     excludedPaths: list<string>,
+     * }
+     *
+     * @throws DirectoryNotFoundException
+     */
+    private static function getAnalysisPaths(Finder $finder): array
+    {
+        $finderResults = PhpFileFinder::get($finder) |> iterator_to_array(...);
+        $directories   = array_values($finderResults) |> self::convertFilesToMinimalDirectoryPaths(...);
+
+        if ($directories === []) {
+            return [
+                'paths'         => [],
+                'excludedPaths' => [],
+            ];
+        }
+
+        $allFilesInDirectories = PhpFileFinder::configure(new Finder()->in($directories))
+            |> iterator_to_array(...)
+            |> array_keys(...);
+
+        $excludedPaths = array_diff($allFilesInDirectories, array_keys($finderResults))
+            |> array_values(...);
+
+        $cwd = (getcwd() ?: '.') . '/';
+
+        $toAbsolutePath = static fn (string $path): string => Str::doesStartWith($path, '/')
+            ? $path
+            : $cwd . (Str::doesStartWith($path, './') ? Str::trim($path, './', 'start') : $path);
+
+        return [
+            'paths'         => array_map($toAbsolutePath(...), $directories),
+            'excludedPaths' => array_map($toAbsolutePath(...), $excludedPaths),
+        ];
+    }
+
+    /**
+     * @param list<SymfonySplFileInfo> $files
+     *
+     * @return list<string>
+     */
+    private static function convertFilesToMinimalDirectoryPaths(array $files): array
+    {
+        return array_map(static fn (SymfonySplFileInfo $file): string => $file->getPath(), $files)
+            |> array_unique(...)
+            |> (
+                static function (array $paths): array {
+                    usort($paths, static fn (string $path1, string $path2): int => Str::length($path1) <=> Str::length($path2));
+
+                    return $paths;
+                }
+            )
+            |> (static fn (array $sortedPaths): array => array_reduce(
+                $sortedPaths,
+                static fn (array $minimalPaths, string $currentPath): array => array_reduce(
+                    $minimalPaths,
+                    static fn (bool $doSkip, mixed $parentPath): bool => $doSkip
+                        || Str::doesStartWith($currentPath, Str::trim(is_string($parentPath) ? $parentPath : '', '/', 'end') . '/'),
+                    false,
+                )
+                ? $minimalPaths
+                : [...$minimalPaths, $currentPath],
+                [],
+            ))
+            |> (static fn (array $minimalPaths): array => array_filter($minimalPaths, is_string(...)))
+            |> array_values(...);
     }
 
     /**

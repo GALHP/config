@@ -19,7 +19,6 @@ use function mb_strtolower;
 use function mb_substr;
 use function mb_trim;
 use function preg_match;
-use function preg_quote;
 use function sprintf;
 use function str_contains;
 use function str_replace;
@@ -88,11 +87,6 @@ final readonly class Str
     {
         // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_replace($needle, $replacement, $haystack);
-    }
-
-    public static function fnmatchToRegex(string $pattern): string
-    {
-        return '/' . self::replace('\*', preg_quote($pattern, '/'), '.*') . '/';
     }
 
     public static function afterLast(string $haystack, string $needle): string
