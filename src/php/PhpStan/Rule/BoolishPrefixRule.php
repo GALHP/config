@@ -43,15 +43,12 @@ final readonly class BoolishPrefixRule implements Rule
 {
     use RuleTrait;
 
-    private const string KIND_CONSTANT  = 'Constant';
-    private const string KIND_FUNCTION  = 'Function';
-    private const string KIND_METHOD    = 'Method';
-    private const string KIND_PARAMETER = 'Parameter';
-    private const string KIND_PROPERTY  = 'Property';
-    private const string KIND_VARIABLE  = 'Variable';
-
-    // NOTICE: Keep in sync with ts/naming-convention eslint rule
-    private const array BOOLISH_PREFIXES = [
+    /**
+     * @internal
+     *
+     * NOTICE: Keep in sync with ts/naming-convention eslint rule
+     */
+    public const array BOOLISH_PREFIXES = [
         'as',
         'is',
         'does',
@@ -61,6 +58,13 @@ final readonly class BoolishPrefixRule implements Rule
         'was',
         'can',
     ];
+
+    private const string KIND_CONSTANT  = 'Constant';
+    private const string KIND_FUNCTION  = 'Function';
+    private const string KIND_METHOD    = 'Method';
+    private const string KIND_PARAMETER = 'Parameter';
+    private const string KIND_PROPERTY  = 'Property';
+    private const string KIND_VARIABLE  = 'Variable';
 
     #[Override]
     public function getNodeType(): string
