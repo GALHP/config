@@ -18,37 +18,30 @@ PHP_UNIT        := $(PWD)/vendor/bin/pest
 PHP_UNIT_CONFIG := $(PWD)/conf/phpunit.dist.xml
 PHP_UNIT_FLAGS  := $(if $(DEBUG),--debug)
 
-.PHONY: cc
 cc: #~~ removes the ./cache directory
 	$(DEBUG_PREFIX)$(RM) -rf $(PWD)/.cache
 
 #--- test
 
-.PHONY: test
 test: #~~ runs tests
 	$(DEBUG_PREFIX)$(PHP_UNIT) --configuration $(PHP_UNIT_CONFIG) $(PHP_UNIT_FLAGS) $(ARGS)
 
-.PHONY: test-update
 test-update: #~~ runs tests with snapshot update
 	$(DEBUG_PREFIX)$(PHP_UNIT) --configuration $(PHP_UNIT_CONFIG) $(PHP_UNIT_FLAGS) --update-snapshots $(ARGS)
 
-.PHONY: check
 check: rector php-cs-fixer phpstan test #~~ runs rector, php-cs-fixer, phpstan and phpunit
 
 #--- package
 
-.PHONY: pack
 pack: bun-pack composer-pack #~~ runs composer-pack and bun-pack
 
 #----vv bun
 
-.PHONY: bun-list
 bun-list: #~~ lists included bun package files
 	$(DEBUG_PREFIX)archive_file=$$($(BUN) pm pack 2>&1 | grep -oE -m1 '$(VENDOR)-$(PACKAGE)-$(SEMVER_REGEX)\.tgz') \
 		&& $(TAR) -tf "$$archive_file" | sed 's/^package\///' \
 		&& $(RM) -f "$$archive_file"
 
-.PHONY: bun-pack
 bun-pack: #~~ publishes the bun package to ./.local/@<VENDOR>/<PACKAGE>
 	$(DEBUG_PREFIX)archive_file=$$($(BUN) pm pack 2>&1 | grep -oE -m1 '$(VENDOR)-$(PACKAGE)-$(SEMVER_REGEX)\.tgz') \
 		&& $(RM) -rf $(PWD)/.local/@$(VENDOR)/$(PACKAGE) \
@@ -60,13 +53,11 @@ bun-pack: #~~ publishes the bun package to ./.local/@<VENDOR>/<PACKAGE>
 
 #----vv composer
 
-.PHONY: composer-list
 composer-list: #~~ lists included composer package files
 	$(DEBUG_PREFIX)archive_file=$$($(COMPOSER) archive 2>&1 | $(GREP) -oE -m1 '$(VENDOR)-$(PACKAGE)-$(SEMVER_REGEX)\.tar') \
 		&& $(TAR) -tf "$$archive_file" \
 		&& $(RM) -f "$$archive_file"
 
-.PHONY: composer-pack
 composer-pack: #~~ publishes the composer package to ./.local/<VENDOR>/<PACKAGE>
 	$(DEBUG_PREFIX)archive_file=$$($(COMPOSER) archive 2>&1 | $(GREP) -oE -m1 '$(VENDOR)-$(PACKAGE)-$(SEMVER_REGEX)\.tar') \
 		&& $(RM) -rf $(PWD)/.local/$(VENDOR)/$(PACKAGE) \
@@ -102,7 +93,6 @@ _MODIFIER_COLUMN_WIDTH := $(shell $(PRINTF) '$(_MODIFIER_COLUMNS)' | $(AWK) '{ \
 
 _COLOR_COLUMN_WIDTHS := $(foreach COLOR,$(_COLORS),$(shell $(PRINTF) '$(COLOR)' | $(AWK) '{ print length($$0) }'))
 
-.PHONY: colors
 colors: #~~ prints a table of all supported colors with combinations with all supported modifiers
 	$(DEBUG_PREFIX)$(PRINTF) '%-$(_MODIFIER_COLUMN_WIDTH)s';
 	$(DEBUG_PREFIX)$(foreach INDEX,$(call _get_indices,$(_COLORS)), \

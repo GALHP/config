@@ -69,6 +69,30 @@
 
 #!! Main Makefile of the brnshkr/config package
 
+help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-vvv | V=1/V=2/V=3)
+	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _escape_newlines,$(LOGO)),$(COLOR_LOGO))'
+	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _to_title_case,$(PACKAGE)) ($(strip $(VERSION))),$(COLOR_TITLE))\n\n'
+	$(DEBUG_PREFIX)$(PRINTF) '$(call text,Usage:,$(COLOR_SECTION_LABEL))\n  $(call text,make,$(COLOR_USAGE_PROGRAM)) $(call text,<command> [--] [arguments],$(COLOR_USAGE_ARGUMENTS))\n\n'
+	$(file >/tmp/brnshkr_config_help.awk,$(_HELP_AWK))
+	$(DEBUG_PREFIX)$(AWK) \
+		-v INDENT="$(INDENT)" \
+		-v VERBOSITY=$(or $(V),$(if $(filter -vvv vvv,$(ARGS)) \
+			,3 \
+			,$(if $(filter -vv vv,$(ARGS)) \
+				,2 \
+				,$(if $(filter -v v,$(ARGS)) \
+					,1 \
+					,0) \
+				) \
+			) \
+		) \
+		-f /tmp/brnshkr_config_help.awk \
+		$(MAKEFILE_LIST)
+
+ifneq ($(wildcard $(PWD)/.local/Makefile),)
+include $(PWD)/.local/Makefile
+endif
+
 #---v general
 
 PWD          ?= .#vvv #~~ current working directory
@@ -211,78 +235,45 @@ ARG8 := $(word 9,$(MAKECMDGOALS)) #vv
 ARG9 := $(word 10,$(MAKECMDGOALS)) #vv
 ARGS = $(strip $(filter-out $(_ALL_TARGETS),$(call _collect_args,$@,$(MAKECMDGOALS))))
 
-.PHONY: help
-help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-vvv | V=1/V=2/V=3)
-	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _escape_newlines,$(LOGO)),$(COLOR_LOGO))'
-	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _to_title_case,$(PACKAGE)) ($(strip $(VERSION))),$(COLOR_TITLE))\n\n'
-	$(DEBUG_PREFIX)$(PRINTF) '$(call text,Usage:,$(COLOR_SECTION_LABEL))\n  $(call text,make,$(COLOR_USAGE_PROGRAM)) $(call text,<command> [--] [arguments],$(COLOR_USAGE_ARGUMENTS))\n\n'
-	$(file >/tmp/brnshkr_config_help.awk,$(_HELP_AWK))
-	$(DEBUG_PREFIX)$(AWK) \
-		-v INDENT=$(INDENT) \
-		-v VERBOSITY=$(or $(V),$(if $(filter -vvv vvv,$(ARGS)) \
-			,3 \
-			,$(if $(filter -vv vv,$(ARGS)) \
-				,2 \
-				,$(if $(filter -v v,$(ARGS)) \
-					,1 \
-					,0) \
-				) \
-			) \
-		) \
-		-f /tmp/brnshkr_config_help.awk \
-		$(MAKEFILE_LIST)
-
 #--- phpstan
 
-.PHONY: phpstan
 phpstan: #~~ runs phpstan analyze
 	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) $(ARGS)
 
-.PHONY: phpstan-debug
 phpstan-debug: #~~ runs phpstan analyze in debug mode
 	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) --debug $(ARGS)
 
-.PHONY: phpstan-raw
 phpstan-raw: #~~ runs phpstan analyze with raw output
 	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) --error-format=raw $(ARGS)
 
-.PHONY: phpstan-list
 phpstan-list: #~~ lists all files that are processed by phpstan
 	$(DEBUG_PREFIX)$(MAKE) phpstan-raw -- --debug 2>&1 | $(AWK) 'match($$0, /(.+\.php)$$/, _match) { print _match[1] }'
 
 #--- php-cs-fixer
 
-.PHONY: php-cs-fixer
 php-cs-fixer: #~~ runs php-cs-fixer fix
 	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(PHP_CS_FIXER_FLAGS) $(ARGS)
 
-.PHONY: php-cs-fixer-debug
 php-cs-fixer-debug: #~~ displays used php-cs-fixer rules
 	$(DEBUG_PREFIX)$(PHP_CS_FIXER) describe --config $(PHP_CS_FIXER_CONFIG) -n @ $(ARGS)
 
-.PHONY: php-cs-fixer-dry-run
 php-cs-fixer-dry-run: #~~ runs php-cs-fixer fix in dry run mode
 	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(PHP_CS_FIXER_FLAGS) --dry-run $(ARGS)
 
-.PHONY: php-cs-fixer-list
 php-cs-fixer-list: #~~ lists all files that are processed by php-cs-fixer
 	$(DEBUG_PREFIX)$(PHP_CS_FIXER) list-files --config $(PHP_CS_FIXER_CONFIG) 2>&1 | $(AWK) 'match($$0, /^'\''\.\/(.+\.php)'\''$$/, _match) { print _match[1] }'
 
 #--- rector
 
-.PHONY: rector
 rector: #~~ runs rector process
 	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) $(ARGS)
 
-.PHONY: rector-debug
 rector-debug: #~~ runs rector process in debug mode
 	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) --debug $(ARGS)
 
-.PHONY: rector-dry-run
 rector-dry-run: #~~ runs rector process in dry run mode
 	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) --dry-run $(ARGS)
 
-.PHONY: rector-list
 rector-list: #~~ lists all files that are processed by rector
 	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) --debug --dry-run | $(AWK) 'match($$0, "\\[file\\] $(PWD)/(.+\\.php)$$", _match) { print _match[1] }'
 
@@ -301,9 +292,7 @@ $(if $(filter $(TARGET),$(_ALL_TARGETS)) \
 	)
 	$(DEBUG_PREFIX)exit 1
 
-ifneq ($(wildcard $(PWD)/.local/Makefile),)
-include $(PWD)/.local/Makefile
-endif
+.PHONY: $(_ALL_TARGETS)
 
 #--- ansi
 
