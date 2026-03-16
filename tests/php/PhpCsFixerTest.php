@@ -68,8 +68,8 @@ final class PhpCsFixerTest extends TestCase
             $configArray[$propertyName] = $value;
         }
 
-        $currentWorkingDirectory = getcwd() ?: '.';
-        $result                  = s(Json::encode($configArray))->replaceMatches(sprintf('/%s/', preg_quote($currentWorkingDirectory, '/')), '.')->toString();
+        $cwd    = getcwd() ?: '.';
+        $result = s(Json::encode($configArray))->replaceMatches(sprintf('/%s/', preg_quote($cwd, '/')), '.')->toString();
 
         $this->assertMatchesJsonSnapshot($result);
     }
