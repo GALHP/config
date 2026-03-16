@@ -76,6 +76,12 @@ help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-v
 	$(file >/tmp/brnshkr_config_help.awk,$(_HELP_AWK))
 	$(DEBUG_PREFIX)$(AWK) \
 		-v INDENT="$(INDENT)" \
+		-v PWD="$(abspath $(PWD))" \
+		-v EDITOR="$(_EDITOR)" \
+		-v EDITOR_URL_VSCODE="$(_EDITOR_URL_VSCODE)" \
+		-v EDITOR_URL_VSCODE_WSL="$(_EDITOR_URL_VSCODE_WSL)" \
+		-v EDITOR_URL_PHPSTORM="$(_EDITOR_URL_PHPSTORM)" \
+		-v WSL_DISTRO_NAME="$(or $(WSL_DISTRO_NAME),)" \
 		-v VERBOSITY=$(or $(V),$(if $(filter -vvv vvv,$(ARGS)) \
 			,3 \
 			,$(if $(filter -vv vv,$(ARGS)) \
@@ -140,6 +146,23 @@ _THEMES := $(THEME_BRNSHKR) \
 
 _THEME_DEFAULT := $(THEME_BRNSHKR)
 _THEME         := $(if $(filter $(THEME),$(_THEMES)),$(THEME),$(_THEME_DEFAULT))
+
+EDITOR          ?= #~~ the editor to use
+EDITOR_VSCODE   := vscode
+EDITOR_PHPSTORM := phpstorm
+
+_EDITORS := $(EDITOR_VSCODE) \
+	$(EDITOR_PHPSTORM)
+
+_EDITOR_URL_VSCODE     := vscode://file/%s:%s
+_EDITOR_URL_VSCODE_WSL := vscode://vscode-remote/wsl+%s/%s:%s
+_EDITOR_URL_PHPSTORM   := phpstorm://open?file=%s&line=%s
+
+ifndef EDITOR
+_EDITOR = $(or $(call _editor_from_env),$(call _editor_from_command),$(EDITOR_VSCODE))
+else
+_EDITOR = $(if $(filter $(EDITOR),$(_EDITORS)),$(EDITOR),$(or $(call _editor_from_env),$(call _editor_from_command),$(EDITOR_VSCODE)))
+endif
 
 ifndef LOGO
 define LOGO
@@ -516,6 +539,33 @@ define _NEWLINE
 
 endef
 
+#**
+#* Returns the detected editor name by inspecting well-known terminal environment variables.
+#*
+#* usage:
+#*   $(call _editor_from_env)
+#*
+#* returns: OneOf<vscode | phpstorm> | empty string
+#*
+define _editor_from_env
+$(if $(filter vscode,$(TERM_PROGRAM)),$(EDITOR_VSCODE),$(if \
+	$(VSCODE_PID),$(EDITOR_VSCODE),$(if \
+		$(filter JetBrains-JediTerm,$(TERMINAL_EMULATOR)),$(EDITOR_PHPSTORM),)))
+endef
+
+#**
+#* Returns the detected editor name based on command availability in PATH.
+#*
+#* usage:
+#*   $(call _editor_from_command)
+#*
+#* returns: OneOf<vscode | phpstorm> | empty string
+#*
+define _editor_from_command
+$(if $(shell command -v code >/dev/null 2>&1 && echo 1),$(EDITOR_VSCODE),$(if \
+	$(shell { command -v pstorm || command -v phpstorm; } >/dev/null 2>&1 && echo 1),$(EDITOR_PHPSTORM),))
+endef
+
 define _HELP_AWK
 function trim(string) { gsub(/^[ \t]+|[ \t]+$$/, "", string); return string }
 function leaf(path) { sub(/.*\//, "", path); return path }
@@ -553,7 +603,7 @@ function resolve_scope(symbol_type, current) {
 	if (current == "main" && !("main" in seen_scope)) { seen_scope["main"] = 1; top_count += 1; top_order[top_count] = "main" }
 	return (scope_verbosity[current] + 0 > VERBOSITY + 0) ? "" : current;
 }
-function add(section, name, text, extra, description, current, idx) {
+function add(section, name, text, extra, description, line, current, idx) {
 	current = resolve_scope(section);
 	if (!current) return;
 	idx = ++section_count[current, section];
@@ -561,16 +611,18 @@ function add(section, name, text, extra, description, current, idx) {
 	section_text[current, section, idx] = text;
 	section_extra[current, section, idx] = extra;
 	section_description[current, section, idx] = description;
+	section_file[current, section, idx] = FILENAME;
+	section_line[current, section, idx] = line;
 	section_verbosity[current, section, idx] = line_verbosity();
 }
 function handle_define(documentation, description) {
 	if ($$2 ~ /^_/) return;
 	if ($$2 ~ /^[A-Z][A-Z0-9_]*$$/) {
-		add("variables", $$2, "(macro)", (is_in_ifndef ? "?=" : ":="), get_description());
+		add("variables", $$2, "(macro)", (is_in_ifndef ? "?=" : ":="), get_description(), FNR);
 	} else {
 		description = get_description();
-		if (documentation != "") add("functions", $$2, documentation, (description != "" ? description : derive_description(documentation)), "");
-		else if (description != "") add("functions", $$2, "", description, "");
+		if (documentation != "") add("functions", $$2, documentation, (description != "" ? description : derive_description(documentation)), "", FNR);
+		else if (description != "") add("functions", $$2, "", description, "", FNR);
 	}
 }
 function has_content(scope_path, section, idx) {
@@ -602,22 +654,40 @@ function walk(scope_path, depth, section, column, padding, width, format, idx, e
 		text = section_text[scope_path, section, idx];
 		extra = section_extra[scope_path, section, idx];
 		description = section_description[scope_path, section, idx];
+		file = section_file[scope_path, section, idx];
+		line = section_line[scope_path, section, idx];
+		if (file != "" && file !~ /^\//) file = PWD "/" file;
+		url = "";
+		if (EDITOR == "vscode") {
+			if (WSL_DISTRO_NAME != "") url = sprintf(EDITOR_URL_VSCODE_WSL, WSL_DISTRO_NAME, file, line);
+			else url = sprintf(EDITOR_URL_VSCODE, file, line);
+		} else if (EDITOR == "phpstorm") url = sprintf(EDITOR_URL_PHPSTORM, file, line);
+		hyperlink = "";
+		hyperlink_end = "";
+		if (url != "") {
+			hyperlink = "\033]8;;" url "\033\\";
+			hyperlink_end = "\033]8;;\033\\";
+		}
+		entry_linked = hyperlink entry hyperlink_end;
+		entry_pad = width - length(entry);
+		if (entry_pad < 0) entry_pad = 0;
+		entry_padded = entry_linked sprintf("%*s", entry_pad, "");
 		if (section == "variables") {
 			if (description != "") {
 				format = sprintf("%2s  %-*s", extra, description_column, text);
-				printf "%s$(call text,%-*s,$(COLOR_PRIMARY))  $(call text,%s (%s),$(COLOR_TERTIARY))\n", padding, width, entry, format, description;
+				printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s (%s),$(COLOR_TERTIARY))\n", padding, entry_padded, format, description;
 			} else {
-				printf "%s$(call text,%-*s,$(COLOR_PRIMARY))  $(call text,%2s  %s,$(COLOR_TERTIARY))\n", padding, width, entry, extra, text;
+				printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%2s  %s,$(COLOR_TERTIARY))\n", padding, entry_padded, extra, text;
 			}
 		} else if (section == "commands") {
-			printf "%s$(call text,%-*s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, width, entry, text;
+			printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, entry_padded, text;
 		} else if (section == "functions") {
 			if (function_printed && VERBOSITY + 0 >= 2 && text != "") printf "\n";
 			function_printed = (text != "" && VERBOSITY + 0 >= 2);
 			if (extra != "" && (VERBOSITY + 0 < 2 || text == "")) {
-				printf "%s$(call text,%-*s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, width, entry, extra;
+				printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, entry_padded, extra;
 			} else {
-				printf "%s$(call text,%s,$(COLOR_PRIMARY))\n", padding, entry;
+				printf "%s$(call text,%s,$(COLOR_PRIMARY))\n", padding, entry_linked;
 			}
 			if (VERBOSITY + 0 >= 2 && text != "") {
 				count = split(text, lines, "\n");
@@ -665,14 +735,14 @@ is_in_documentation {
 	if (!/^#/) { is_in_documentation = 0; next }
 }
 /^define[[:space:]]+/ { handle_define(""); is_in_define = 1; next }
-/^#!!/ { sub(/^#!![ ]*/, ""); add("description", "", strip_verbosity($$0), "", ""); next }
+/^#!!/ { sub(/^#!![ ]*/, ""); add("description", "", strip_verbosity($$0), "", "", FNR); next }
 /^[A-Za-z0-9_]+[ \t]*[:?+]?=/ {
 	match($$0, /^([A-Za-z0-9_]+)[ \t]*([:?+]?=)/, matched);
 	if (matched[1] !~ /^_/) {
 		if (match($$0, /#~~[ ]*(.*)$$/, _desc)) {
-			add("variables", matched[1], trim(strip_verbosity(substr($$0, index($$0, "=") + 1, RSTART - index($$0, "=") - 1))), matched[2], trim(strip_verbosity(_desc[1])));
+			add("variables", matched[1], trim(strip_verbosity(substr($$0, index($$0, "=") + 1, RSTART - index($$0, "=") - 1))), matched[2], trim(strip_verbosity(_desc[1])), FNR);
 		} else {
-			add("variables", matched[1], trim(strip_verbosity(substr($$0, index($$0, "=") + 1))), matched[2], "");
+			add("variables", matched[1], trim(strip_verbosity(substr($$0, index($$0, "=") + 1))), matched[2], "", FNR);
 		}
 	}
 	next;
@@ -681,7 +751,7 @@ is_in_documentation {
 	split($$0, parts, ":");
 	if (parts[1] !~ /^_/ && parts[1] !~ /^[.]/ && !(parts[1] in command_seen)) {
 		command_seen[parts[1]] = 1;
-		add("commands", parts[1], get_description(), "", "");
+		add("commands", parts[1], get_description(), "", "", FNR);
 	}
 	next;
 }
