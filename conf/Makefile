@@ -35,6 +35,10 @@
 #   - make DEBUG=1 phpstan
 #   - DEBUG=1 make phpstan
 #
+# All make runs can be prepend with the NO_ANSI flag to disable any ANSI escape sequences in the output:
+#   - make NO_ANSI=1 help
+#   - NO_ANSI=1 make help
+#
 # The `make help` command automatically generates documentation based on specially formatted comments:
 #   Scope headers (control grouping and nesting in the help output):
 #     #-- name      —  top-level group (depth 0); all subsequent symbols belong to this group
@@ -76,6 +80,7 @@ help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-v
 	$(file >/tmp/brnshkr_config_help.awk,$(_HELP_AWK))
 	$(DEBUG_PREFIX)$(AWK) \
 		-v INDENT="$(INDENT)" \
+		-v NO_ANSI="$(NO_ANSI)" \
 		-v PWD="$(abspath $(PWD))" \
 		-v EDITOR="$(_EDITOR)" \
 		-v EDITOR_URL_VSCODE="$(_EDITOR_URL_VSCODE)" \
@@ -135,7 +140,10 @@ AWK    ?= awk#~~ path to awk binary
 
 #---vv theming
 
-INDENT ?= 1#~~ indent used in `make help` output
+INDENT  ?= 1#~~ indent used in `make help` output
+
+NO_ANSI         ?= #~~ whether ANSI colors are enabled
+_NO_ANSI_OPTION := $(if $(NO_ANSI),--no-ansi)
 
 THEME         ?= #~~ the theme to use
 THEME_BRNSHKR := brnshkr
@@ -261,44 +269,44 @@ ARGS = $(strip $(filter-out $(_ALL_TARGETS),$(call _collect_args,$@,$(MAKECMDGOA
 #--- phpstan
 
 phpstan: #~~ runs phpstan analyze
-	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(_NO_ANSI_OPTION) $(PHP_STAN_FLAGS) $(ARGS)
 
 phpstan-debug: #~~ runs phpstan analyze in debug mode
-	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) --debug $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(_NO_ANSI_OPTION) $(PHP_STAN_FLAGS) --debug $(ARGS)
 
 phpstan-raw: #~~ runs phpstan analyze with raw output
-	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) --error-format=raw $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(_NO_ANSI_OPTION) $(PHP_STAN_FLAGS) --error-format=raw $(ARGS)
 
 phpstan-list: #~~ lists all files that are processed by phpstan
-	$(DEBUG_PREFIX)$(MAKE) phpstan-raw -- --debug 2>&1 | $(AWK) 'match($$0, /(.+\.php)$$/, _match) { print _match[1] }'
+	$(DEBUG_PREFIX)$(MAKE) phpstan-raw -- $(_NO_ANSI_OPTION) --debug 2>&1 | $(AWK) 'match($$0, /(.+\.php)$$/, _match) { print _match[1] }'
 
 #--- php-cs-fixer
 
 php-cs-fixer: #~~ runs php-cs-fixer fix
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(PHP_CS_FIXER_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(PHP_CS_FIXER_FLAGS) $(ARGS)
 
 php-cs-fixer-debug: #~~ displays used php-cs-fixer rules
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) describe --config $(PHP_CS_FIXER_CONFIG) -n @ $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) describe --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) -n @ $(ARGS)
 
 php-cs-fixer-dry-run: #~~ runs php-cs-fixer fix in dry run mode
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(PHP_CS_FIXER_FLAGS) --dry-run $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(PHP_CS_FIXER_FLAGS) --dry-run $(ARGS)
 
 php-cs-fixer-list: #~~ lists all files that are processed by php-cs-fixer
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) list-files --config $(PHP_CS_FIXER_CONFIG) 2>&1 | $(AWK) 'match($$0, /^'\''\.\/(.+\.php)'\''$$/, _match) { print _match[1] }'
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) list-files --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) 2>&1 | $(AWK) 'match($$0, /^'\''\.\/(.+\.php)'\''$$/, _match) { print _match[1] }'
 
 #--- rector
 
 rector: #~~ runs rector process
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) $(ARGS)
 
 rector-debug: #~~ runs rector process in debug mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) --debug $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --debug $(ARGS)
 
 rector-dry-run: #~~ runs rector process in dry run mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) --dry-run $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --dry-run $(ARGS)
 
 rector-list: #~~ lists all files that are processed by rector
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) --debug --dry-run | $(AWK) 'match($$0, "\\[file\\] $(PWD)/(.+\\.php)$$", _match) { print _match[1] }'
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) 'match($$0, "\\[file\\] $(PWD)/(.+\\.php)$$", _match) { print _match[1] }'
 
 # NOTICE: Create dummy targets for all non-target tokens
 $(if $(filter $(TARGET),$(_ALL_TARGETS)) \
@@ -344,7 +352,7 @@ _ANSI_COLOR_BRIGHT_MAGENTA ?= 95
 _ANSI_COLOR_BRIGHT_CYAN    ?= 96
 _ANSI_COLOR_BRIGHT_WHITE   ?= 97
 
-_ANSI_RESET ?= \033[0m
+_ANSI_RESET ?= $(if $(NO_ANSI),,\033[0m)
 
 _UPPER_normal  := NORMAL
 _UPPER_black   := BLACK
@@ -459,7 +467,7 @@ endef
 #* returns: string
 #*
 define _color
-\033[$(if $(call _get_modifiers,$2),$(call _get_modifiers,$2);)$(call _get_color,$1,$2)m
+$(if $(NO_ANSI),,\033[$(if $(call _get_modifiers,$2),$(call _get_modifiers,$2);)$(call _get_color,$1,$2)m)
 endef
 
 #**
@@ -664,7 +672,7 @@ function walk(scope_path, depth, section, column, padding, width, format, idx, e
 		} else if (EDITOR == "phpstorm") url = sprintf(EDITOR_URL_PHPSTORM, file, line);
 		hyperlink = "";
 		hyperlink_end = "";
-		if (url != "") {
+		if (url != "" && !NO_ANSI) {
 			hyperlink = "\033]8;;" url "\033\\";
 			hyperlink_end = "\033]8;;\033\\";
 		}
