@@ -27,7 +27,7 @@ use Symplify\PHPStanRules\Rules as SymplifyPhpStanRules;
 
 use function array_any;
 use function array_filter;
-use function array_keys;
+use function array_is_list;
 use function array_merge;
 use function array_unique;
 use function array_values;
@@ -71,11 +71,11 @@ final class PhpStan
             'command' => 'code',
             'url'     => [
                 'default' => 'vscode://file/%s/%s:%s',
-                'wsl'     => 'vscode://vscode-remote/wsl+%s/%s/%s:%s',
+                'wsl'     => 'vscode://vscode-remote/wsl+%s%s/%s:%s',
             ],
         ],
         self::EDITOR_PHPSTORM => [
-            'command' => 'pstorm',
+            'command' => ['pstorm', 'phpstorm'],
             'url'     => 'phpstorm://open?file=%s/%s&line=%s',
         ],
     ];
@@ -83,7 +83,7 @@ final class PhpStan
     private const array RULE_TAG = ['phpstan.rules.rule'];
 
     private const string PLACEHOLDER_CWD  = '%currentWorkingDirectory%';
-    private const string PLACEHOLDER_FILE = '%%file%%';
+    private const string PLACEHOLDER_FILE = '%%relFile%%';
     private const string PLACEHOLDER_LINE = '%%line%%';
 
     /**
@@ -693,13 +693,14 @@ final class PhpStan
      */
     private static function getEditor(array $environment): ?string
     {
-        foreach (array_keys($environment) as $key) {
+        foreach ($environment as $key => $value) {
             $key = (string) $key;
 
             $editor = match (true) {
-                Str::doesStartWith($key, 'VSCODE_')  => self::EDITOR_VSCODE,
-                Str::doesStartWith($key, 'PHPSTORM') => self::EDITOR_PHPSTORM,
-                default                              => null,
+                Str::doesStartWith($key, 'VSCODE_')                             => self::EDITOR_VSCODE,
+                Str::doesStartWith($key, 'PHPSTORM')                            => self::EDITOR_PHPSTORM,
+                $key === 'TERMINAL_EMULATOR' && $value === 'JetBrains-JediTerm' => self::EDITOR_PHPSTORM,
+                default                                                         => null,
             };
 
             if ($editor !== null) {
@@ -721,13 +722,19 @@ final class PhpStan
     }
 
     /**
+     * @param string|list<string> $command
      * @param list<string> $paths
      */
-    private static function isCommandAvailable(string $command, array $paths): bool
+    private static function isCommandAvailable(string|array $command, array $paths): bool
     {
+        $commands = is_string($command) ? [$command] : $command;
+
         return array_any(
-            $paths,
-            static fn (string $path): bool => is_executable(Str::trim($path, '/', 'end') . '/' . $command),
+            $commands,
+            static fn (string $command): bool => array_any(
+                $paths,
+                static fn (string $path): bool => is_executable(Str::trim($path, '/', 'end') . '/' . $command),
+            ),
         );
     }
 }
