@@ -86,14 +86,21 @@
         "./src/php/PhpCsFixer.php",
         "./src/php/PhpFileFinder.php",
         "./src/php/PhpStan.php",
-        "./src/php/PhpStan/Rule/ApiOrInternalAnnotationRule.php",
+        "./src/php/PhpStan/Rule/ApiOrInternalTagRule.php",
         "./src/php/PhpStan/Rule/BoolishPrefixRule.php",
+        "./src/php/PhpStan/Rule/IgnoreDirectiveRule.php",
         "./src/php/PhpStan/Rule/InternalUsageRule.php",
+        "./src/php/PhpStan/Rule/NoNamedArgumentsTagRule.php",
         "./src/php/PhpStan/Rule/Trait/RuleTrait.php",
         "./src/php/Rector.php",
         "./src/php/Str.php",
         "./tests/php/CommandTest.php",
         "./tests/php/PhpCsFixerTest.php",
+        "./tests/php/PhpStan/Rule/ApiOrInternalTagRuleTest.php",
+        "./tests/php/PhpStan/Rule/BoolishPrefixRuleTest.php",
+        "./tests/php/PhpStan/Rule/IgnoreDirectiveRuleTest.php",
+        "./tests/php/PhpStan/Rule/InternalUsageRuleTest.php",
+        "./tests/php/PhpStan/Rule/NoNamedArgumentsTagRuleTest.php",
         "./tests/php/PhpStanTest.php",
         "./tests/php/RectorTest.php"
     ],
@@ -170,6 +177,7 @@
         "comment_to_phpdoc": {
             "ignored_tags": [
                 "phpstan-ignore",
+                "phpstan-ignore-line",
                 "phpstan-ignore-next-line"
             ]
         },
