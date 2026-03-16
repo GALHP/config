@@ -65,7 +65,7 @@ final class PhpFileFinder
             ->notPath([
                 'config/reference.php',
                 'tests/coverage',
-                '/^tests(?:\/.+)?\/fixtures/',
+                '/^tests(?:\/.+)?\/Fixtures/',
             ])
             ->exclude([
                 '.cache',
