@@ -105,7 +105,7 @@ PWD          ?= .#vvv #~~ current working directory
 SHELL        ?= /bin/sh#vv #~~ shell to use
 VENDOR       ?= brnshkr#~~ vendor name
 PACKAGE      ?= config#~~ package name
-VERSION      ?= 0.0.1-alpha.13#vv #~~ package version
+VERSION      ?= 0.0.1-alpha.14#vv #~~ package version
 DEBUG        ?= #~~ whether debug mode is enabled
 DEBUG_PREFIX ?= $(if $(DEBUG),,@)#vvv #~~ prefix for all commands
 
