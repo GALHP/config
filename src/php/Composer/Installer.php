@@ -84,6 +84,10 @@ final readonly class Installer
 
         return ComposerInstaller::create($this->console->io, Factory::create($this->console->io))
             ->setUpdate(true)
+            ->setUpdateAllowList(array_map(
+                static fn (PackageInterface $package): string => $package->getName(),
+                $installablePackages,
+            ))
             ->setDevMode(true)
             ->setDumpAutoloader(true)
             ->setOptimizeAutoloader($config->get('optimize-autoloader'))
