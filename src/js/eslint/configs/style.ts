@@ -66,6 +66,10 @@ export const style = async (): Promise<Config[]> => {
         'style/jsx-child-element-spacing': 'error',
         'style/jsx-pascal-case': 'error',
         'style/jsx-self-closing-comp': 'error',
+        'style/jsx-newline': ['error', {
+          prevent: true,
+          allowMultilines: true,
+        }],
         'style/line-comment-position': 'error',
         'style/linebreak-style': 'error',
         'style/lines-around-comment': ['error', {
