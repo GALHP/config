@@ -27,7 +27,6 @@
     "build": "bun --bun typegen && bun --bun tsdown --config ./conf/tsdown.config.ts",
     "watch": "bun --bun tsdown --config ./conf/tsdown.config.ts --watch",
     "typegen": "bun --bun scripts/typegen.ts",
-    "changelog": "bun --bun conventional-changelog",
     "install-hooks": "bun --bun simple-git-hooks"
   },
   "exports": {
