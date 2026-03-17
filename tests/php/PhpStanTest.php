@@ -12,6 +12,11 @@ use RuntimeException;
 use Spatie\Snapshots\MatchesSnapshots;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 
+use function getcwd;
+use function preg_quote;
+use function sprintf;
+use function Symfony\Component\String\s;
+
 /**
  * @internal
  */
@@ -34,7 +39,8 @@ final class PhpStanTest extends TestCase
         self::assertIsArray($config['parameters']);
         unset($config['parameters']['editorUrl']);
 
-        $result = Json::encode($config);
+        $cwd    = getcwd() ?: '.';
+        $result = s(Json::encode($config))->replaceMatches(sprintf('/%s/', preg_quote($cwd, '/')), '.')->toString();
 
         $this->assertMatchesJsonSnapshot($result);
     }

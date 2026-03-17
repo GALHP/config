@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
-use Brnshkr\Config\PhpStan\Rule\ApiOrInternalAnnotationRule;
+use Brnshkr\Config\PhpStan\Rule\ApiOrInternalTagRule;
 use Brnshkr\Config\PhpStan\Rule\BoolishPrefixRule;
+use Brnshkr\Config\PhpStan\Rule\IgnoreDirectiveRule;
 use Brnshkr\Config\PhpStan\Rule\InternalUsageRule;
+use Brnshkr\Config\PhpStan\Rule\NoNamedArgumentsTagRule;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use DateTimeImmutable;
@@ -24,19 +26,26 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symplify\PHPStanRules\Rules as SymplifyPhpStanRules;
 
 use function array_any;
+use function array_diff;
 use function array_filter;
+use function array_is_list;
 use function array_keys;
+use function array_map;
 use function array_merge;
+use function array_reduce;
 use function array_unique;
 use function array_values;
 use function class_exists;
 use function explode;
+use function getcwd;
 use function in_array;
 use function interface_exists;
 use function is_executable;
 use function is_string;
+use function iterator_to_array;
 use function sprintf;
 use function Symfony\Component\String\s;
+use function usort;
 
 use const PATH_SEPARATOR;
 
@@ -69,11 +78,11 @@ final class PhpStan
             'command' => 'code',
             'url'     => [
                 'default' => 'vscode://file/%s/%s:%s',
-                'wsl'     => 'vscode://vscode-remote/wsl+%s/%s/%s:%s',
+                'wsl'     => 'vscode://vscode-remote/wsl+%s%s/%s:%s',
             ],
         ],
         self::EDITOR_PHPSTORM => [
-            'command' => 'pstorm',
+            'command' => ['pstorm', 'phpstorm'],
             'url'     => 'phpstorm://open?file=%s/%s&line=%s',
         ],
     ];
@@ -81,7 +90,7 @@ final class PhpStan
     private const array RULE_TAG = ['phpstan.rules.rule'];
 
     private const string PLACEHOLDER_CWD  = '%currentWorkingDirectory%';
-    private const string PLACEHOLDER_FILE = '%%file%%';
+    private const string PLACEHOLDER_FILE = '%%relFile%%';
     private const string PLACEHOLDER_LINE = '%%line%%';
 
     /**
@@ -110,14 +119,13 @@ final class PhpStan
     {
         $finder ??= new Finder();
 
-        $finder->notPath([
-            'config/preload.php',
-            'config/reference.php',
-        ]);
+        $finder->notPath('config/preload.php');
+
+        $analysisPaths = self::getAnalysisPaths($finder);
 
         $phpStanConfig = (new self())
             ->setLevel('max')
-            ->setPaths(PhpFileFinder::getDirectoryPaths($finder))
+            ->setPaths($analysisPaths['paths'], $analysisPaths['excludedPaths'])
             ->setTemporaryDirectory('.cache/phpstan.cache')
             ->setParameters([
                 'editorUrl'                                          => self::getEditorUrl(),
@@ -161,9 +169,12 @@ final class PhpStan
                 ],
             ])
             ->setRules([
-                ApiOrInternalAnnotationRule::class,
+                ApiOrInternalTagRule::class,
                 BoolishPrefixRule::class,
+                IgnoreDirectiveRule::class,
+                NoNamedArgumentsTagRule::class,
                 self::configureRule(InternalUsageRule::class, [
+                    // TODO: Remove this here and suppress at error location
                     'allowedDeclaringNamespaces' => [
                         '/^Symfony\\\Component\\\Console\\\Descriptor/',
                     ],
@@ -189,7 +200,7 @@ final class PhpStan
         }
 
         if (Module::isPackageInstalled(Module::PACKAGE_PHP_STAN_RULES)) {
-            $phpStanConfig->setRules(self::getSimplifyRules());
+            $phpStanConfig->setRules(self::getSymplifyRules());
         }
 
         return $asInstance ? $phpStanConfig : $phpStanConfig->toArray();
@@ -271,18 +282,36 @@ final class PhpStan
 
     /**
      * @param list<string> $paths
+     * @param list<string>|array{
+     *     analyse?: list<string>,
+     *     analyseAndScan?: list<string>,
+     * } $excludedPaths
      */
-    public function setPaths(array $paths): self
+    public function setPaths(array $paths, array $excludedPaths = []): self
     {
-        return $this->setParameter('paths', $paths);
+        $this->setParameter('paths', $paths);
+
+        if ($excludedPaths !== []) {
+            $this->setExcludedPaths($excludedPaths);
+        }
+
+        return $this;
     }
 
     /**
-     * @param list<string> $excludedPaths
+     * @param list<string>|array{
+     *     analyse?: list<string>,
+     *     analyseAndScan?: list<string>,
+     * } $excludedPaths
      */
     public function setExcludedPaths(array $excludedPaths): self
     {
-        return $this->setParameter('excludePaths', $excludedPaths);
+        return $this->setParameter(
+            'excludePaths',
+            array_is_list($excludedPaths)
+                ? ['analyseAndScan' => $excludedPaths]
+                : $excludedPaths,
+        );
     }
 
     /**
@@ -428,21 +457,21 @@ final class PhpStan
         $preferredClassesMap = [
             // NOTICE: Explicit use of 'DateTime' as a string to prevent php-cs-fixer from fixing this to 'DateTimeImmutable'
             'DateTime' => DateTimeImmutable::class,
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            // @phpstan-ignore symplify.preferredClass (We need to disable this rules here of course)
             SplFileInfo::class => SymfonySplFileInfo::class,
         ];
 
-        /** @disregard P1009 because nesbot/carbon is not a dependency of brnshkr/config */
-        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+        /** @disregard P1009 nesbot/carbon is not a dependency of brnshkr/config */
+        // @phpstan-ignore symplify.forbiddenFuncCall (nesbot/carbon is not a dependency of brnshkr/config)
         if (class_exists(Carbon::class)) {
-            /** @disregard P1009 because Carbon is not a dependency of brnshkr/config */
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            /** @disregard P1009 nesbot/carbon is not a dependency of brnshkr/config */
+            // @phpstan-ignore class.notFound, class.notFound (nesbot/carbon is not a dependency of brnshkr/config)
             $preferredClassesMap[Carbon::class] = CarbonImmutable::class;
         }
 
-        // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+        // @phpstan-ignore symplify.preferredClass, symplify.forbiddenFuncCall (We need to disable both these rules here of course)
         if (class_exists(PhpCsFixerFinder::class)) {
-            // @phpstan-ignore-next-line symplify.preferredClass (We need to disable this rule here of course)
+            // @phpstan-ignore symplify.preferredClass (We need to disable this rules here of course)
             $preferredClassesMap[PhpCsFixerFinder::class] = Finder::class;
         }
 
@@ -454,7 +483,7 @@ final class PhpStan
      *
      * @throws RuntimeException
      */
-    private static function getSimplifyRules(): array
+    private static function getSymplifyRules(): array
     {
         return [
             SymplifyPhpStanRules\Complexity\ForbiddenArrayMethodCallRule::class,
@@ -572,7 +601,7 @@ final class PhpStan
             'file_put_contents' => sprintf('Use "%1$s::dumpFile()" or "%1$s::appendToFile()" instead.', Filesystem::class),
         ];
 
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (This is the only way to achieve what we need here)
+        // @phpstan-ignore symplify.forbiddenFuncCall (This is the only way to achieve what we need here)
         if (class_exists(AbstractString::class)) {
             $stringFunction = s(AbstractString::class)
                 ->beforeLast('\\')
@@ -620,21 +649,92 @@ final class PhpStan
             ];
         }
 
-        /** @disregard P1009 because symfony/http-client-contracts is not a dependency of brnshkr/config */
-        // @phpstan-ignore-next-line class.notFound (We need to disable this rule here because symfony/http-client-contracts is not a dependency of brnshkr/config)
+        /** @disregard P1009 symfony/http-client-contracts is not a dependency of brnshkr/config */
+        // @phpstan-ignore symplify.forbiddenFuncCall (symfony/http-client-contracts is not a dependency of brnshkr/config)
         if (interface_exists(HttpClientInterface::class)) {
-            // @phpstan-ignore-next-line class.notFound (We need to disable this rule here because symfony/http-client-contracts is not a dependency of brnshkr/config)
+            // @phpstan-ignore class.notFound (symfony/http-client-contracts is not a dependency of brnshkr/config)
             $forbiddenFunctions['curl_*'] = sprintf('Use an implementation of "%s" or any alternative HTTP client instead.', HttpClientInterface::class);
         }
 
-        /** @disregard P1009 because symfony/serializer is not a dependency of brnshkr/config */
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (This is the only way to achieve what we need here)
+        /** @disregard P1009 symfony/serializer is not a dependency of brnshkr/config */
+        // @phpstan-ignore symplify.forbiddenFuncCall (symfony/serializer is not a dependency of brnshkr/config)
         if (class_exists(JsonEncoder::class)) {
             $forbiddenFunctions['json_decode'] = sprintf('Use "%s::decode()" instead.', JsonEncoder::class);
             $forbiddenFunctions['json_encode'] = sprintf('Use "%s::encode()" instead.', JsonEncoder::class);
         }
 
         return $forbiddenFunctions;
+    }
+
+    /**
+     * @return array{
+     *     paths: list<string>,
+     *     excludedPaths: list<string>,
+     * }
+     *
+     * @throws DirectoryNotFoundException
+     */
+    private static function getAnalysisPaths(Finder $finder): array
+    {
+        $finderResults = PhpFileFinder::get($finder) |> iterator_to_array(...);
+        $directories   = array_values($finderResults) |> self::convertFilesToMinimalDirectoryPaths(...);
+
+        if ($directories === []) {
+            return [
+                'paths'         => [],
+                'excludedPaths' => [],
+            ];
+        }
+
+        $allFilesInDirectories = PhpFileFinder::configure(new Finder()->in($directories))
+            |> iterator_to_array(...)
+            |> array_keys(...);
+
+        $excludedPaths = array_diff($allFilesInDirectories, array_keys($finderResults))
+            |> array_values(...);
+
+        $cwd = (getcwd() ?: '.') . '/';
+
+        $toAbsolutePath = static fn (string $path): string => Str::doesStartWith($path, '/')
+            ? $path
+            : $cwd . (Str::doesStartWith($path, './') ? Str::trim($path, './', 'start') : $path);
+
+        return [
+            'paths'         => array_map($toAbsolutePath(...), $directories),
+            'excludedPaths' => array_map($toAbsolutePath(...), $excludedPaths),
+        ];
+    }
+
+    /**
+     * @param list<SymfonySplFileInfo> $files
+     *
+     * @return list<string>
+     */
+    private static function convertFilesToMinimalDirectoryPaths(array $files): array
+    {
+        return array_map(static fn (SymfonySplFileInfo $file): string => $file->getPath(), $files)
+            |> array_unique(...)
+            |> (
+                static function (array $paths): array {
+                    usort($paths, static fn (string $path1, string $path2): int => Str::length($path1) <=> Str::length($path2));
+
+                    return $paths;
+                }
+            )
+            |> (static fn (array $sortedPaths): array => array_reduce(
+                $sortedPaths,
+                static fn (array $minimalPaths, string $currentPath): array => array_reduce(
+                    $minimalPaths,
+                    static fn (bool $doSkip, mixed $parentPath): bool => $doSkip
+                        || Str::doesStartWith($currentPath, Str::trim(is_string($parentPath) ? $parentPath : '', '/', 'end') . '/'),
+                    false,
+                )
+                ? $minimalPaths
+                : [...$minimalPaths, $currentPath],
+                [],
+            ))
+            |> (static fn (array $minimalPaths): array => array_filter($minimalPaths, is_string(...)))
+            |> array_values(...);
     }
 
     /**
@@ -683,13 +783,14 @@ final class PhpStan
      */
     private static function getEditor(array $environment): ?string
     {
-        foreach (array_keys($environment) as $key) {
+        foreach ($environment as $key => $value) {
             $key = (string) $key;
 
             $editor = match (true) {
-                Str::doesStartWith($key, 'VSCODE_')  => self::EDITOR_VSCODE,
-                Str::doesStartWith($key, 'PHPSTORM') => self::EDITOR_PHPSTORM,
-                default                              => null,
+                Str::doesStartWith($key, 'VSCODE_')                             => self::EDITOR_VSCODE,
+                Str::doesStartWith($key, 'PHPSTORM')                            => self::EDITOR_PHPSTORM,
+                $key === 'TERMINAL_EMULATOR' && $value === 'JetBrains-JediTerm' => self::EDITOR_PHPSTORM,
+                default                                                         => null,
             };
 
             if ($editor !== null) {
@@ -711,13 +812,19 @@ final class PhpStan
     }
 
     /**
+     * @param string|list<string> $command
      * @param list<string> $paths
      */
-    private static function isCommandAvailable(string $command, array $paths): bool
+    private static function isCommandAvailable(string|array $command, array $paths): bool
     {
+        $commands = is_string($command) ? [$command] : $command;
+
         return array_any(
-            $paths,
-            static fn (string $path): bool => is_executable(Str::trimEnd($path, '/') . '/' . $command),
+            $commands,
+            static fn (string $command): bool => array_any(
+                $paths,
+                static fn (string $path): bool => is_executable(Str::trim($path, '/', 'end') . '/' . $command),
+            ),
         );
     }
 }

@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
+use function array_any;
 use function array_filter;
 use function array_last;
 use function array_slice;
 use function array_values;
 use function count;
 use function implode;
+use function mb_ltrim;
 use function mb_rtrim;
 use function mb_strlen;
 use function mb_strrpos;
 use function mb_strtolower;
 use function mb_substr;
+use function mb_trim;
 use function preg_match;
 use function sprintf;
 use function str_contains;
+use function str_replace;
 use function str_starts_with;
 
 use const PREG_UNMATCHED_AS_NULL;
@@ -31,37 +35,42 @@ final readonly class Str
 
     public static function length(string $string): int
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_strlen($string);
     }
 
     public static function toLowerCase(string $string): string
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_strtolower($string);
     }
 
     public static function doesStartWith(string $haystack, string $needle): bool
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_starts_with($haystack, $needle);
     }
 
-    public static function trimEnd(string $string, ?string $characters = null): string
+    /**
+     * @param list<string> $needles
+     */
+    public static function doesStartWithAny(string $haystack, array $needles): bool
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        return mb_rtrim($string, $characters);
+        return array_any(
+            $needles,
+            static fn (string $needle): bool => self::doesStartWith($haystack, $needle),
+        );
     }
 
     /**
      * @return list<string>
      */
-    public static function match(string $string, string $pattern, int $flags = 0): array
+    public static function match(string $string, string $pattern): array
     {
         $matches = [];
 
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        $result = preg_match($pattern . 'u', $string, $matches, $flags | PREG_UNMATCHED_AS_NULL);
+        // @phpstan-ignore symplify.forbiddenFuncCall(Avoid using symfony/string here to keep package as lighweight as possible)
+        $result = preg_match($pattern . 'u', $string, $matches, PREG_UNMATCHED_AS_NULL);
 
         return $result === false
             ? []
@@ -70,14 +79,38 @@ final readonly class Str
 
     public static function doesContain(string $haystack, string $needle): bool
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return str_contains($haystack, $needle);
+    }
+
+    public static function replace(string $haystack, string $needle, string $replacement): string
+    {
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        return str_replace($needle, $replacement, $haystack);
     }
 
     public static function afterLast(string $haystack, string $needle): string
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        return mb_substr($haystack, mb_strrpos($haystack, $needle) + 1);
+        // @phpstan-ignore symplify.forbiddenFuncCall, symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        return mb_substr($haystack, (mb_strrpos($haystack, $needle) ?: -1) + 1);
+    }
+
+    /**
+     * @param 'default'|'end'|'start' $mode
+     */
+    public static function trim(
+        string $string,
+        string $characters = " \t\n\r\0\x0B\x0C\u{A0}\u{FEFF}",
+        string $mode = 'default',
+    ): string {
+        return match ($mode) {
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+            'start' => mb_ltrim($string, $characters),
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+            'end' => mb_rtrim($string, $characters),
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+            'default' => mb_trim($string, $characters),
+        };
     }
 
     /**

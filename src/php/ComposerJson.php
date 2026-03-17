@@ -26,7 +26,6 @@ use function in_array;
 use function is_array;
 use function is_dir;
 use function is_string;
-use function mb_trim;
 use function pathinfo;
 use function preg_replace;
 use function reset;
@@ -106,7 +105,7 @@ final class ComposerJson
         public readonly string $path,
     ) {
         $this->lockFilePath = pathinfo($path, PATHINFO_EXTENSION) === 'json'
-            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string since this class is shared by all modules and not all of them rely on it)
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string since this class is shared by all modules and not all of them rely on it)
             ? (preg_replace('/\.json$/', '.lock', $path) ?: '')
             : $path . '.lock';
     }
@@ -124,8 +123,7 @@ final class ComposerJson
      */
     public static function forProjectUsingThisLibrary(): self
     {
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
-        $composer = mb_trim(match (true) {
+        $composer = Str::trim(match (true) {
             is_string($_SERVER['COMPOSER'] ?? null) => $_SERVER['COMPOSER'],
             is_string($_ENV['COMPOSER'] ?? null)    => $_ENV['COMPOSER'],
             default                                 => (string) getenv('COMPOSER'),
@@ -373,7 +371,7 @@ final class ComposerJson
             ->toString()
         ;
 
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
         if (file_put_contents($this->path, $data) === false) {
             $this->data = $previousData;
 
@@ -400,7 +398,7 @@ final class ComposerJson
         }
 
         try {
-            // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
+            // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/finder since this class is shared by all modules and not all of them rely on it)
             $this->data = Json::decode($stringToRead ?? file_get_contents($this->path) ?: '[]');
         } catch (JsonException $jsonException) {
             throw new RuntimeException(sprintf(

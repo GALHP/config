@@ -108,13 +108,12 @@ final readonly class Console
         ;
 
         $this->writeRaw(sprintf(
-            '<comment>%s%s%s%s</comment><info>%s%s</info>',
+            '<fg=yellow>%s%s%s%s</><fg=green;options=underscore>%s</>',
             '   ___               __   __' . PHP_EOL,
             '  / _ )_______  ____/ /  / /__ ____' . PHP_EOL,
             ' / _  / __/ _ \(_--/ _ \/  ´_// __/' . PHP_EOL,
             '/____/_/ /_//_/___/_//_/_/\_\/_/' . PHP_EOL . PHP_EOL,
             $packageNameAndVersion->toString() . PHP_EOL,
-            s('‾')->repeat($packageNameAndVersion->length()),
         ));
     }
 

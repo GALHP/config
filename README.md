@@ -431,7 +431,7 @@ A few possible ways are listed below:
 Example call, adjust as needed
 
 ```sh
-php ./vendor/bin/php-cs-fixer fix -v --show-progress=dots --config ./conf/php-cs-fixer.php
+php ./vendor/bin/php-cs-fixer fix --config ./conf/php-cs-fixer.php -v --show-progress=dots
 ```
 
 <!-- omit in toc -->
@@ -440,7 +440,7 @@ php ./vendor/bin/php-cs-fixer fix -v --show-progress=dots --config ./conf/php-cs
 Example call, adjust as needed
 
 ```sh
-php ./vendor/bin/rector process --config ./conf/rector.php
+php ./vendor/bin/rector process --config ./conf/rector.php --memory-limit=-1
 ```
 
 <!-- omit in toc -->
@@ -449,7 +449,7 @@ php ./vendor/bin/rector process --config ./conf/rector.php
 Example call, adjust as needed
 
 ```sh
-php ./vendor/bin/phpstan analyze --memory-limit=-1 --configuration ./conf/phpstan.php
+php ./vendor/bin/phpstan analyze --configuration ./conf/phpstan.php -vv --memory-limit=-1
 ```
 
 <!-- omit in toc -->

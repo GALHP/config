@@ -6,6 +6,7 @@ namespace Brnshkr\Config\PhpStan\Rule\Trait;
 
 use Brnshkr\Config\ComposerJson;
 use Brnshkr\Config\Str;
+use PhpParser\Node\Stmt\Class_;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use RuntimeException;
@@ -22,10 +23,11 @@ trait RuleTrait
     /**
      * @throws RuntimeException
      */
-    private static function buildRuleError(string $message): IdentifierRuleError
+    private static function buildRuleError(string $message, int $line, bool $isIgnorable = true): IdentifierRuleError
     {
         $className = Str::afterLast(self::class, '\\');
-        // @phpstan-ignore-next-line symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         $ruleName = lcfirst(preg_replace('/Rule$/', '', $className) ?: 'unknown');
 
         $identifier = sprintf(
@@ -34,9 +36,20 @@ trait RuleTrait
             $ruleName,
         );
 
-        return RuleErrorBuilder::message($message)
+        $ruleErrorBuilder = RuleErrorBuilder::message($message)
             ->identifier($identifier)
-            ->build()
+            ->line($line)
         ;
+
+        if (!$isIgnorable) {
+            $ruleErrorBuilder->nonIgnorable();
+        }
+
+        return $ruleErrorBuilder->build();
+    }
+
+    private static function getClassName(Class_ $class): string
+    {
+        return $class->name?->toString() ?: '<unknown>';
     }
 }
