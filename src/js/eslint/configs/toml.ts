@@ -4,15 +4,14 @@ import { buildConfigName } from '../utils/config';
 import { GLOB_TOML } from '../utils/globs';
 import { MODULES, resolvePackages } from '../utils/module';
 
-import type { ESLint } from 'eslint';
 import type { Config } from '../types/config';
 
 export const toml = async (): Promise<Config[]> => {
   const {
-    requiredAll: [pluginToml, parserToml],
+    requiredAll: [pluginToml],
   } = await resolvePackages(MODULES.toml);
 
-  if (!pluginToml || !parserToml) {
+  if (!pluginToml) {
     return [];
   }
 
@@ -20,14 +19,7 @@ export const toml = async (): Promise<Config[]> => {
     {
       name: buildConfigName(MAIN_SCOPES.TOML, SUB_SCOPES.SETUP),
       plugins: {
-        toml: <ESLint.Plugin>pluginToml,
-      },
-    },
-    {
-      name: buildConfigName(MAIN_SCOPES.TOML, SUB_SCOPES.PARSER),
-      files: [GLOB_TOML],
-      languageOptions: {
-        parser: parserToml,
+        toml: pluginToml,
       },
     },
     {

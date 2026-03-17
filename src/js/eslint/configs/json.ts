@@ -5,7 +5,6 @@ import { buildConfigName } from '../utils/config';
 import { GLOB_JSON5, GLOB_JSON, GLOB_JSONC } from '../utils/globs';
 import { MODULES, resolvePackages } from '../utils/module';
 
-import type { ESLint } from 'eslint';
 import type { Config } from '../types/config';
 
 const TSCONFIG_FILES = [
@@ -509,7 +508,7 @@ const getJsoncSortConfigs = (): Config[] => [
 export const json = async (): Promise<Config[]> => {
   const {
     requiredAll: [pluginJson],
-    optional: [pluginJsonc, parserJsonc],
+    optional: [pluginJsonc],
   } = await resolvePackages(MODULES.json);
 
   if (!pluginJson) {
@@ -549,13 +548,13 @@ export const json = async (): Promise<Config[]> => {
   });
 
   const plugins: Config['plugins'] = {
-    json: <ESLint.Plugin><unknown>pluginJson,
+    json: pluginJson,
   };
 
   let jsoncSortConfigs: Config[] = [];
 
   if (pluginJsonc) {
-    plugins['jsonc'] = <ESLint.Plugin><unknown>pluginJsonc;
+    plugins['jsonc'] = pluginJsonc;
     jsoncSortConfigs = getJsoncSortConfigs();
   }
 
@@ -564,15 +563,6 @@ export const json = async (): Promise<Config[]> => {
       name: buildConfigName(MAIN_SCOPES.JSON, SUB_SCOPES.SETUP),
       plugins,
     },
-    parserJsonc
-      ? {
-        name: buildConfigName(MAIN_SCOPES.JSON, SUB_SCOPES.PARSER),
-        files: [GLOB_JSON, GLOB_JSONC, GLOB_JSON5],
-        languageOptions: {
-          parser: parserJsonc,
-        },
-      }
-      : undefined,
     createRulesConfig('json'),
     createRulesConfig('jsonc'),
     ...jsoncSortConfigs,

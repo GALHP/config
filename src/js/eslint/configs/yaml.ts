@@ -4,15 +4,14 @@ import { buildConfigName, renameRules } from '../utils/config';
 import { GLOB_YAML } from '../utils/globs';
 import { MODULES, resolvePackages } from '../utils/module';
 
-import type { ESLint } from 'eslint';
 import type { Config } from '../types/config';
 
 export const yaml = async (): Promise<Config[]> => {
   const {
-    requiredAll: [pluginYaml, parserYaml],
+    requiredAll: [pluginYaml],
   } = await resolvePackages(MODULES.yaml);
 
-  if (!pluginYaml || !parserYaml) {
+  if (!pluginYaml) {
     return [];
   }
 
@@ -20,14 +19,7 @@ export const yaml = async (): Promise<Config[]> => {
     {
       name: buildConfigName(MAIN_SCOPES.YAML, SUB_SCOPES.SETUP),
       plugins: {
-        yaml: <ESLint.Plugin>pluginYaml,
-      },
-    },
-    {
-      name: buildConfigName(MAIN_SCOPES.YAML, SUB_SCOPES.PARSER),
-      files: [GLOB_YAML],
-      languageOptions: {
-        parser: parserYaml,
+        yaml: pluginYaml,
       },
     },
     {
