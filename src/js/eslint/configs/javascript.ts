@@ -26,7 +26,7 @@ export const javascript = async (): Promise<Config[]> => {
   if (pluginUnusedImports) {
     plugins['unused'] = pluginUnusedImports;
     pluginRules['unused/no-unused-imports'] = 'error';
-    pluginRules['unused/no-unused-vars'] = isModuleEnabled(MODULES.typescript) ? 'off' : 'error';
+    pluginRules['unused/no-unused-vars'] = 'error';
   }
 
   return [
