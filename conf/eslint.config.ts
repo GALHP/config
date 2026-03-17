@@ -24,6 +24,12 @@ export default getConfig(undefined, {
   ],
   rules: {
     'no-magic-numbers': 'off',
+  },
+}, {
+  files: [
+    'scripts/typegen.ts',
+  ],
+  rules: {
     'import/no-extraneous-dependencies': 'off',
   },
 }, {
