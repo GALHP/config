@@ -32,6 +32,9 @@ export const toml = async (): Promise<Config[]> => {
         /* eslint-enable no-magic-numbers -- Restore rule */
         'toml/array-bracket-spacing': ['error', 'never'],
         'toml/indent': ['error', INDENT],
+        'toml/inline-table-curly-spacing': ['error', 'always', {
+          emptyObjects: 'never',
+        }],
         'toml/no-mixed-type-in-array': 'error',
       },
     },

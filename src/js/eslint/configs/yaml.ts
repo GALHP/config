@@ -32,7 +32,9 @@ export const yaml = async (): Promise<Config[]> => {
         /* eslint-enable no-magic-numbers -- Restore rule */
         'yaml/block-mapping-colon-indicator-newline': ['error', 'never'],
         'yaml/file-extension': 'error',
-        'yaml/flow-mapping-curly-spacing': ['error', 'always'],
+        'yaml/flow-mapping-curly-spacing': ['error', 'always', {
+          emptyObjects: 'never',
+        }],
         'yaml/indent': ['error', INDENT],
         'yaml/no-multiple-empty-lines': 'error',
         'yaml/no-trailing-zeros': 'error',

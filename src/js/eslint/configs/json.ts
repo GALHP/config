@@ -538,7 +538,9 @@ export const json = async (): Promise<Config[]> => {
           'jsonc/key-spacing': 'error',
           'jsonc/no-octal-escape': 'error',
           'jsonc/object-curly-newline': 'error',
-          'jsonc/object-curly-spacing': ['error', 'always'],
+          'jsonc/object-curly-spacing': ['error', 'always', {
+            emptyObjects: 'never',
+          }],
           'jsonc/object-property-newline': 'error',
           'jsonc/quotes': ['error', 'double'],
         }
