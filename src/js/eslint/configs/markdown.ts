@@ -3,6 +3,7 @@ import { buildConfigName } from '../utils/config';
 import { GLOB_MD } from '../utils/globs';
 import { MODULES, resolvePackages } from '../utils/module';
 
+import type { ESLint } from 'eslint';
 import type { Config } from '../types/config';
 import type { MarkdownOptions } from '../types/options';
 
@@ -42,7 +43,7 @@ export const markdown = async (options?: Partial<MarkdownOptions>): Promise<Conf
     {
       name: buildConfigName(MAIN_SCOPES.MARKDOWN, SUB_SCOPES.SETUP),
       plugins: {
-        markdown: pluginMarkdown,
+        markdown: <ESLint.Plugin>pluginMarkdown,
       },
     },
     {
