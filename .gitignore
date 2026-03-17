@@ -8,3 +8,4 @@
 /node_modules/
 /src/js/eslint/types/declarations/typegen.d.ts
 /vendor/
+/.idea/
