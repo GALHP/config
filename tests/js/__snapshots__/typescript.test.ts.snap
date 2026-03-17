@@ -97,6 +97,7 @@ exports[`expected typescript config 1`] = `
         "./src/js/shared/utils/module.ts",
         "./src/js/shared/utils/object.ts",
         "./src/js/shared/utils/package-json.ts",
+        "./src/js/shared/utils/package-resolvers.ts",
         "./src/js/shared/utils/string.ts",
         "./src/js/stylelint/index.ts",
         "./src/js/stylelint/configs/baseline.ts",

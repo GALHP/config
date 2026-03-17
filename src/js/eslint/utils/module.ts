@@ -1,119 +1,13 @@
-import { isPackageExists } from 'local-pkg';
-
-import { interopImport } from '../../shared/utils/interop-import';
 import { isModuleEnabledByDefault, resolvePackagesSharedAsynchronously } from '../../shared/utils/module';
 import { packageOrganization } from '../../shared/utils/package-json';
+import { ESLINT_PACKAGES } from '../../shared/utils/package-resolvers';
 
 import type { Maybe } from '../../shared/types/core';
 import type { ModuleInfo, ResolvedPackages } from '../../shared/utils/module';
+import type { EslintPackage } from '../../shared/utils/package-resolvers';
 import type { configs } from '../configs';
 
-export const PACKAGES = <const>{
-  ESLINT_CSS: '@eslint/css',
-  ESLINT_FLAT_CONFIG_GITIGNORE: 'eslint-config-flat-gitignore',
-  ESLINT_IMPORT_RESOVLER_TYPESCRIPT: 'eslint-import-resolver-typescript',
-  ESLINT_JSON: '@eslint/json',
-  ESLINT_MARKDOWN: '@eslint/markdown',
-  ESLINT_MERGE_PROCESSORS: 'eslint-merge-processors',
-  ESLINT_PLUGIN_ANTFU: 'eslint-plugin-antfu',
-  ESLINT_PLUGIN_ESLINT_COMMENTS: '@eslint-community/eslint-plugin-eslint-comments',
-  ESLINT_PLUGIN_IMPORT_X: 'eslint-plugin-import-x',
-  ESLINT_PLUGIN_JSDOC: 'eslint-plugin-jsdoc',
-  ESLINT_PLUGIN_JSDOC_PROCESSOR: 'eslint-plugin-jsdoc/getJsdocProcessorPlugin.js',
-  ESLINT_PLUGIN_JSONC: 'eslint-plugin-jsonc',
-  ESLINT_PLUGIN_N: 'eslint-plugin-n',
-  ESLINT_PLUGIN_PERFECTIONIST: 'eslint-plugin-perfectionist',
-  ESLINT_PLUGIN_REGEXP: 'eslint-plugin-regexp',
-  ESLINT_PLUGIN_STYLISTIC: '@stylistic/eslint-plugin',
-  ESLINT_PLUGIN_SVELTE: 'eslint-plugin-svelte',
-  ESLINT_PLUGIN_TOML: 'eslint-plugin-toml',
-  ESLINT_PLUGIN_UNICORN: 'eslint-plugin-unicorn',
-  ESLINT_PLUGIN_UNUSED_IMPORTS: 'eslint-plugin-unused-imports',
-  ESLINT_PLUGIN_YML: 'eslint-plugin-yml',
-  SVELTE: 'svelte',
-  TYPESCRIPT: 'typescript',
-  TYPESCRIPT_ESLINT: 'typescript-eslint',
-  VITEST_ESLINT_PLUGIN: '@vitest/eslint-plugin',
-};
-
-type Package = typeof PACKAGES[keyof typeof PACKAGES];
-
-// NOTICE: Package names must be duplicated here to allow for type inference of dynamic imports
-export const PACKAGE_RESOLVERS = <const>{
-  [PACKAGES.ESLINT_CSS]: async () => await interopImport(
-    import('@eslint/css'),
-  ),
-  [PACKAGES.ESLINT_FLAT_CONFIG_GITIGNORE]: async () => await interopImport(
-    import('eslint-config-flat-gitignore'),
-  ),
-  [PACKAGES.ESLINT_JSON]: async () => await interopImport(
-    import('@eslint/json'),
-  ),
-  [PACKAGES.ESLINT_IMPORT_RESOVLER_TYPESCRIPT]: async () => await interopImport(
-    import('eslint-import-resolver-typescript'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_ANTFU]: async () => await interopImport(
-    import('eslint-plugin-antfu'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_ESLINT_COMMENTS]: async () => await interopImport(
-    import('@eslint-community/eslint-plugin-eslint-comments'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_IMPORT_X]: async () => await interopImport(
-    import('eslint-plugin-import-x'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_JSDOC]: async () => await interopImport(
-    import('eslint-plugin-jsdoc'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_JSONC]: async () => await interopImport(
-    import('eslint-plugin-jsonc'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_JSDOC_PROCESSOR]: async () => await interopImport(
-    import('eslint-plugin-jsdoc/getJsdocProcessorPlugin.js'),
-  ),
-  [PACKAGES.ESLINT_MARKDOWN]: async () => await interopImport(
-    import('@eslint/markdown'),
-  ),
-  [PACKAGES.ESLINT_MERGE_PROCESSORS]: async () => await interopImport(
-    import('eslint-merge-processors'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_N]: async () => await interopImport(
-    import('eslint-plugin-n'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_PERFECTIONIST]: async () => await interopImport(
-    import('eslint-plugin-perfectionist'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_REGEXP]: async () => await interopImport(
-    import('eslint-plugin-regexp'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_STYLISTIC]: async () => await interopImport(
-    import('@stylistic/eslint-plugin'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_SVELTE]: async () => await interopImport(
-    import('eslint-plugin-svelte'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_TOML]: async () => await interopImport(
-    import('eslint-plugin-toml'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_UNICORN]: async () => await interopImport(
-    import('eslint-plugin-unicorn'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_UNUSED_IMPORTS]: async () => await interopImport(
-    import('eslint-plugin-unused-imports'),
-  ),
-  [PACKAGES.ESLINT_PLUGIN_YML]: async () => await interopImport(
-    import('eslint-plugin-yml'),
-  ),
-  // Do not import, just check for existence
-  [PACKAGES.SVELTE]: () => isPackageExists(PACKAGES.SVELTE),
-  // Do not import, just check for existence
-  [PACKAGES.TYPESCRIPT]: () => isPackageExists(PACKAGES.TYPESCRIPT),
-  [PACKAGES.TYPESCRIPT_ESLINT]: async () => await interopImport(
-    import('typescript-eslint'),
-  ),
-  [PACKAGES.VITEST_ESLINT_PLUGIN]: async () => await interopImport(
-    import('@vitest/eslint-plugin'),
-  ),
-} satisfies Record<Package, (() => Promise<unknown>) | (() => boolean)>;
+export { ESLINT_PACKAGES as PACKAGES } from '../../shared/utils/package-resolvers';
 
 export const MODULES = <const>{
   [packageOrganization]: {
@@ -123,7 +17,7 @@ export const MODULES = <const>{
     name: 'comments',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_ESLINT_COMMENTS,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_ESLINT_COMMENTS,
       ],
     },
   },
@@ -131,7 +25,7 @@ export const MODULES = <const>{
     name: 'css',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_CSS,
+        ESLINT_PACKAGES.ESLINT_CSS,
       ],
     },
   },
@@ -139,7 +33,7 @@ export const MODULES = <const>{
     name: 'gitignore',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_FLAT_CONFIG_GITIGNORE,
+        ESLINT_PACKAGES.ESLINT_FLAT_CONFIG_GITIGNORE,
       ],
     },
   },
@@ -147,11 +41,11 @@ export const MODULES = <const>{
     name: 'import',
     packages: {
       requiredAny: [
-        PACKAGES.ESLINT_PLUGIN_IMPORT_X,
-        PACKAGES.ESLINT_PLUGIN_ANTFU,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_IMPORT_X,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_ANTFU,
       ],
       optional: [
-        PACKAGES.ESLINT_IMPORT_RESOVLER_TYPESCRIPT,
+        ESLINT_PACKAGES.ESLINT_IMPORT_RESOVLER_TYPESCRIPT,
       ],
     },
   },
@@ -159,8 +53,8 @@ export const MODULES = <const>{
     name: 'javascript',
     packages: {
       optional: [
-        PACKAGES.ESLINT_PLUGIN_ANTFU,
-        PACKAGES.ESLINT_PLUGIN_UNUSED_IMPORTS,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_ANTFU,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_UNUSED_IMPORTS,
       ],
     },
   },
@@ -168,10 +62,10 @@ export const MODULES = <const>{
     name: 'jsdoc',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_JSDOC,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_JSDOC,
       ],
       optional: [
-        PACKAGES.ESLINT_PLUGIN_JSDOC_PROCESSOR,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_JSDOC_PROCESSOR,
       ],
     },
   },
@@ -179,10 +73,10 @@ export const MODULES = <const>{
     name: 'json',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_JSON,
+        ESLINT_PACKAGES.ESLINT_JSON,
       ],
       optional: [
-        PACKAGES.ESLINT_PLUGIN_JSONC,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_JSONC,
       ],
     },
   },
@@ -190,8 +84,8 @@ export const MODULES = <const>{
     name: 'markdown',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_MARKDOWN,
-        PACKAGES.ESLINT_MERGE_PROCESSORS,
+        ESLINT_PACKAGES.ESLINT_MARKDOWN,
+        ESLINT_PACKAGES.ESLINT_MERGE_PROCESSORS,
       ],
     },
   },
@@ -199,7 +93,7 @@ export const MODULES = <const>{
     name: 'node',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_N,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_N,
       ],
     },
   },
@@ -207,7 +101,7 @@ export const MODULES = <const>{
     name: 'perfectionist',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_PERFECTIONIST,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_PERFECTIONIST,
       ],
     },
   },
@@ -215,7 +109,7 @@ export const MODULES = <const>{
     name: 'regexp',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_REGEXP,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_REGEXP,
       ],
     },
   },
@@ -223,7 +117,7 @@ export const MODULES = <const>{
     name: 'style',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_STYLISTIC,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_STYLISTIC,
       ],
     },
   },
@@ -231,8 +125,8 @@ export const MODULES = <const>{
     name: 'svelte',
     packages: {
       requiredAll: [
-        PACKAGES.SVELTE,
-        PACKAGES.ESLINT_PLUGIN_SVELTE,
+        ESLINT_PACKAGES.SVELTE,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_SVELTE,
       ],
     },
   },
@@ -240,7 +134,7 @@ export const MODULES = <const>{
     name: 'test',
     packages: {
       requiredAll: [
-        PACKAGES.VITEST_ESLINT_PLUGIN,
+        ESLINT_PACKAGES.VITEST_ESLINT_PLUGIN,
       ],
     },
   },
@@ -248,7 +142,7 @@ export const MODULES = <const>{
     name: 'toml',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_TOML,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_TOML,
       ],
     },
   },
@@ -256,8 +150,8 @@ export const MODULES = <const>{
     name: 'typescript',
     packages: {
       requiredAll: [
-        PACKAGES.TYPESCRIPT,
-        PACKAGES.TYPESCRIPT_ESLINT,
+        ESLINT_PACKAGES.TYPESCRIPT,
+        ESLINT_PACKAGES.TYPESCRIPT_ESLINT,
       ],
     },
   },
@@ -265,7 +159,7 @@ export const MODULES = <const>{
     name: 'unicorn',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_UNICORN,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_UNICORN,
       ],
     },
   },
@@ -273,14 +167,14 @@ export const MODULES = <const>{
     name: 'yaml',
     packages: {
       requiredAll: [
-        PACKAGES.ESLINT_PLUGIN_YML,
+        ESLINT_PACKAGES.ESLINT_PLUGIN_YML,
       ],
     },
   },
-} satisfies Partial<Record<keyof typeof configs, ModuleInfo<readonly Package[]>>>;
+} satisfies Partial<Record<keyof typeof configs, ModuleInfo<readonly EslintPackage[]>>>;
 
 export const resolvePackages = async <
-  TModuleInfo extends ModuleInfo<readonly Package[]>,
+  TModuleInfo extends ModuleInfo<readonly EslintPackage[]>,
   TType extends Maybe<keyof TModuleInfo['packages']> = undefined,
 >(
   moduleInfo: TModuleInfo,
