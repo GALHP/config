@@ -566,7 +566,7 @@ export const json = async (): Promise<Config[]> => {
     },
     createRulesConfig('json'),
     createRulesConfig('jsonc'),
-    ...jsoncSortConfigs,
     createRulesConfig('json5'),
+    ...jsoncSortConfigs,
   ].filter(Boolean);
 };
