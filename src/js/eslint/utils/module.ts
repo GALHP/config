@@ -30,13 +30,10 @@ export const PACKAGES = <const>{
   ESLINT_PLUGIN_UNICORN: 'eslint-plugin-unicorn',
   ESLINT_PLUGIN_UNUSED_IMPORTS: 'eslint-plugin-unused-imports',
   ESLINT_PLUGIN_YML: 'eslint-plugin-yml',
-  JSONC_ESLINT_PARSER: 'jsonc-eslint-parser',
   SVELTE: 'svelte',
-  TOML_ESLINT_PARSER: 'toml-eslint-parser',
   TYPESCRIPT: 'typescript',
   TYPESCRIPT_ESLINT: 'typescript-eslint',
   VITEST_ESLINT_PLUGIN: '@vitest/eslint-plugin',
-  YAML_ESLINT_PARSER: 'yaml-eslint-parser',
 };
 
 type Package = typeof PACKAGES[keyof typeof PACKAGES];
@@ -106,12 +103,6 @@ export const PACKAGE_RESOLVERS = <const>{
   [PACKAGES.ESLINT_PLUGIN_YML]: async () => await interopImport(
     import('eslint-plugin-yml'),
   ),
-  [PACKAGES.JSONC_ESLINT_PARSER]: async () => await interopImport(
-    import('jsonc-eslint-parser'),
-  ),
-  [PACKAGES.TOML_ESLINT_PARSER]: async () => await interopImport(
-    import('toml-eslint-parser'),
-  ),
   // Do not import, just check for existence
   [PACKAGES.SVELTE]: () => isPackageExists(PACKAGES.SVELTE),
   // Do not import, just check for existence
@@ -121,9 +112,6 @@ export const PACKAGE_RESOLVERS = <const>{
   ),
   [PACKAGES.VITEST_ESLINT_PLUGIN]: async () => await interopImport(
     import('@vitest/eslint-plugin'),
-  ),
-  [PACKAGES.YAML_ESLINT_PARSER]: async () => await interopImport(
-    import('yaml-eslint-parser'),
   ),
 } satisfies Record<Package, (() => Promise<unknown>) | (() => boolean)>;
 
@@ -195,7 +183,6 @@ export const MODULES = <const>{
       ],
       optional: [
         PACKAGES.ESLINT_PLUGIN_JSONC,
-        PACKAGES.JSONC_ESLINT_PARSER,
       ],
     },
   },
@@ -262,7 +249,6 @@ export const MODULES = <const>{
     packages: {
       requiredAll: [
         PACKAGES.ESLINT_PLUGIN_TOML,
-        PACKAGES.TOML_ESLINT_PARSER,
       ],
     },
   },
@@ -288,7 +274,6 @@ export const MODULES = <const>{
     packages: {
       requiredAll: [
         PACKAGES.ESLINT_PLUGIN_YML,
-        PACKAGES.YAML_ESLINT_PARSER,
       ],
     },
   },
