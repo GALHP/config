@@ -38,7 +38,7 @@ export const svelte = async (): Promise<Config[]> => {
       name: buildConfigName(MAIN_SCOPES.SVELTE, SUB_SCOPES.PARSER),
       files: [GLOB_SVELTE, GLOB_SVELTE_SCRIPT],
       languageOptions: {
-        parser: extractRelevantConfig(pluginSvelte.configs['flat/base'], 'base:setup-for-svelte').languageOptions?.['parser'],
+        parser: extractRelevantConfig(pluginSvelte.configs.base, 'base:setup-for-svelte').languageOptions?.['parser'],
         parserOptions: {
           extraFileExtensions: ['.svelte'],
           parser: await getTsEslintParserIfExists(),
@@ -54,7 +54,7 @@ export const svelte = async (): Promise<Config[]> => {
       name: buildConfigName(MAIN_SCOPES.SVELTE, SUB_SCOPES.RULES),
       files: [GLOB_SVELTE, GLOB_SVELTE_SCRIPT],
       rules: {
-        ...extractRelevantConfig(pluginSvelte.configs['flat/recommended'], 'recommended:rules').rules,
+        ...extractRelevantConfig(pluginSvelte.configs.recommended, 'recommended:rules').rules,
         'svelte/block-lang': ['error', {
           enforceScriptPresent: false,
           enforceStylePresent: false,
