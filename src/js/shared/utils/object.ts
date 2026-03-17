@@ -1,4 +1,4 @@
-import type { ArrayElement, Simplify, ValueOf } from 'type-fest';
+import type { Simplify, ValueOf } from 'type-fest';
 
 export type AnyRecord = Record<PropertyKey, unknown>;
 export type AnyObject<TObject = AnyRecord> = Simplify<Partial<Record<keyof TObject, ValueOf<TObject>>>>;
@@ -7,7 +7,7 @@ export type ObjectValues<TObject = AnyRecord> = Simplify<ValueOf<TObject>[]>;
 export type ObjectEntries<TObject = AnyRecord> = Simplify<[keyof TObject, ValueOf<TObject>][]>;
 
 export type ObjectFromEntries<TObjectEntries extends ObjectEntries> = Simplify<{
-  [TEntry in ArrayElement<TObjectEntries> as TEntry[0]]: TEntry[1];
+  [TEntry in TObjectEntries[number] as TEntry[0]]: TEntry[1];
 }>;
 
 export const objectKeys = <TObject extends AnyObject<TObject>>(
