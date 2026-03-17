@@ -6,11 +6,20 @@ include ./conf/Makefile
 
 #---v general
 
+GREP  := grep
 MKDIR := mkdir
 MV    := mv
 RM    := rm
 RSYNC := rsync
 TAR   := tar
+
+#---vv tools
+BUN      := bun
+COMPOSER := composer
+
+#---vvv constants
+
+SEMVER_REGEX := (0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?#vvv
 
 #--- phpunit
 
