@@ -230,7 +230,6 @@ export const javascript = async (): Promise<Config[]> => {
         'no-shadow': 'error',
         'no-template-curly-in-string': 'error',
         'no-throw-literal': 'error',
-        'no-unassigned-vars': 'error',
         'no-underscore-dangle': 'error',
         'no-unmodified-loop-condition': 'error',
         'no-unneeded-ternary': ['error', {
@@ -239,7 +238,6 @@ export const javascript = async (): Promise<Config[]> => {
         'no-unreachable-loop': 'error',
         'no-unused-expressions': 'error',
         'no-use-before-define': 'error',
-        'no-useless-assignment': 'error',
         'no-useless-call': 'error',
         'no-useless-computed-key': 'error',
         'no-useless-concat': 'error',
@@ -271,7 +269,6 @@ export const javascript = async (): Promise<Config[]> => {
         'prefer-rest-params': 'error',
         'prefer-spread': 'error',
         'prefer-template': 'error',
-        'preserve-caught-error': 'error',
         radix: 'error',
         'require-atomic-updates': 'error',
         'require-await': 'error',
