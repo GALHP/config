@@ -24,6 +24,12 @@ export default getConfig(undefined, {
   ],
   rules: {
     'no-magic-numbers': 'off',
+  },
+}, {
+  files: [
+    'scripts/typegen.ts',
+  ],
+  rules: {
     'import/no-extraneous-dependencies': 'off',
   },
 }, {
@@ -57,12 +63,17 @@ export default getConfig(undefined, {
   },
 }, {
   files: [
-    'src/js/eslint/utils/module.ts',
     'src/js/shared/utils/module.ts',
   ],
   rules: {
     complexity: 'off',
     'max-lines-per-function': 'off',
+  },
+}, {
+  files: [
+    'src/js/shared/utils/package-resolvers.ts',
+  ],
+  rules: {
     'import/max-dependencies': 'off',
   },
 });

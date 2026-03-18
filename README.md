@@ -314,6 +314,7 @@ You can then copy the specific configs to your project:
 
 ```sh
 cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php \
+  && cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php.example \
   && cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.dist.php.example ./conf/php-cs-fixer.dist.php
 ```
 
@@ -322,6 +323,7 @@ cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.
 
 ```sh
 cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php \
+  && cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php.example \
   && cp -v ./vendor/brnshkr/config/conf/rector.dist.php.example ./conf/rector.dist.php
 ```
 
@@ -330,6 +332,7 @@ cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php \
 
 ```sh
 cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php \
+  && cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php.example \
   && cp -v ./vendor/brnshkr/config/conf/phpstan.dist.php.example ./conf/phpstan.dist.php
 ```
 
@@ -352,10 +355,13 @@ cp -v ./vendor/brnshkr/config/conf/.gitignore.example ./.gitignore
 
 ```sh
 cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php \
+  && cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php.example \
   && cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.dist.php.example ./conf/php-cs-fixer.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php \
+  && cp -v ./vendor/brnshkr/config/conf/rector.php.example ./conf/rector.php.example \
   && cp -v ./vendor/brnshkr/config/conf/rector.dist.php.example ./conf/rector.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php \
+  && cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php.example \
   && cp -v ./vendor/brnshkr/config/conf/phpstan.dist.php.example ./conf/phpstan.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/Makefile.example ./Makefile \
   && cp -v ./vendor/brnshkr/config/conf/.gitignore.example ./.gitignore

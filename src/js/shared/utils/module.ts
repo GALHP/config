@@ -1,21 +1,19 @@
 import { isPackageExists } from 'local-pkg';
 
-import { PACKAGE_RESOLVERS as ESLINT_PACKAGE_RESOLVERS } from '../../eslint/utils/module';
-import { PACKAGE_RESOLVERS as STYLELINT_PACKAGE_RESOLVERS } from '../../stylelint/utils/module';
-
 import { log } from './log';
 import { objectEntries } from './object';
+import { ESLINT_PACKAGE_RESOLVERS, STYLELINT_PACKAGE_RESOLVERS } from './package-resolvers';
 import { joinAsQuotedList } from './string';
 
 import type { Simplify } from 'type-fest';
 import type { Maybe } from '../types/core';
 
-const getPackageResolvers = () => <const>({
+const PACKAGE_RESOLVERS = <const>{
   ...ESLINT_PACKAGE_RESOLVERS,
   ...STYLELINT_PACKAGE_RESOLVERS,
-});
+};
 
-type PackageResolvers = ReturnType<typeof getPackageResolvers>;
+type PackageResolvers = typeof PACKAGE_RESOLVERS;
 type Package = keyof PackageResolvers;
 
 type ResolvedPackage<TPackage extends Package> = ReturnType<PackageResolvers[TPackage]> extends boolean
@@ -87,7 +85,6 @@ export const resolvePackagesSharedAsynchronously = async <
     return <ResolvedPackages<TModuleInfo, TType>>{};
   }
 
-  const packageResolvers = getPackageResolvers();
   const resolvedPackages: Record<string, unknown[]> = {};
 
   const packages = type === undefined
@@ -104,7 +101,7 @@ export const resolvePackagesSharedAsynchronously = async <
     for (const currentPackage of currentPackages) {
       try {
         // eslint-disable-next-line no-await-in-loop -- Sequential resolving is desired here
-        const resolvedPackage = packageCache[currentPackage] ?? await packageResolvers[currentPackage]();
+        const resolvedPackage = packageCache[currentPackage] ?? await PACKAGE_RESOLVERS[currentPackage]();
 
         packageCache[currentPackage] ??= resolvedPackage;
 
@@ -146,7 +143,6 @@ export const resolvePackagesSharedSynchronously = <
     return <ResolvedPackages<TModuleInfo, TType>>{};
   }
 
-  const packageResolvers = getPackageResolvers();
   const resolvedPackages: Record<string, unknown[]> = {};
 
   const packages = type === undefined
@@ -162,7 +158,7 @@ export const resolvePackagesSharedSynchronously = <
 
     for (const currentPackage of currentPackages) {
       try {
-        const resolvedPackage = packageCache[currentPackage] ?? packageResolvers[currentPackage]();
+        const resolvedPackage = packageCache[currentPackage] ?? PACKAGE_RESOLVERS[currentPackage]();
 
         packageCache[currentPackage] ??= resolvedPackage;
 

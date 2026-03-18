@@ -35,6 +35,10 @@
 #   - make DEBUG=1 phpstan
 #   - DEBUG=1 make phpstan
 #
+# All make runs can be prepend with the NO_ANSI flag to disable any ANSI escape sequences in the output:
+#   - make NO_ANSI=1 help
+#   - NO_ANSI=1 make help
+#
 # The `make help` command automatically generates documentation based on specially formatted comments:
 #   Scope headers (control grouping and nesting in the help output):
 #     #-- name      —  top-level group (depth 0); all subsequent symbols belong to this group
@@ -73,9 +77,10 @@ help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-v
 	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _escape_newlines,$(LOGO)),$(COLOR_LOGO))'
 	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _to_title_case,$(PACKAGE)) ($(strip $(VERSION))),$(COLOR_TITLE))\n\n'
 	$(DEBUG_PREFIX)$(PRINTF) '$(call text,Usage:,$(COLOR_SECTION_LABEL))\n  $(call text,make,$(COLOR_USAGE_PROGRAM)) $(call text,<command> [--] [arguments],$(COLOR_USAGE_ARGUMENTS))\n\n'
-	$(file >/tmp/brnshkr_config_help.awk,$(_HELP_AWK))
+	$(DEBUG_PREFIX)$(PRINTF) '%s' "$$_HELP_AWK" > /tmp/brnshkr_config_help.awk
 	$(DEBUG_PREFIX)$(AWK) \
 		-v INDENT="$(INDENT)" \
+		-v NO_ANSI="$(NO_ANSI)" \
 		-v PWD="$(abspath $(PWD))" \
 		-v EDITOR="$(_EDITOR)" \
 		-v EDITOR_URL_VSCODE="$(_EDITOR_URL_VSCODE)" \
@@ -95,8 +100,41 @@ help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-v
 		-f /tmp/brnshkr_config_help.awk \
 		$(MAKEFILE_LIST)
 
+# --- includes
+
+_THIS_FILE     := $(abspath $(lastword $(MAKEFILE_LIST)))
+_CONF_MAKEFILE := $(filter-out $(_THIS_FILE),$(wildcard $(PWD)/conf/Makefile))
+
+ifneq ($(_CONF_MAKEFILE),)
+include $(_CONF_MAKEFILE)
+endif
+
+ifneq ($(wildcard $(PWD)/conf/*.mk),)
+include $(PWD)/conf/*.mk
+endif
+
+ifneq ($(wildcard $(PWD)/conf/make/Makefile),)
+include $(PWD)/conf/make/Makefile
+endif
+
+ifneq ($(wildcard $(PWD)/conf/make/*.mk),)
+include $(PWD)/conf/make/*.mk
+endif
+
 ifneq ($(wildcard $(PWD)/.local/Makefile),)
 include $(PWD)/.local/Makefile
+endif
+
+ifneq ($(wildcard $(PWD)/.local/*.mk),)
+include $(PWD)/.local/*.mk
+endif
+
+ifneq ($(wildcard $(PWD)/.local/make/Makefile),)
+include $(PWD)/.local/make/Makefile
+endif
+
+ifneq ($(wildcard $(PWD)/.local/make/*.mk),)
+include $(PWD)/.local/make/*.mk
 endif
 
 #---v general
@@ -105,7 +143,7 @@ PWD          ?= .#vvv #~~ current working directory
 SHELL        ?= /bin/sh#vv #~~ shell to use
 VENDOR       ?= brnshkr#~~ vendor name
 PACKAGE      ?= config#~~ package name
-VERSION      ?= 0.0.1-alpha.14#vv #~~ package version
+VERSION      ?= 0.0.1-alpha.15#vv #~~ package version
 DEBUG        ?= #~~ whether debug mode is enabled
 DEBUG_PREFIX ?= $(if $(DEBUG),,@)#vvv #~~ prefix for all commands
 
@@ -135,7 +173,10 @@ AWK    ?= awk#~~ path to awk binary
 
 #---vv theming
 
-INDENT ?= 1#~~ indent used in `make help` output
+INDENT  ?= 1#~~ indent used in `make help` output
+
+NO_ANSI         ?= #~~ whether ANSI colors are enabled
+_NO_ANSI_OPTION := $(if $(NO_ANSI),--no-ansi)
 
 THEME         ?= #~~ the theme to use
 THEME_BRNSHKR := brnshkr
@@ -168,8 +209,8 @@ ifndef LOGO
 define LOGO
    ___               __   __
   / _ )_______  ____/ /  / /__ ____
- / _  / __/ _ \(_--/ _ \/  ´_// __/
-/____/_/ /_//_/___/_//_/_/\_\/_/
+ / _  / __/ _ \\(_--/ _ \\/  ´_// __/
+/____/_/ /_//_/___/_//_/_/\\_\\/_/
 
 
 endef
@@ -261,44 +302,44 @@ ARGS = $(strip $(filter-out $(_ALL_TARGETS),$(call _collect_args,$@,$(MAKECMDGOA
 #--- phpstan
 
 phpstan: #~~ runs phpstan analyze
-	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(_NO_ANSI_OPTION) $(PHP_STAN_FLAGS) $(ARGS)
 
 phpstan-debug: #~~ runs phpstan analyze in debug mode
-	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) --debug $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(_NO_ANSI_OPTION) $(PHP_STAN_FLAGS) --debug $(ARGS)
 
 phpstan-raw: #~~ runs phpstan analyze with raw output
-	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(PHP_STAN_FLAGS) --error-format=raw $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_STAN) analyze --configuration $(PHP_STAN_CONFIG) $(_NO_ANSI_OPTION) $(PHP_STAN_FLAGS) --error-format=raw $(ARGS)
 
 phpstan-list: #~~ lists all files that are processed by phpstan
-	$(DEBUG_PREFIX)$(MAKE) phpstan-raw -- --debug 2>&1 | $(AWK) 'match($$0, /(.+\.php)$$/, _match) { print _match[1] }'
+	$(DEBUG_PREFIX)$(MAKE) phpstan-raw -- $(_NO_ANSI_OPTION) --debug 2>&1 | $(AWK) 'match($$0, /.+\.php$$/) { print substr($$0, RSTART, RLENGTH) }'
 
 #--- php-cs-fixer
 
 php-cs-fixer: #~~ runs php-cs-fixer fix
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(PHP_CS_FIXER_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(PHP_CS_FIXER_FLAGS) $(ARGS)
 
 php-cs-fixer-debug: #~~ displays used php-cs-fixer rules
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) describe --config $(PHP_CS_FIXER_CONFIG) -n @ $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) describe --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) -n @ $(ARGS)
 
 php-cs-fixer-dry-run: #~~ runs php-cs-fixer fix in dry run mode
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(PHP_CS_FIXER_FLAGS) --dry-run $(ARGS)
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) fix --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(PHP_CS_FIXER_FLAGS) --dry-run $(ARGS)
 
 php-cs-fixer-list: #~~ lists all files that are processed by php-cs-fixer
-	$(DEBUG_PREFIX)$(PHP_CS_FIXER) list-files --config $(PHP_CS_FIXER_CONFIG) 2>&1 | $(AWK) 'match($$0, /^'\''\.\/(.+\.php)'\''$$/, _match) { print _match[1] }'
+	$(DEBUG_PREFIX)$(PHP_CS_FIXER) list-files --config $(PHP_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) 2>&1 | $(AWK) '/^'\''\.\/.*\.php'\''$$/ { sub(/^'\''\.\//, ""); sub(/'\''$$/, ""); print }'
 
 #--- rector
 
 rector: #~~ runs rector process
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) $(ARGS)
 
 rector-debug: #~~ runs rector process in debug mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) --debug $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --debug $(ARGS)
 
 rector-dry-run: #~~ runs rector process in dry run mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(RECTOR_FLAGS) --dry-run $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --dry-run $(ARGS)
 
 rector-list: #~~ lists all files that are processed by rector
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) --debug --dry-run | $(AWK) 'match($$0, "\\[file\\] $(PWD)/(.+\\.php)$$", _match) { print _match[1] }'
+	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) '/\[file\]/ { sub(".*\\[file\\] $(PWD)/", ""); if (/\.php$$/) print }'
 
 # NOTICE: Create dummy targets for all non-target tokens
 $(if $(filter $(TARGET),$(_ALL_TARGETS)) \
@@ -344,7 +385,7 @@ _ANSI_COLOR_BRIGHT_MAGENTA ?= 95
 _ANSI_COLOR_BRIGHT_CYAN    ?= 96
 _ANSI_COLOR_BRIGHT_WHITE   ?= 97
 
-_ANSI_RESET ?= \033[0m
+_ANSI_RESET ?= $(if $(NO_ANSI),,\033[0m)
 
 _UPPER_normal  := NORMAL
 _UPPER_black   := BLACK
@@ -459,7 +500,7 @@ endef
 #* returns: string
 #*
 define _color
-\033[$(if $(call _get_modifiers,$2),$(call _get_modifiers,$2);)$(call _get_color,$1,$2)m
+$(if $(NO_ANSI),,\033[$(if $(call _get_modifiers,$2),$(call _get_modifiers,$2);)$(call _get_color,$1,$2)m)
 endef
 
 #**
@@ -570,8 +611,8 @@ define _HELP_AWK
 function trim(string) { gsub(/^[ \t]+|[ \t]+$$/, "", string); return string }
 function leaf(path) { sub(/.*\//, "", path); return path }
 function strip_verbosity(text) { sub(/[ \t]*#v{1,3}([ \t]|$$)/, "", text); return text }
-function line_verbosity(matched) { return match($$0, /#(v{1,3})([[:space:]]|$$)/, matched) ? length(matched[1]) : 0 }
-function get_description(matched) { return match($$0, /#~~[ ]*(.*)$$/, matched) ? trim(strip_verbosity(matched[1])) : "" }
+function line_verbosity(verbosity_match) { if (!match($$0, /#v{1,3}([[:space:]]|$$)/)) return 0; verbosity_match = substr($$0, RSTART + 1, RLENGTH - 1); sub(/[[:space:]]$$/, "", verbosity_match); return length(verbosity_match) }
+function get_description() { if (!match($$0, /#~~[ ]*/)) return ""; return trim(strip_verbosity(substr($$0, RSTART + RLENGTH))) }
 function derive_description(documentation, line) {
 	match(documentation, /^[^\n]+/);
 	line = tolower(substr(documentation, RSTART, 1)) substr(documentation, RSTART + 1, RLENGTH - 1);
@@ -664,7 +705,7 @@ function walk(scope_path, depth, section, column, padding, width, format, idx, e
 		} else if (EDITOR == "phpstorm") url = sprintf(EDITOR_URL_PHPSTORM, file, line);
 		hyperlink = "";
 		hyperlink_end = "";
-		if (url != "") {
+		if (url != "" && !NO_ANSI) {
 			hyperlink = "\033]8;;" url "\033\\";
 			hyperlink_end = "\033]8;;\033\\";
 		}
@@ -718,7 +759,7 @@ function print_section(has_previous, section, label, column, top_idx, top_path, 
 	}
 	return found + 0;
 }
-current_file != FILENAME { current_file = FILENAME; delete scope_at; scope_depth = 0; last_symbol_type = ""; is_in_define = 0; is_in_documentation = 0; condition_depth = 0 }
+current_file != FILENAME { current_file = FILENAME; for (i in scope_at) delete scope_at[i]; scope_depth = 0; last_symbol_type = ""; is_in_define = 0; is_in_documentation = 0; condition_depth = 0 }
 /^endef([[:space:]].*)?$$/ { is_in_define = 0; next }
 is_in_define { next }
 /^(ifeq|ifneq)[[:space:]]/ { condition_depth += 1; next }
@@ -727,7 +768,7 @@ is_in_define { next }
 condition_depth > 0 { next }
 /^ifndef[[:space:]]/ { is_in_ifndef = 1; next }
 /^ifdef[[:space:]]/ { scope_depth = 0; last_symbol_type = ""; next }
-/^#-+/ { match($$0, /^#(-+)(v*)/, matched); push_scope(length(matched[1]) - 2, trim(substr($$0, RLENGTH + 1)), length(matched[2])); last_symbol_type = ""; next }
+/^#-+/ { match($$0, /^#-+/); scope_dash_count = RLENGTH - 1; scope_suffix = substr($$0, RLENGTH + 1); match(scope_suffix, /^v*/); scope_verbosity_count = RLENGTH; push_scope(scope_dash_count - 2, trim(substr(scope_suffix, scope_verbosity_count + 1)), scope_verbosity_count); last_symbol_type = ""; next }
 /^#\*\*/ { is_in_documentation = 1; documentation_text = ""; next }
 is_in_documentation {
 	if (/^#\*/) { sub(/^#\*[ ]?/, ""); documentation_text = documentation_text $$0 "\n"; next }
@@ -737,12 +778,18 @@ is_in_documentation {
 /^define[[:space:]]+/ { handle_define(""); is_in_define = 1; next }
 /^#!!/ { sub(/^#!![ ]*/, ""); add("description", "", strip_verbosity($$0), "", "", FNR); next }
 /^[A-Za-z0-9_]+[ \t]*[:?+]?=/ {
-	match($$0, /^([A-Za-z0-9_]+)[ \t]*([:?+]?=)/, matched);
-	if (matched[1] !~ /^_/) {
-		if (match($$0, /#~~[ ]*(.*)$$/, _desc)) {
-			add("variables", matched[1], trim(strip_verbosity(substr($$0, index($$0, "=") + 1, RSTART - index($$0, "=") - 1))), matched[2], trim(strip_verbosity(_desc[1])), FNR);
+	match($$0, /^[A-Za-z0-9_]+/);
+	var_name = substr($$0, RSTART, RLENGTH);
+	var_rest = substr($$0, RSTART + RLENGTH);
+	match(var_rest, /^[ \t]*[:?+]?=/);
+	var_operator = substr(var_rest, RSTART, RLENGTH);
+	gsub(/[ \t]/, "", var_operator);
+	if (var_name !~ /^_/) {
+		if (match($$0, /#~~[ ]*/)) {
+			var_description = trim(strip_verbosity(substr($$0, RSTART + RLENGTH)));
+			add("variables", var_name, trim(strip_verbosity(substr($$0, index($$0, "=") + 1, RSTART - index($$0, "=") - 1))), var_operator, var_description, FNR);
 		} else {
-			add("variables", matched[1], trim(strip_verbosity(substr($$0, index($$0, "=") + 1))), matched[2], "", FNR);
+			add("variables", var_name, trim(strip_verbosity(substr($$0, index($$0, "=") + 1))), var_operator, "", FNR);
 		}
 	}
 	next;
@@ -770,3 +817,5 @@ END {
 	has_printed += print_section(has_printed, "commands", "Available commands:", command_column);
 }
 endef
+
+export _HELP_AWK

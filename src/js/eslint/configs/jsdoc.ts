@@ -262,6 +262,7 @@ export const jsdoc = async (): Promise<Config[]> => {
           'jsdoc/tag-lines': ['error', 'any', {
             maxBlockLines: 1,
             startLines: 1,
+            startLinesWithNoTags: 0,
           }],
           'jsdoc/text-escaping': ['error', {
             // eslint-disable-next-line ts/naming-convention -- Option needs to be cased like this

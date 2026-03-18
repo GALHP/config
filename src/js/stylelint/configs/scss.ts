@@ -27,8 +27,16 @@ export const scss = (): Config[] => {
         'scss/declaration-nested-properties': 'never',
         'scss/dimension-no-non-numeric-values': true,
         'scss/dollar-variable-first-in-block': [true, {
-          ignore: ['comments', 'imports'],
-          except: ['function', 'mixin', 'if-else', 'loops'],
+          ignore: [
+            'comments',
+            'imports',
+          ],
+          except: [
+            'function',
+            'mixin',
+            'if-else',
+            'loops',
+          ],
         }],
         'scss/dollar-variable-no-namespaced-assignment': true,
         'scss/double-slash-comment-inline': 'never',

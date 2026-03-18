@@ -47,7 +47,7 @@ on:
         description: Bun version to use when JS is enabled
         required: false
         type: string
-        default: 1.3.8
+        default: 1.3.10
       node-version:
         description: Node version to use when JS is enabled
         required: false
@@ -107,7 +107,7 @@ on:
         description: Bun version to use when JS is enabled
         required: false
         type: string
-        default: 1.3.8
+        default: 1.3.10
       node-version:
         description: Node version to use when JS is enabled
         required: false
@@ -166,7 +166,7 @@ jobs:
             const inputs = ${{ toJSON(inputs) }};
             const isDryRun = String(inputs['is-dry-run'] ?? 'false') === 'true';
             const doEnsureSetSecrets = String(inputs['do-ensure-set-secrets'] ?? 'true') === 'true';
-            const bunVersion = String(inputs['bun-version'] ?? '1.3.8').trim();
+            const bunVersion = String(inputs['bun-version'] ?? '1.3.10').trim();
             const nodeVersion = String(inputs['node-version'] ?? '24.11.0').trim();
             const phpVersion = String(inputs['php-version'] ?? '8.5').trim();
             let doEnableJs = String(inputs['do-enable-js'] ?? 'false') === 'true';

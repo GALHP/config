@@ -14,16 +14,7 @@ export const defensive = (): Config[] => {
   return [
     {
       plugins: PACKAGES.STYLELINT_PLUGIN_DEFENSIVE_CSS,
-      rules: {
-        'plugin/use-defensive-css': [true, {
-          'accidental-hover': true,
-          'background-repeat': true,
-          'flex-wrapping': true,
-          'scroll-chaining': true,
-          'scrollbar-gutter': true,
-          'vendor-prefix-grouping': true,
-        }],
-      },
+      extends: `${PACKAGES.STYLELINT_PLUGIN_DEFENSIVE_CSS}/configs/strict`,
     },
   ];
 };

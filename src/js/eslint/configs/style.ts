@@ -49,6 +49,24 @@ export const style = async (): Promise<Config[]> => {
         ...renameRules(styleConfig.rules, { '@stylistic': 'style' }),
         'style/array-bracket-newline': ['error', 'consistent'],
         'style/array-element-newline': ['error', 'consistent'],
+        'style/exp-jsx-props-style': ['error', {
+          singleLine: {
+            maxItems: 3,
+          },
+          multiLine: {
+            minItems: 2,
+            maxItemsPerLine: 1,
+          },
+        }],
+        'style/exp-list-style': ['error', {
+          singleLine: {
+            spacing: 'never',
+            maxItems: 3,
+          },
+          multiLine: {
+            minItems: 1,
+          },
+        }],
         'style/function-call-argument-newline': ['error', 'consistent'],
         'style/function-call-spacing': 'error',
         'style/function-paren-newline': ['error', 'multiline-arguments'],
@@ -66,6 +84,10 @@ export const style = async (): Promise<Config[]> => {
         'style/jsx-child-element-spacing': 'error',
         'style/jsx-pascal-case': 'error',
         'style/jsx-self-closing-comp': 'error',
+        'style/jsx-newline': ['error', {
+          prevent: true,
+          allowMultilines: true,
+        }],
         'style/line-comment-position': 'error',
         'style/linebreak-style': 'error',
         'style/lines-around-comment': ['error', {
@@ -122,11 +144,47 @@ export const style = async (): Promise<Config[]> => {
         'style/no-mixed-operators': ['error', {
           allowSamePrecedence: false,
           groups: [
-            ['+', '-', '*', '/', '%', '**', '??'],
-            ['&', '|', '^', '~', '<<', '>>', '>>>', '??'],
-            ['==', '!=', '===', '!==', '>', '>=', '<', '<=', '??'],
-            ['&&', '||', '?:', '??'],
-            ['in', 'instanceof', '??'],
+            [
+              '+',
+              '-',
+              '*',
+              '/',
+              '%',
+              '**',
+              '??',
+            ],
+            [
+              '&',
+              '|',
+              '^',
+              '~',
+              '<<',
+              '>>',
+              '>>>',
+              '??',
+            ],
+            [
+              '==',
+              '!=',
+              '===',
+              '!==',
+              '>',
+              '>=',
+              '<',
+              '<=',
+              '??',
+            ],
+            [
+              '&&',
+              '||',
+              '?:',
+              '??',
+            ],
+            [
+              'in',
+              'instanceof',
+              '??',
+            ],
           ],
         }],
         'style/nonblock-statement-body-position': ['error', 'below'],

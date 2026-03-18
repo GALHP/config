@@ -14,10 +14,7 @@ export const logical = (): Config[] => {
   return [
     {
       plugins: PACKAGES.STYLELINT_PLUGIN_LOGICAL_CSS,
-      rules: {
-        'plugin/use-logical-properties-and-values': true,
-        'plugin/use-logical-units': true,
-      },
+      extends: [`${PACKAGES.STYLELINT_PLUGIN_LOGICAL_CSS}/configs/recommended`],
     },
   ];
 };

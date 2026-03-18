@@ -214,10 +214,9 @@ export interface ConfigOptions {
   /**
    * Enables `eslint-plugin-toml`.
    *
-   * @default `Enabled when "eslint-plugin-toml" and "toml-eslint-parser" are installed.`
+   * @default `Enabled when "eslint-plugin-toml" are installed.`
    *
    * @see https://github.com/ota-meshi/eslint-plugin-toml
-   * @see https://github.com/ota-meshi/toml-eslint-parser
    */
   toml: boolean;
 
@@ -243,10 +242,9 @@ export interface ConfigOptions {
   /**
    * Enables `eslint-plugin-yml`.
    *
-   * @default `Enabled when "eslint-plugin-yml" and "yaml-eslint-parser" are installed.`
+   * @default `Enabled when "eslint-plugin-yml" are installed.`
    *
    * @see https://github.com/ota-meshi/eslint-plugin-yml
-   * @see https://github.com/ota-meshi/yaml-eslint-parser
    */
   yaml: boolean;
 }

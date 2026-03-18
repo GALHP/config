@@ -159,6 +159,10 @@ export const typescript = async (options?: Partial<TypescriptOptions>): Promise<
     return [];
   }
 
+  const {
+    optional: [, pluginUnusedImports],
+  } = await resolvePackages(MODULES.javascript);
+
   const cwd = process.cwd();
   let hasTsConfig = false;
 
@@ -242,6 +246,11 @@ export const typescript = async (options?: Partial<TypescriptOptions>): Promise<
           ...extractRelevantRules(tsEslint.configs.recommended, 'recommended'),
           ...extractRelevantRules(tsEslint.configs.strict, 'strict'),
           ...extractRelevantRules(tsEslint.configs.stylistic, 'stylistic'),
+          ...(pluginUnusedImports
+            ? {
+              'ts/no-unused-vars': 'off',
+            }
+            : undefined),
           'ts/consistent-type-assertions': [
             'error',
             {
