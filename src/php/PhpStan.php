@@ -6,7 +6,6 @@ namespace Brnshkr\Config;
 
 use Brnshkr\Config\PhpStan\Rule\ApiOrInternalTagRule;
 use Brnshkr\Config\PhpStan\Rule\BoolishPrefixRule;
-use Brnshkr\Config\PhpStan\Rule\IgnoreDirectiveRule;
 use Brnshkr\Config\PhpStan\Rule\InternalUsageRule;
 use Brnshkr\Config\PhpStan\Rule\NoNamedArgumentsTagRule;
 use Carbon\Carbon;
@@ -172,7 +171,6 @@ final class PhpStan
             ->setRules([
                 ApiOrInternalTagRule::class,
                 BoolishPrefixRule::class,
-                IgnoreDirectiveRule::class,
                 NoNamedArgumentsTagRule::class,
                 self::configureRule(InternalUsageRule::class, [
                     // TODO: Remove this here and suppress at error location
