@@ -170,11 +170,11 @@ final readonly class Console
      * @template U of bool
      *
      * @param mixed $default
-     * @phpstan-param T $choices
-     * @phpstan-param key-of<T>|value-of<T>|list<value-of<T>>|list<key-of<T>>|array<key-of<T>, value-of<T>> $default
-     * @phpstan-param U $isMultiselect
+     * @param T $choices
+     * @param key-of<T>|value-of<T>|list<value-of<T>>|list<key-of<T>>|array<key-of<T>, value-of<T>> $default
+     * @param U $isMultiselect
      *
-     * @phpstan-return (U is false ? value-of<T> : list<value-of<T>>)
+     * @return (U is false ? value-of<T> : list<value-of<T>>)
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException

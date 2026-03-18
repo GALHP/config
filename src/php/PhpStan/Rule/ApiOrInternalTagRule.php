@@ -108,7 +108,7 @@ final readonly class ApiOrInternalTagRule implements Rule
     }
 
     /**
-     * @phpstan-param self::KIND_* $kind
+     * @param self::KIND_* $kind
      *
      * @throws RuntimeException
      */

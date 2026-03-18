@@ -121,7 +121,7 @@ final class Module
     private function __construct() {}
 
     /**
-     * @phpstan-param ModuleInfo|self::PACKAGE_* $moduleInfoOrPackage
+     * @param ModuleInfo|self::PACKAGE_* $moduleInfoOrPackage
      *
      * @throws RuntimeException
      */
@@ -163,7 +163,7 @@ final class Module
     }
 
     /**
-     * @phpstan-param self::PACKAGE_* $package
+     * @param self::PACKAGE_* $package
      *
      * @throws RuntimeException
      */

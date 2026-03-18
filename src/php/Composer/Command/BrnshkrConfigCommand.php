@@ -31,7 +31,7 @@ final class BrnshkrConfigCommand extends AbstractCommand
     }
 
     /**
-     * @phpstan-return self::SUCCESS
+     * @return self::SUCCESS
      *
      * @throws LogicException
      * @throws RuntimeException

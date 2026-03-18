@@ -114,8 +114,8 @@ final readonly class Str
     }
 
     /**
-     * @phpstan-param list<string> $strings
-     * @phpstan-param 'conjunction'|'disjunction' $type
+     * @param list<string> $strings
+     * @param 'conjunction'|'disjunction' $type
      */
     public static function joinAsQuotedList(
         array $strings,

@@ -93,7 +93,7 @@ final class SetupCommand extends AbstractCommand
     }
 
     /**
-     * @phpstan-return self::SUCCESS|self::FAILURE
+     * @return self::SUCCESS|self::FAILURE
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException
@@ -237,7 +237,7 @@ final class SetupCommand extends AbstractCommand
     }
 
     /**
-     * @phpstan-param Module::MODULE_* $moduleInfo
+     * @param Module::MODULE_* $moduleInfo
      *
      * @return list<Module::PACKAGE_*>
      *
@@ -319,7 +319,7 @@ final class SetupCommand extends AbstractCommand
     }
 
     /**
-     * @phpstan-param list<Module::MODULE_*> $moduleInfos
+     * @param list<Module::MODULE_*> $moduleInfos
      *
      * @throws IOException
      * @throws RuntimeException

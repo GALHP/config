@@ -50,9 +50,9 @@ final readonly class Installer
     ) {}
 
     /**
-     * @phpstan-param list<Module::PACKAGE_*> $packages
+     * @param list<Module::PACKAGE_*> $packages
      *
-     * @phpstan-return ComposerInstaller::ERROR_*
+     * @return ComposerInstaller::ERROR_*
      *
      * @throws Exception
      * @throws RuntimeException
@@ -99,7 +99,7 @@ final readonly class Installer
     }
 
     /**
-     * @phpstan-param list<Module::PACKAGE_*> $packages
+     * @param list<Module::PACKAGE_*> $packages
      *
      * @return list<PackageInterface>
      *

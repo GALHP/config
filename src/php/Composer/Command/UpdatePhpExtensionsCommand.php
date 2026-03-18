@@ -73,7 +73,7 @@ final class UpdatePhpExtensionsCommand extends AbstractCommand
     }
 
     /**
-     * @phpstan-return self::SUCCESS
+     * @return self::SUCCESS
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException

@@ -254,7 +254,7 @@ final class ComposerJson
     }
 
     /**
-     * @phpstan-return array<string, string>
+     * @return array<string, string>
      *
      * @throws RuntimeException
      */
@@ -306,7 +306,7 @@ final class ComposerJson
     }
 
     /**
-     * @phpstan-return list<string>
+     * @return list<string>
      *
      * @throws RuntimeException
      */

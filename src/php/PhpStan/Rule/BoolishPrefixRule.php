@@ -93,7 +93,7 @@ final readonly class BoolishPrefixRule implements Rule
     }
 
     /**
-     * @phpstan-param self::KIND_FUNCTION|self::KIND_METHOD $kind
+     * @param self::KIND_FUNCTION|self::KIND_METHOD $kind
      *
      * @throws RuntimeException
      */
@@ -183,7 +183,7 @@ final readonly class BoolishPrefixRule implements Rule
     }
 
     /**
-     * @phpstan-param self::KIND_* $kind
+     * @param self::KIND_* $kind
      *
      * @throws RuntimeException
      */

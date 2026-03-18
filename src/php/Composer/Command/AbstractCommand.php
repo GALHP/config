@@ -103,7 +103,7 @@ abstract class AbstractCommand extends BaseCommand
     }
 
     /**
-     * @phpstan-return self::SUCCESS|self::FAILURE|self::INVALID
+     * @return self::SUCCESS|self::FAILURE|self::INVALID
      *
      * @throws LogicException
      */
@@ -132,7 +132,7 @@ abstract class AbstractCommand extends BaseCommand
     protected function wrappedInitialize(): void {}
 
     /**
-     * @phpstan-return self::SUCCESS|self::FAILURE|self::INVALID
+     * @return self::SUCCESS|self::FAILURE|self::INVALID
      */
     abstract protected function wrappedExecute(): int;
 
