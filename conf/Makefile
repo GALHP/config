@@ -161,7 +161,7 @@ PHP_CS_FIXER_FLAGS  ?= --show-progress=dots $(if $(DEBUG),-vvv,-v)#~~ additional
 
 #--- rector
 
-RECTOR        ?= $(PWD)/vendor/bin/rector process#~~ path to rector binary
+RECTOR        ?= $(PWD)/vendor/bin/rector#~~ path to rector binary
 RECTOR_CONFIG ?= $(PWD)/conf/rector.php#~~ path to rector config
 RECTOR_FLAGS  ?= --memory-limit=-1#~~ additional flags passed to rector
 
@@ -330,16 +330,16 @@ php-cs-fixer-list: #~~ lists all files that are processed by php-cs-fixer
 #--- rector
 
 rector: #~~ runs rector process
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) $(ARGS)
 
 rector-debug: #~~ runs rector process in debug mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --debug $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --debug $(ARGS)
 
 rector-dry-run: #~~ runs rector process in dry run mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --dry-run $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --dry-run $(ARGS)
 
 rector-list: #~~ lists all files that are processed by rector
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) '/\[file\]/ { sub(".*\\[file\\] $(PWD)/", ""); if (/\.php$$/) print }'
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) '/\[file\]/ { sub(".*\\[file\\] $(PWD)/", ""); if (/\.php$$/) print }'
 
 # NOTICE: Create dummy targets for all non-target tokens
 $(if $(filter $(TARGET),$(_ALL_TARGETS)) \
