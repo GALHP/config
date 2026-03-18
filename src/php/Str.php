@@ -91,7 +91,7 @@ final readonly class Str
 
     public static function afterLast(string $haystack, string $needle): string
     {
-        // @phpstan-ignore symplify.forbiddenFuncCall, symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        // @phpstan-ignore symplify.forbiddenFuncCall (See ->), symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
         return mb_substr($haystack, (mb_strrpos($haystack, $needle) ?: -1) + 1);
     }
 

@@ -142,6 +142,7 @@ final class PhpStan
                 'rememberPossiblyImpureFunctionValues'               => false,
                 'reportAlwaysTrueInLastCondition'                    => true,
                 'reportAnyTypeWideningInVarTag'                      => true,
+                'reportIgnoresWithoutComments'                       => true,
                 'reportNonIntStringArrayKey'                         => true,
                 'reportPossiblyNonexistentConstantArrayOffset'       => true,
                 'reportPossiblyNonexistentGeneralArrayOffset'        => true,
@@ -465,11 +466,11 @@ final class PhpStan
         // @phpstan-ignore symplify.forbiddenFuncCall (nesbot/carbon is not a dependency of brnshkr/config)
         if (class_exists(Carbon::class)) {
             /** @disregard P1009 nesbot/carbon is not a dependency of brnshkr/config */
-            // @phpstan-ignore class.notFound, class.notFound (nesbot/carbon is not a dependency of brnshkr/config)
+            // @phpstan-ignore class.notFound (See ->), class.notFound (nesbot/carbon is not a dependency of brnshkr/config)
             $preferredClassesMap[Carbon::class] = CarbonImmutable::class;
         }
 
-        // @phpstan-ignore symplify.preferredClass, symplify.forbiddenFuncCall (We need to disable both these rules here of course)
+        // @phpstan-ignore symplify.preferredClass (See ->), symplify.forbiddenFuncCall (We need to disable both these rules here of course)
         if (class_exists(PhpCsFixerFinder::class)) {
             // @phpstan-ignore symplify.preferredClass (We need to disable this rules here of course)
             $preferredClassesMap[PhpCsFixerFinder::class] = Finder::class;
