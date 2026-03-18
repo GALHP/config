@@ -676,8 +676,8 @@ final class PhpStan
      */
     private static function getAnalysisPaths(Finder $finder): array
     {
-        $finderResults = PhpFileFinder::get($finder) |> iterator_to_array(...);
-        $directories   = array_values($finderResults) |> self::convertFilesToMinimalDirectoryPaths(...);
+        $finderResults = iterator_to_array(PhpFileFinder::get($finder));
+        $directories   = self::convertFilesToMinimalDirectoryPaths(array_values($finderResults));
 
         if ($directories === []) {
             return [
@@ -686,12 +686,9 @@ final class PhpStan
             ];
         }
 
-        $allFilesInDirectories = PhpFileFinder::configure(new Finder()->in($directories))
-            |> iterator_to_array(...)
-            |> array_keys(...);
+        $allFilesInDirectories = array_keys(iterator_to_array(PhpFileFinder::configure((new Finder())->in($directories))));
 
-        $excludedPaths = array_diff($allFilesInDirectories, array_keys($finderResults))
-            |> array_values(...);
+        $excludedPaths = array_values(array_diff($allFilesInDirectories, array_keys($finderResults)));
 
         $cwd = (getcwd() ?: '.') . '/';
 
@@ -712,29 +709,24 @@ final class PhpStan
      */
     private static function convertFilesToMinimalDirectoryPaths(array $files): array
     {
-        return array_map(static fn (SymfonySplFileInfo $file): string => $file->getPath(), $files)
-            |> array_unique(...)
-            |> (
-                static function (array $paths): array {
-                    usort($paths, static fn (string $path1, string $path2): int => Str::length($path1) <=> Str::length($path2));
+        $paths = array_unique(array_map(static fn (SymfonySplFileInfo $file): string => $file->getPath(), $files));
 
-                    return $paths;
-                }
+        usort($paths, static fn (string $path1, string $path2): int => Str::length($path1) <=> Str::length($path2));
+
+        $paths = array_reduce(
+            $paths,
+            static fn (array $minimalPaths, string $currentPath): array => array_reduce(
+                $minimalPaths,
+                static fn (bool $doSkip, mixed $parentPath): bool => $doSkip
+                    || Str::doesStartWith($currentPath, Str::trim(is_string($parentPath) ? $parentPath : '', '/', 'end') . '/'),
+                false,
             )
-            |> (static fn (array $sortedPaths): array => array_reduce(
-                $sortedPaths,
-                static fn (array $minimalPaths, string $currentPath): array => array_reduce(
-                    $minimalPaths,
-                    static fn (bool $doSkip, mixed $parentPath): bool => $doSkip
-                        || Str::doesStartWith($currentPath, Str::trim(is_string($parentPath) ? $parentPath : '', '/', 'end') . '/'),
-                    false,
-                )
-                ? $minimalPaths
-                : [...$minimalPaths, $currentPath],
-                [],
-            ))
-            |> (static fn (array $minimalPaths): array => array_filter($minimalPaths, is_string(...)))
-            |> array_values(...);
+            ? $minimalPaths
+            : [...$minimalPaths, $currentPath],
+            [],
+        );
+
+        return array_values(array_filter($paths, is_string(...)));
     }
 
     /**
@@ -818,14 +810,20 @@ final class PhpStan
     private static function isCommandAvailable(string|array $command, array $paths): bool
     {
         $commands = is_string($command) ? [$command] : $command;
+        $isFound  = false;
 
-        return array_any(
-            $commands,
-            static fn (string $command): bool => array_any(
+        foreach ($commands as $cmd) {
+            if (array_any(
                 $paths,
-                static fn (string $path): bool => is_executable(Str::trim($path, '/', 'end') . '/' . $command),
-            ),
-        );
+                static fn (string $path): bool => is_executable(Str::trim($path, '/', 'end') . '/' . $cmd),
+            )) {
+                $isFound = true;
+
+                break;
+            }
+        }
+
+        return $isFound;
     }
 }
 
