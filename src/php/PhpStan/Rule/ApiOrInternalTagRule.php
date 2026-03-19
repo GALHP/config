@@ -10,8 +10,12 @@ use Override;
 use PhpParser\Node;
 use PhpParser\Node\Const_ as ConstNode;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Const_ as ConstStmt;
+use PhpParser\Node\Stmt\Enum_;
 use PhpParser\Node\Stmt\Function_;
+use PhpParser\Node\Stmt\Interface_;
+use PhpParser\Node\Stmt\Trait_;
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
@@ -34,9 +38,12 @@ final readonly class ApiOrInternalTagRule implements Rule
 {
     use RuleTrait;
 
-    private const string KIND_CLASS    = 'Class';
-    private const string KIND_FUNCTION = 'Function';
-    private const string KIND_CONSTANT = 'Constant';
+    private const string KIND_CLASS     = 'Class';
+    private const string KIND_CONSTANT  = 'Constant';
+    private const string KIND_ENUM      = 'Enum';
+    private const string KIND_FUNCTION  = 'Function';
+    private const string KIND_INTERFACE = 'Interface';
+    private const string KIND_TRAIT     = 'Trait';
 
     #[Override]
     public function getNodeType(): string
@@ -52,7 +59,7 @@ final readonly class ApiOrInternalTagRule implements Rule
     {
         return array_values(array_filter(
             match (true) {
-                $node instanceof Class_    => [self::processClass($node)],
+                $node instanceof ClassLike  => [self::processClassLike($node)],
                 $node instanceof Function_ => [self::processFunction($node)],
                 $node instanceof ConstStmt => self::processGlobalConst($node),
                 default                    => [],
@@ -64,11 +71,28 @@ final readonly class ApiOrInternalTagRule implements Rule
     /**
      * @throws RuntimeException
      */
-    private static function processClass(Class_ $class): ?IdentifierRuleError
+    private static function processClassLike(ClassLike $classLike): ?IdentifierRuleError
     {
-        return ($class->isAnonymous() || self::hasApiOrInternalTag($class))
+        if ($classLike instanceof Class_ && $classLike->isAnonymous()) {
+            return null;
+        }
+
+        return self::hasApiOrInternalTag($classLike)
             ? null
-            : self::buildError(self::KIND_CLASS, self::getClassName($class), $class->getStartLine());
+            : self::buildError(self::getKindForClassLike($classLike), self::getClassLikeName($classLike), $classLike->getStartLine());
+    }
+
+    /**
+     * @return self::KIND_*
+     */
+    private static function getKindForClassLike(ClassLike $classLike): string
+    {
+        return match (true) {
+            $classLike instanceof Enum_      => self::KIND_ENUM,
+            $classLike instanceof Interface_ => self::KIND_INTERFACE,
+            $classLike instanceof Trait_     => self::KIND_TRAIT,
+            default                          => self::KIND_CLASS,
+        };
     }
 
     /**

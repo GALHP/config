@@ -9,7 +9,7 @@ namespace Brnshkr\Config\Tests\Fixtures\Internal;
  */
 final class InternalClass
 {
-    public const string SOME_CONST = 'foo';
+    public const string SOME_CONSTANT = 'foo';
 
     public string $value = 'bar';
 

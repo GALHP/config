@@ -9,14 +9,17 @@ use Brnshkr\Config\Tests\Fixtures\Internal\ScopedInternalClass;
 
 function consumeInternalClass(): void
 {
-    $obj = new InternalClass();
-    $obj->doSomething();
-    $val   = $obj->value;
-    $const = InternalClass::SOME_CONST;
+    $object = new InternalClass();
+
+    $object->doSomething();
+
+    $value    = $object->value;
+    $constant = InternalClass::SOME_CONSTANT;
+
     InternalClass::staticMethod();
 }
 
 function consumeScopedInternalClass(): void
 {
-    $obj = new ScopedInternalClass();
+    $object = new ScopedInternalClass();
 }
