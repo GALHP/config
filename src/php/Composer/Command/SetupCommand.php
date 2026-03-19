@@ -158,6 +158,8 @@ final class SetupCommand extends AbstractCommand
                 $this->libraryComposerJson->getPackageFullName(),
             ));
 
+            $this->copyFilesIfApplicable($modulesToInstall, $doCopyConfigFilesAutomatically, $doCreateMakeFileAutomatically, $doCreateGitignoreFileAutomatically);
+
             return self::SUCCESS;
         }
 
