@@ -173,10 +173,6 @@ final class PhpStan
                 BoolishPrefixRule::class,
                 NoNamedArgumentsTagRule::class,
                 self::configureRule(InternalUsageRule::class, [
-                    // TODO: Remove this here and suppress at error location
-                    'allowedDeclaringNamespaces' => [
-                        '/^Symfony\\\Component\\\Console\\\Descriptor/',
-                    ],
                     'allowedCallingNamespaces' => [
                         '/^Brnshkr\\\Config\\\Tests/',
                     ],
