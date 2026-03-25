@@ -726,13 +726,15 @@ function walk(scope_path, depth, section, column, padding, width, format, idx, e
 		walk(children[scope_path, idx], depth + 1, section, column);
 	}
 }
-function print_section(has_previous, section, label, column, top_idx, top_path, found) {
+function print_section(has_previous, section, label, column, top_idx, top_path, found, needs_separator) {
 	for (top_idx = 1; top_idx <= top_count; top_idx += 1) {
 		top_path = top_order[top_idx];
 		if (!has_content(top_path, section)) continue;
 		if (!found++) { if (has_previous) printf "\n"; printf "$(call text,%s,$(COLOR_SECTION_LABEL))\n", label }
+		else if (needs_separator) printf "\n";
 		if (top_path != "main") printf "%s$(call text,%s,$(COLOR_SECONDARY))\n", sprintf("%*s", INDENT, ""), leaf(top_path);
 		walk(top_path, 0, section, column);
+		needs_separator = (section == "functions" && VERBOSITY + 0 >= 2);
 	}
 	return found + 0;
 }
