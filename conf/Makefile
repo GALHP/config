@@ -288,15 +288,15 @@ _ALL_TARGETS := $(shell $(AWK) \
 )
 
 TARGET := $(firstword $(filter $(_ALL_TARGETS),$(MAKECMDGOALS)))
-ARG1 := $(word 2,$(MAKECMDGOALS)) #vv
-ARG2 := $(word 3,$(MAKECMDGOALS)) #vv
-ARG3 := $(word 4,$(MAKECMDGOALS)) #vv
-ARG4 := $(word 5,$(MAKECMDGOALS)) #vv
-ARG5 := $(word 6,$(MAKECMDGOALS)) #vv
-ARG6 := $(word 7,$(MAKECMDGOALS)) #vv
-ARG7 := $(word 8,$(MAKECMDGOALS)) #vv
-ARG8 := $(word 9,$(MAKECMDGOALS)) #vv
-ARG9 := $(word 10,$(MAKECMDGOALS)) #vv
+ARG1 := $(word 2,$(MAKECMDGOALS))#vv
+ARG2 := $(word 3,$(MAKECMDGOALS))#vv
+ARG3 := $(word 4,$(MAKECMDGOALS))#vv
+ARG4 := $(word 5,$(MAKECMDGOALS))#vv
+ARG5 := $(word 6,$(MAKECMDGOALS))#vv
+ARG6 := $(word 7,$(MAKECMDGOALS))#vv
+ARG7 := $(word 8,$(MAKECMDGOALS))#vv
+ARG8 := $(word 9,$(MAKECMDGOALS))#vv
+ARG9 := $(word 10,$(MAKECMDGOALS))#vv
 ARGS = $(strip $(filter-out $(_ALL_TARGETS),$(call _collect_args,$@,$(MAKECMDGOALS))))
 
 #--- phpstan
