@@ -387,6 +387,7 @@ _UPPER_white   := WHITE
 #*   text: string
 #*   color: OneOf<normal | black | red | green | yellow | blue | magenta | cyan | white>
 #*   modifiers?: AnyOf<normal | bold | underline | reverse | bright>
+#*   color_and_or_modifiers?: @parameters.color & @parameters.modifiers
 #*
 #* returns: string
 #*
