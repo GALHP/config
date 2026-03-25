@@ -100,42 +100,18 @@ help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-v
 		-f /tmp/brnshkr_config_help.awk \
 		$(MAKEFILE_LIST)
 
-# --- includes
+#--- includes
 
-_THIS_FILE     := $(abspath $(lastword $(MAKEFILE_LIST)))
-_CONF_MAKEFILE := $(filter-out $(_THIS_FILE),$(wildcard $(PWD)/conf/Makefile))
+_THIS_FILE := $(abspath $(lastword $(MAKEFILE_LIST)))
 
-ifneq ($(_CONF_MAKEFILE),)
-include $(_CONF_MAKEFILE)
-endif
+define _include_makefiles_in_directory
+$(eval -include $(filter-out $(_THIS_FILE),$(wildcard $1/Makefile $1/*.mk)))
+endef
 
-ifneq ($(wildcard $(PWD)/conf/*.mk),)
-include $(PWD)/conf/*.mk
-endif
-
-ifneq ($(wildcard $(PWD)/conf/make/Makefile),)
-include $(PWD)/conf/make/Makefile
-endif
-
-ifneq ($(wildcard $(PWD)/conf/make/*.mk),)
-include $(PWD)/conf/make/*.mk
-endif
-
-ifneq ($(wildcard $(PWD)/.local/Makefile),)
-include $(PWD)/.local/Makefile
-endif
-
-ifneq ($(wildcard $(PWD)/.local/*.mk),)
-include $(PWD)/.local/*.mk
-endif
-
-ifneq ($(wildcard $(PWD)/.local/make/Makefile),)
-include $(PWD)/.local/make/Makefile
-endif
-
-ifneq ($(wildcard $(PWD)/.local/make/*.mk),)
-include $(PWD)/.local/make/*.mk
-endif
+$(call _include_makefiles_in_directory,$(PWD)/conf)
+$(call _include_makefiles_in_directory,$(PWD)/conf/make)
+$(call _include_makefiles_in_directory,$(PWD)/.local)
+$(call _include_makefiles_in_directory,$(PWD)/.local/make)
 
 #---v general
 
