@@ -23,7 +23,6 @@ use RuntimeException;
 
 use function array_any;
 use function array_filter;
-use function array_values;
 use function sprintf;
 
 /**
@@ -59,7 +58,7 @@ final readonly class NoNamedArgumentsTagRule implements Rule
     {
         return array_filter(
             match (true) {
-                $node instanceof ClassLike  => [self::processClassLike($node)],
+                $node instanceof ClassLike => [self::processClassLike($node)],
                 $node instanceof Function_ => [self::processFunction($node)],
                 default                    => [],
             },

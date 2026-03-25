@@ -59,7 +59,7 @@ final readonly class ApiOrInternalTagRule implements Rule
     {
         return array_values(array_filter(
             match (true) {
-                $node instanceof ClassLike  => [self::processClassLike($node)],
+                $node instanceof ClassLike => [self::processClassLike($node)],
                 $node instanceof Function_ => [self::processFunction($node)],
                 $node instanceof ConstStmt => self::processGlobalConst($node),
                 default                    => [],
