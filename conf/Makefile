@@ -639,7 +639,7 @@ function handle_define(documentation, description) {
 	} else {
 		description = get_description();
 		if (documentation != "") add("functions", $$2, documentation, (description != "" ? description : derive_description(documentation)), "", FNR);
-		else if (description != "") add("functions", $$2, "", description, "", FNR);
+		else add("functions", $$2, "", description, "", FNR);
 	}
 }
 function has_content(scope_path, section, idx) {
