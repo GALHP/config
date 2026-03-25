@@ -318,9 +318,11 @@ rector-list: #~~ lists all files that are processed by rector
 	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) '/\[file\]/ { sub(".*\\[file\\] $(PWD)/", ""); if (/\.php$$/) print }'
 
 # NOTICE: Create dummy targets for all non-target tokens
-$(if $(filter $(TARGET),$(_ALL_TARGETS)) \
-	,$(foreach ARG,$(sort $(filter-out $(_ALL_TARGETS),$(MAKECMDGOALS))),$(eval $(ARG):;@:) \
-))
+$(if $(filter $(TARGET),$(_ALL_TARGETS)), \
+	$(foreach ARG,$(sort $(filter-out $(_ALL_TARGETS),$(MAKECMDGOALS))), \
+		$(eval $(subst $$,$$$$,$(subst %,\%,$(subst \#,\\\#,$(subst :,\:,$(ARG))))):;@:) \
+	) \
+)
 
 .DEFAULT:
 	$(call log,Unknown command "$@".,$(COLOR_ERROR))
