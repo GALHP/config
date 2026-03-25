@@ -232,26 +232,27 @@ COLOR_COMMAND         ?= $(COLOR_PRIMARY)
 COLOR_DESCRIPTION     ?= $(COLOR_TERTIARY)
 endif
 
-_COLORS := $(COLOR_BLACK) \
+_COLORS := $(COLOR_NORMAL) \
+	$(COLOR_WHITE) \
+	$(COLOR_BLACK) \
 	$(COLOR_RED) \
-	$(COLOR_GREEN) \
 	$(COLOR_YELLOW) \
-	$(COLOR_BLUE) \
-	$(COLOR_MAGENTA) \
+	$(COLOR_GREEN) \
 	$(COLOR_CYAN) \
-	$(COLOR_WHITE)
+	$(COLOR_BLUE) \
+	$(COLOR_MAGENTA)
 
 #----vvv modifiers
 
 MODIFIER_NORMAL    := normal
-MODIFIER_BRIGHT    := bright
 MODIFIER_UNDERLINE := underline
+MODIFIER_BRIGHT    := bright
 MODIFIER_BOLD      := bold
 MODIFIER_REVERSE   := reverse
 
 _MODIFIERS := $(MODIFIER_NORMAL) \
-	$(MODIFIER_BRIGHT) \
 	$(MODIFIER_UNDERLINE) \
+	$(MODIFIER_BRIGHT) \
 	$(MODIFIER_BOLD) \
 	$(MODIFIER_REVERSE)
 
@@ -387,7 +388,7 @@ _UPPER_white   := WHITE
 #*
 #* parameters:
 #*   text: string
-#*   color: OneOf<normal | black | red | green | yellow | blue | magenta | cyan | white>
+#*   color: OneOf<normal | white | black | red | yellow | green | cyan | blue | magenta>
 #*   modifiers?: AnyOf<normal | bold | underline | reverse | bright>
 #*   color_and_or_modifiers?: @parameters.color & @parameters.modifiers
 #*
@@ -413,7 +414,7 @@ endef
 #*
 #* parameters:
 #* 	 message: string
-#* 	 color_and_or_modifiers?: AnyOf<normal | black | red | green | yellow | blue | magenta | cyan | white | bold | underline | reverse | bright>
+#* 	 color_and_or_modifiers?: AnyOf<normal | white | black | red | yellow | green | cyan | blue | magenta | bold | underline | reverse | bright>
 #*
 #* returns: void
 #*
@@ -453,7 +454,7 @@ endef
 #*   $(call _get_color,color,?modifiers)
 #*
 #* parameters:
-#*   color: OneOf<normal | black | red | green | yellow | blue | magenta | cyan | white>
+#*   color: OneOf<normal | white | black | red | yellow | green | cyan | blue | magenta>
 #*   modifiers?: AnyOf<normal | bold | underline | reverse | bright>
 #*
 #* returns: _ANSI_COLOR_*
@@ -473,7 +474,7 @@ endef
 #*   $(call _color,color,?modifiers)
 #*
 #* parameters:
-#*   color: OneOf<normal | black | red | green | yellow | blue | magenta | cyan | white>
+#*   color: OneOf<normal | white | black | red | yellow | green | cyan | blue | magenta>
 #*   modifiers?: AnyOf<normal | bold | underline | reverse | bright>
 #*
 #* returns: string
