@@ -738,6 +738,7 @@ function print_section(has_previous, section, label, column, top_idx, top_path, 
 	}
 	return found + 0;
 }
+BEGIN { seen_scope["main"] = 1; top_count = 1; top_order[1] = "main" }
 current_file != FILENAME { current_file = FILENAME; for (i in scope_at) delete scope_at[i]; scope_depth = 0; last_symbol_type = ""; is_in_define = 0; is_in_documentation = 0; condition_depth = 0 }
 /^endef([[:space:]].*)?$$/ { is_in_define = 0; next }
 is_in_define { next }
