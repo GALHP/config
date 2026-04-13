@@ -17,6 +17,12 @@ export default getConfig(undefined, {
   rules: {
     // NOTICE: This rule has quite a significant performance impact so we turn it off in the editor
     'import/no-cycle': isInEditor ? 'off' : 'error',
+    'test/expect-expect': ['error', {
+      assertFunctionNames: [
+        'expect',
+        'snapshotConfigs',
+      ],
+    }],
   },
 }, {
   files: [

@@ -1,10 +1,7 @@
-import { execSync } from 'node:child_process';
-
 import { expect, test } from 'vitest';
 
-test('expected typescript config', () => {
-  const result = execSync('bun tsc --showConfig', { encoding: 'utf-8' })
-    .replaceAll(process.cwd(), '.');
+import { run } from './utils/command';
 
-  expect(result).toMatchSnapshot();
+test('expected typescript config', () => {
+  expect(run('bun tsc --showConfig')).toMatchSnapshot();
 });

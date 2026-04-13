@@ -126,7 +126,10 @@ exports[`expected typescript config 1`] = `
         "./tests/js/fixtures/eslint/7.d.ts",
         "./tests/js/fixtures/eslint/8.d.mts",
         "./tests/js/fixtures/eslint/9.d.cts",
-        "./tests/js/utils/filesystem.ts"
+        "./tests/js/utils/command.ts",
+        "./tests/js/utils/config-snapshot.ts",
+        "./tests/js/utils/filesystem.ts",
+        "./tests/js/utils/json-diff.ts"
     ],
     "exclude": [
         "conf/../**/.cache/**",

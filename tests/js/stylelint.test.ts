@@ -1,14 +1,10 @@
-import { execSync } from 'node:child_process';
+import { test } from 'vitest';
 
-import { expect, test } from 'vitest';
-
-import { traverseDirectory } from './utils/filesystem';
+import { snapshotConfigs } from './utils/config-snapshot';
 
 test('expected stylelint config', () => {
-  traverseDirectory(`${process.cwd()}/tests/js/fixtures/stylelint`, (filePath) => {
-    const result = execSync(`bun lint:css --print-config ${filePath}`, { encoding: 'utf-8' })
-      .replaceAll(process.cwd(), '.');
-
-    expect(result).toMatchSnapshot();
+  snapshotConfigs({
+    command: (filePath) => `bun lint:css --print-config ${filePath}`,
+    fixturesDirectory: `${process.cwd()}/tests/js/fixtures/stylelint`,
   });
 });
