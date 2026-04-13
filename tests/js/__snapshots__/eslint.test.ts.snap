@@ -2033,9 +2033,6 @@ exports[`expected eslint config 1`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -2324,6 +2321,9 @@ exports[`expected eslint config 1`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -2346,6 +2346,7 @@ exports[`expected eslint config 1`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -2369,6 +2370,7 @@ exports[`expected eslint config 1`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -2410,6 +2412,7 @@ exports[`expected eslint config 1`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -2608,6 +2611,9 @@ exports[`expected eslint config 1`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -2818,6 +2824,9 @@ exports[`expected eslint config 1`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -2901,6 +2910,9 @@ exports[`expected eslint config 1`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -2926,7 +2938,7 @@ exports[`expected eslint config 1`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -3945,31 +3957,31 @@ exports[`expected eslint config 1`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -4013,6 +4025,7 @@ exports[`expected eslint config 1`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -4804,6 +4817,7 @@ exports[`expected eslint config 1`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -5005,6 +5019,9 @@ exports[`expected eslint config 1`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -5225,7 +5242,7 @@ exports[`expected eslint config 1`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -7263,9 +7280,6 @@ exports[`expected eslint config 2`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -7554,6 +7568,9 @@ exports[`expected eslint config 2`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -7576,6 +7593,7 @@ exports[`expected eslint config 2`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -7599,6 +7617,7 @@ exports[`expected eslint config 2`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -7640,6 +7659,7 @@ exports[`expected eslint config 2`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -7838,6 +7858,9 @@ exports[`expected eslint config 2`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -8048,6 +8071,9 @@ exports[`expected eslint config 2`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -8131,6 +8157,9 @@ exports[`expected eslint config 2`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -8156,7 +8185,7 @@ exports[`expected eslint config 2`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -9175,31 +9204,31 @@ exports[`expected eslint config 2`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -9243,6 +9272,7 @@ exports[`expected eslint config 2`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -10034,6 +10064,7 @@ exports[`expected eslint config 2`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -10235,6 +10266,9 @@ exports[`expected eslint config 2`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -10455,7 +10489,7 @@ exports[`expected eslint config 2`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -12493,9 +12527,6 @@ exports[`expected eslint config 3`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -12784,6 +12815,9 @@ exports[`expected eslint config 3`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -12806,6 +12840,7 @@ exports[`expected eslint config 3`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -12829,6 +12864,7 @@ exports[`expected eslint config 3`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -12870,6 +12906,7 @@ exports[`expected eslint config 3`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -13068,6 +13105,9 @@ exports[`expected eslint config 3`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -13278,6 +13318,9 @@ exports[`expected eslint config 3`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -13361,6 +13404,9 @@ exports[`expected eslint config 3`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -13386,7 +13432,7 @@ exports[`expected eslint config 3`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -14405,31 +14451,31 @@ exports[`expected eslint config 3`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "commonjs",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "commonjs",
       "ecmaVersion": "latest",
@@ -14473,6 +14519,7 @@ exports[`expected eslint config 3`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -15264,6 +15311,7 @@ exports[`expected eslint config 3`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -15465,6 +15513,9 @@ exports[`expected eslint config 3`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -15685,7 +15736,7 @@ exports[`expected eslint config 3`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -17732,9 +17783,6 @@ exports[`expected eslint config 4`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -18023,6 +18071,9 @@ exports[`expected eslint config 4`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -18045,6 +18096,7 @@ exports[`expected eslint config 4`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -18068,6 +18120,7 @@ exports[`expected eslint config 4`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -18109,6 +18162,7 @@ exports[`expected eslint config 4`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -18307,6 +18361,9 @@ exports[`expected eslint config 4`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -18517,6 +18574,9 @@ exports[`expected eslint config 4`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -18600,6 +18660,9 @@ exports[`expected eslint config 4`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -18625,7 +18688,7 @@ exports[`expected eslint config 4`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -19644,31 +19707,31 @@ exports[`expected eslint config 4`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -19712,6 +19775,7 @@ exports[`expected eslint config 4`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -20503,6 +20567,7 @@ exports[`expected eslint config 4`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -20704,6 +20769,9 @@ exports[`expected eslint config 4`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -20924,7 +20992,7 @@ exports[`expected eslint config 4`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -22971,9 +23039,6 @@ exports[`expected eslint config 5`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -23262,6 +23327,9 @@ exports[`expected eslint config 5`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -23284,6 +23352,7 @@ exports[`expected eslint config 5`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -23307,6 +23376,7 @@ exports[`expected eslint config 5`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -23348,6 +23418,7 @@ exports[`expected eslint config 5`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -23546,6 +23617,9 @@ exports[`expected eslint config 5`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -23756,6 +23830,9 @@ exports[`expected eslint config 5`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -23839,6 +23916,9 @@ exports[`expected eslint config 5`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -23864,7 +23944,7 @@ exports[`expected eslint config 5`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -24883,31 +24963,31 @@ exports[`expected eslint config 5`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -24951,6 +25031,7 @@ exports[`expected eslint config 5`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -25742,6 +25823,7 @@ exports[`expected eslint config 5`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -25943,6 +26025,9 @@ exports[`expected eslint config 5`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -26163,7 +26248,7 @@ exports[`expected eslint config 5`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -28210,9 +28295,6 @@ exports[`expected eslint config 6`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -28501,6 +28583,9 @@ exports[`expected eslint config 6`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -28523,6 +28608,7 @@ exports[`expected eslint config 6`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -28546,6 +28632,7 @@ exports[`expected eslint config 6`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -28587,6 +28674,7 @@ exports[`expected eslint config 6`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -28785,6 +28873,9 @@ exports[`expected eslint config 6`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -28995,6 +29086,9 @@ exports[`expected eslint config 6`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -29078,6 +29172,9 @@ exports[`expected eslint config 6`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -29103,7 +29200,7 @@ exports[`expected eslint config 6`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -30122,31 +30219,31 @@ exports[`expected eslint config 6`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -30190,6 +30287,7 @@ exports[`expected eslint config 6`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -30981,6 +31079,7 @@ exports[`expected eslint config 6`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -31182,6 +31281,9 @@ exports[`expected eslint config 6`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -31402,7 +31504,7 @@ exports[`expected eslint config 6`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -33449,9 +33551,6 @@ exports[`expected eslint config 7`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -33740,6 +33839,9 @@ exports[`expected eslint config 7`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -33762,6 +33864,7 @@ exports[`expected eslint config 7`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -33785,6 +33888,7 @@ exports[`expected eslint config 7`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -33826,6 +33930,7 @@ exports[`expected eslint config 7`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -34024,6 +34129,9 @@ exports[`expected eslint config 7`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -34234,6 +34342,9 @@ exports[`expected eslint config 7`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -34317,6 +34428,9 @@ exports[`expected eslint config 7`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -34342,7 +34456,7 @@ exports[`expected eslint config 7`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -35361,31 +35475,31 @@ exports[`expected eslint config 7`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -35429,6 +35543,7 @@ exports[`expected eslint config 7`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -36220,6 +36335,7 @@ exports[`expected eslint config 7`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -36421,6 +36537,9 @@ exports[`expected eslint config 7`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -36641,7 +36760,7 @@ exports[`expected eslint config 7`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -38688,9 +38807,6 @@ exports[`expected eslint config 8`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -38979,6 +39095,9 @@ exports[`expected eslint config 8`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -39001,6 +39120,7 @@ exports[`expected eslint config 8`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -39024,6 +39144,7 @@ exports[`expected eslint config 8`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -39065,6 +39186,7 @@ exports[`expected eslint config 8`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -39263,6 +39385,9 @@ exports[`expected eslint config 8`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -39473,6 +39598,9 @@ exports[`expected eslint config 8`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -39556,6 +39684,9 @@ exports[`expected eslint config 8`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -39581,7 +39712,7 @@ exports[`expected eslint config 8`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -40600,31 +40731,31 @@ exports[`expected eslint config 8`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -40668,6 +40799,7 @@ exports[`expected eslint config 8`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -41459,6 +41591,7 @@ exports[`expected eslint config 8`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -41660,6 +41793,9 @@ exports[`expected eslint config 8`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -41880,7 +42016,7 @@ exports[`expected eslint config 8`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -43927,9 +44063,6 @@ exports[`expected eslint config 9`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -44218,6 +44351,9 @@ exports[`expected eslint config 9`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -44240,6 +44376,7 @@ exports[`expected eslint config 9`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -44263,6 +44400,7 @@ exports[`expected eslint config 9`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -44304,6 +44442,7 @@ exports[`expected eslint config 9`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -44502,6 +44641,9 @@ exports[`expected eslint config 9`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -44712,6 +44854,9 @@ exports[`expected eslint config 9`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -44795,6 +44940,9 @@ exports[`expected eslint config 9`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -44820,7 +44968,7 @@ exports[`expected eslint config 9`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -45839,31 +45987,31 @@ exports[`expected eslint config 9`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -45907,6 +46055,7 @@ exports[`expected eslint config 9`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -46698,6 +46847,7 @@ exports[`expected eslint config 9`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -46899,6 +47049,9 @@ exports[`expected eslint config 9`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -47119,7 +47272,7 @@ exports[`expected eslint config 9`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -49157,9 +49310,6 @@ exports[`expected eslint config 10`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -49448,6 +49598,9 @@ exports[`expected eslint config 10`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -49470,6 +49623,7 @@ exports[`expected eslint config 10`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -49493,6 +49647,7 @@ exports[`expected eslint config 10`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -49534,6 +49689,7 @@ exports[`expected eslint config 10`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -49732,6 +49888,9 @@ exports[`expected eslint config 10`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -49942,6 +50101,9 @@ exports[`expected eslint config 10`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -50025,6 +50187,9 @@ exports[`expected eslint config 10`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -50050,7 +50215,7 @@ exports[`expected eslint config 10`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -51069,31 +51234,31 @@ exports[`expected eslint config 10`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -51137,6 +51302,7 @@ exports[`expected eslint config 10`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -51928,6 +52094,7 @@ exports[`expected eslint config 10`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -52129,6 +52296,9 @@ exports[`expected eslint config 10`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -52349,7 +52519,7 @@ exports[`expected eslint config 10`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -54396,9 +54566,6 @@ exports[`expected eslint config 11`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -54687,6 +54854,9 @@ exports[`expected eslint config 11`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -54709,6 +54879,7 @@ exports[`expected eslint config 11`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -54732,6 +54903,7 @@ exports[`expected eslint config 11`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -54773,6 +54945,7 @@ exports[`expected eslint config 11`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -54971,6 +55144,9 @@ exports[`expected eslint config 11`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -55181,6 +55357,9 @@ exports[`expected eslint config 11`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -55264,6 +55443,9 @@ exports[`expected eslint config 11`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -55289,7 +55471,7 @@ exports[`expected eslint config 11`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -56308,31 +56490,31 @@ exports[`expected eslint config 11`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -56376,6 +56558,7 @@ exports[`expected eslint config 11`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -57167,6 +57350,7 @@ exports[`expected eslint config 11`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -57368,6 +57552,9 @@ exports[`expected eslint config 11`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -57588,7 +57775,7 @@ exports[`expected eslint config 11`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -59205,9 +59392,6 @@ exports[`expected eslint config 12`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -59496,6 +59680,9 @@ exports[`expected eslint config 12`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -59518,6 +59705,7 @@ exports[`expected eslint config 12`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -59541,6 +59729,7 @@ exports[`expected eslint config 12`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -59582,6 +59771,7 @@ exports[`expected eslint config 12`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -59780,6 +59970,9 @@ exports[`expected eslint config 12`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -59990,6 +60183,9 @@ exports[`expected eslint config 12`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -60073,6 +60269,9 @@ exports[`expected eslint config 12`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -60098,7 +60297,7 @@ exports[`expected eslint config 12`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -61381,25 +61580,25 @@ exports[`expected eslint config 12`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
@@ -61417,7 +61616,7 @@ exports[`expected eslint config 12`] = `
       },
       "tsconfigRootDir": ".",
       "projectService": {},
-      "parser": "typescript-eslint/parser@8.57.1"
+      "parser": "typescript-eslint/parser@8.58.2"
     },
     "globals": {
       "AbortController": false,
@@ -61452,6 +61651,7 @@ exports[`expected eslint config 12`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -62243,6 +62443,7 @@ exports[`expected eslint config 12`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -62444,6 +62645,9 @@ exports[`expected eslint config 12`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -62664,7 +62868,7 @@ exports[`expected eslint config 12`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-svelte@3.15.2"
+  "processor": "eslint-plugin-svelte@3.17.0"
 }
 "
 `;
@@ -64702,9 +64906,6 @@ exports[`expected eslint config 13`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -64993,6 +65194,9 @@ exports[`expected eslint config 13`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -65015,6 +65219,7 @@ exports[`expected eslint config 13`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -65038,6 +65243,7 @@ exports[`expected eslint config 13`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -65079,6 +65285,7 @@ exports[`expected eslint config 13`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -65277,6 +65484,9 @@ exports[`expected eslint config 13`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -65487,6 +65697,9 @@ exports[`expected eslint config 13`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -65570,6 +65783,9 @@ exports[`expected eslint config 13`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -65595,7 +65811,7 @@ exports[`expected eslint config 13`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -66875,25 +67091,25 @@ exports[`expected eslint config 13`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
@@ -66911,7 +67127,7 @@ exports[`expected eslint config 13`] = `
       },
       "tsconfigRootDir": ".",
       "projectService": {},
-      "parser": "typescript-eslint/parser@8.57.1"
+      "parser": "typescript-eslint/parser@8.58.2"
     },
     "globals": {
       "AbortController": false,
@@ -66946,6 +67162,7 @@ exports[`expected eslint config 13`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -67737,6 +67954,7 @@ exports[`expected eslint config 13`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -67938,6 +68156,9 @@ exports[`expected eslint config 13`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -68158,7 +68379,7 @@ exports[`expected eslint config 13`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -70205,9 +70426,6 @@ exports[`expected eslint config 14`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -70496,6 +70714,9 @@ exports[`expected eslint config 14`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -70518,6 +70739,7 @@ exports[`expected eslint config 14`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -70541,6 +70763,7 @@ exports[`expected eslint config 14`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -70582,6 +70805,7 @@ exports[`expected eslint config 14`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -70780,6 +71004,9 @@ exports[`expected eslint config 14`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -70990,6 +71217,9 @@ exports[`expected eslint config 14`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -71073,6 +71303,9 @@ exports[`expected eslint config 14`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -71098,7 +71331,7 @@ exports[`expected eslint config 14`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -72378,25 +72611,25 @@ exports[`expected eslint config 14`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
@@ -72414,7 +72647,7 @@ exports[`expected eslint config 14`] = `
       },
       "tsconfigRootDir": ".",
       "projectService": {},
-      "parser": "typescript-eslint/parser@8.57.1"
+      "parser": "typescript-eslint/parser@8.58.2"
     },
     "globals": {
       "AbortController": false,
@@ -72449,6 +72682,7 @@ exports[`expected eslint config 14`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -73240,6 +73474,7 @@ exports[`expected eslint config 14`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -73441,6 +73676,9 @@ exports[`expected eslint config 14`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -73661,7 +73899,7 @@ exports[`expected eslint config 14`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -73907,25 +74145,25 @@ exports[`expected eslint config 15`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "json/json",
   "languageOptions": {
@@ -73963,6 +74201,7 @@ exports[`expected eslint config 15`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -74754,6 +74993,7 @@ exports[`expected eslint config 15`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -74955,6 +75195,9 @@ exports[`expected eslint config 15`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -75422,25 +75665,25 @@ exports[`expected eslint config 16`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "json/jsonc",
   "languageOptions": {
@@ -75478,6 +75721,7 @@ exports[`expected eslint config 16`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -76269,6 +76513,7 @@ exports[`expected eslint config 16`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -76470,6 +76715,9 @@ exports[`expected eslint config 16`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -76913,25 +77161,25 @@ exports[`expected eslint config 17`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "json/json5",
   "languageOptions": {
@@ -76969,6 +77217,7 @@ exports[`expected eslint config 17`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -77760,6 +78009,7 @@ exports[`expected eslint config 17`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -77961,6 +78211,9 @@ exports[`expected eslint config 17`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -78353,25 +78606,25 @@ exports[`expected eslint config 18`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "yaml/yaml",
   "languageOptions": {
@@ -78409,6 +78662,7 @@ exports[`expected eslint config 18`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -79200,6 +79454,7 @@ exports[`expected eslint config 18`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -79401,6 +79656,9 @@ exports[`expected eslint config 18`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -79793,25 +80051,25 @@ exports[`expected eslint config 19`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "yaml/yaml",
   "languageOptions": {
@@ -79849,6 +80107,7 @@ exports[`expected eslint config 19`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -80640,6 +80899,7 @@ exports[`expected eslint config 19`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -80841,6 +81101,9 @@ exports[`expected eslint config 19`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -81220,25 +81483,25 @@ exports[`expected eslint config 20`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "toml/toml",
   "languageOptions": {
@@ -81276,6 +81539,7 @@ exports[`expected eslint config 20`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -82067,6 +82331,7 @@ exports[`expected eslint config 20`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -82268,6 +82533,9 @@ exports[`expected eslint config 20`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -82566,7 +82834,8 @@ exports[`expected eslint config 21`] = `
         "allowMediaConditions": [],
         "allowProperties": [],
         "allowPropertyValues": {},
-        "allowSelectors": []
+        "allowSelectors": [],
+        "allowUnits": []
       }
     ],
     "css/prefer-logical-properties": [
@@ -82636,25 +82905,25 @@ exports[`expected eslint config 21`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "css/css",
   "languageOptions": {
@@ -82693,6 +82962,7 @@ exports[`expected eslint config 21`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -83484,6 +83754,7 @@ exports[`expected eslint config 21`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -83685,6 +83956,9 @@ exports[`expected eslint config 21`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -83959,7 +84233,8 @@ exports[`expected eslint config 22`] = `
         "allowDefinitions": [
           "//"
         ],
-        "allowFootnoteDefinitions": []
+        "allowFootnoteDefinitions": [],
+        "checkFootnoteDefinitions": true
       }
     ],
     "markdown/no-empty-definitions": [
@@ -84024,7 +84299,8 @@ exports[`expected eslint config 22`] = `
         "allowDefinitions": [
           "//"
         ],
-        "allowFootnoteDefinitions": []
+        "allowFootnoteDefinitions": [],
+        "checkFootnoteDefinitions": true
       }
     ],
     "markdown/require-alt-text": [
@@ -84126,29 +84402,30 @@ exports[`expected eslint config 22`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "markdown/commonmark",
   "languageOptions": {
     "frontmatter": false,
+    "math": false,
     "ecmaVersion": "latest",
     "globals": {
       "AbortController": false,
@@ -84183,6 +84460,7 @@ exports[`expected eslint config 22`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -84974,6 +85252,7 @@ exports[`expected eslint config 22`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -85175,6 +85454,9 @@ exports[`expected eslint config 22`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -86902,6 +87184,9 @@ exports[`expected eslint config 23`] = `
         "additionalTestBlockFunctions": []
       }
     ],
+    "test/no-commented-out-tests": [
+      2
+    ],
     "test/no-conditional-expect": [
       2,
       {
@@ -86916,9 +87201,6 @@ exports[`expected eslint config 23`] = `
       {
         "fixable": true
       }
-    ],
-    "test/no-commented-out-tests": [
-      2
     ],
     "test/no-identical-title": [
       2
@@ -87669,9 +87951,6 @@ exports[`expected eslint config 23`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -87960,6 +88239,9 @@ exports[`expected eslint config 23`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -87982,6 +88264,7 @@ exports[`expected eslint config 23`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -88005,6 +88288,7 @@ exports[`expected eslint config 23`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -88046,6 +88330,7 @@ exports[`expected eslint config 23`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -88244,6 +88529,9 @@ exports[`expected eslint config 23`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -88454,6 +88742,9 @@ exports[`expected eslint config 23`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -88537,6 +88828,9 @@ exports[`expected eslint config 23`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -88562,7 +88856,7 @@ exports[`expected eslint config 23`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -89581,31 +89875,31 @@ exports[`expected eslint config 23`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -89649,6 +89943,7 @@ exports[`expected eslint config 23`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -90440,6 +90735,7 @@ exports[`expected eslint config 23`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -90641,6 +90937,9 @@ exports[`expected eslint config 23`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -90861,7 +91160,7 @@ exports[`expected eslint config 23`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -92360,6 +92659,9 @@ exports[`expected eslint config 24`] = `
         "additionalTestBlockFunctions": []
       }
     ],
+    "test/no-commented-out-tests": [
+      2
+    ],
     "test/no-conditional-expect": [
       2,
       {
@@ -92374,9 +92676,6 @@ exports[`expected eslint config 24`] = `
       {
         "fixable": true
       }
-    ],
-    "test/no-commented-out-tests": [
-      2
     ],
     "test/no-identical-title": [
       2
@@ -93127,9 +93426,6 @@ exports[`expected eslint config 24`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -93418,6 +93714,9 @@ exports[`expected eslint config 24`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -93440,6 +93739,7 @@ exports[`expected eslint config 24`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -93463,6 +93763,7 @@ exports[`expected eslint config 24`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -93504,6 +93805,7 @@ exports[`expected eslint config 24`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -93702,6 +94004,9 @@ exports[`expected eslint config 24`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -93912,6 +94217,9 @@ exports[`expected eslint config 24`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -93995,6 +94303,9 @@ exports[`expected eslint config 24`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -94020,7 +94331,7 @@ exports[`expected eslint config 24`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -95039,31 +95350,31 @@ exports[`expected eslint config 24`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -95107,6 +95418,7 @@ exports[`expected eslint config 24`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -95898,6 +96210,7 @@ exports[`expected eslint config 24`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -96099,6 +96412,9 @@ exports[`expected eslint config 24`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -96319,7 +96635,7 @@ exports[`expected eslint config 24`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -97818,6 +98134,9 @@ exports[`expected eslint config 25`] = `
         "additionalTestBlockFunctions": []
       }
     ],
+    "test/no-commented-out-tests": [
+      2
+    ],
     "test/no-conditional-expect": [
       2,
       {
@@ -97832,9 +98151,6 @@ exports[`expected eslint config 25`] = `
       {
         "fixable": true
       }
-    ],
-    "test/no-commented-out-tests": [
-      2
     ],
     "test/no-identical-title": [
       2
@@ -98585,9 +98901,6 @@ exports[`expected eslint config 25`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -98876,6 +99189,9 @@ exports[`expected eslint config 25`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -98898,6 +99214,7 @@ exports[`expected eslint config 25`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -98921,6 +99238,7 @@ exports[`expected eslint config 25`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -98962,6 +99280,7 @@ exports[`expected eslint config 25`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -99160,6 +99479,9 @@ exports[`expected eslint config 25`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -99370,6 +99692,9 @@ exports[`expected eslint config 25`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -99453,6 +99778,9 @@ exports[`expected eslint config 25`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -99478,7 +99806,7 @@ exports[`expected eslint config 25`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -100497,31 +100825,31 @@ exports[`expected eslint config 25`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "commonjs",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "commonjs",
       "ecmaVersion": "latest",
@@ -100565,6 +100893,7 @@ exports[`expected eslint config 25`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -101356,6 +101685,7 @@ exports[`expected eslint config 25`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -101557,6 +101887,9 @@ exports[`expected eslint config 25`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -101777,7 +102110,7 @@ exports[`expected eslint config 25`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -103282,6 +103615,9 @@ exports[`expected eslint config 26`] = `
         "additionalTestBlockFunctions": []
       }
     ],
+    "test/no-commented-out-tests": [
+      2
+    ],
     "test/no-conditional-expect": [
       2,
       {
@@ -103296,9 +103632,6 @@ exports[`expected eslint config 26`] = `
       {
         "fixable": true
       }
-    ],
-    "test/no-commented-out-tests": [
-      2
     ],
     "test/no-identical-title": [
       2
@@ -104052,9 +104385,6 @@ exports[`expected eslint config 26`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -104343,6 +104673,9 @@ exports[`expected eslint config 26`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -104365,6 +104698,7 @@ exports[`expected eslint config 26`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -104388,6 +104722,7 @@ exports[`expected eslint config 26`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -104429,6 +104764,7 @@ exports[`expected eslint config 26`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -104627,6 +104963,9 @@ exports[`expected eslint config 26`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -104837,6 +105176,9 @@ exports[`expected eslint config 26`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -104920,6 +105262,9 @@ exports[`expected eslint config 26`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -104945,7 +105290,7 @@ exports[`expected eslint config 26`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -105964,31 +106309,31 @@ exports[`expected eslint config 26`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -106032,6 +106377,7 @@ exports[`expected eslint config 26`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -106823,6 +107169,7 @@ exports[`expected eslint config 26`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -107024,6 +107371,9 @@ exports[`expected eslint config 26`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -107244,7 +107594,7 @@ exports[`expected eslint config 26`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -108749,6 +109099,9 @@ exports[`expected eslint config 27`] = `
         "additionalTestBlockFunctions": []
       }
     ],
+    "test/no-commented-out-tests": [
+      2
+    ],
     "test/no-conditional-expect": [
       2,
       {
@@ -108763,9 +109116,6 @@ exports[`expected eslint config 27`] = `
       {
         "fixable": true
       }
-    ],
-    "test/no-commented-out-tests": [
-      2
     ],
     "test/no-identical-title": [
       2
@@ -109519,9 +109869,6 @@ exports[`expected eslint config 27`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -109810,6 +110157,9 @@ exports[`expected eslint config 27`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -109832,6 +110182,7 @@ exports[`expected eslint config 27`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -109855,6 +110206,7 @@ exports[`expected eslint config 27`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -109896,6 +110248,7 @@ exports[`expected eslint config 27`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -110094,6 +110447,9 @@ exports[`expected eslint config 27`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -110304,6 +110660,9 @@ exports[`expected eslint config 27`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -110387,6 +110746,9 @@ exports[`expected eslint config 27`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -110412,7 +110774,7 @@ exports[`expected eslint config 27`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -111431,31 +111793,31 @@ exports[`expected eslint config 27`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -111499,6 +111861,7 @@ exports[`expected eslint config 27`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -112290,6 +112653,7 @@ exports[`expected eslint config 27`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -112491,6 +112855,9 @@ exports[`expected eslint config 27`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -112711,7 +113078,7 @@ exports[`expected eslint config 27`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;
@@ -114216,6 +114583,9 @@ exports[`expected eslint config 28`] = `
         "additionalTestBlockFunctions": []
       }
     ],
+    "test/no-commented-out-tests": [
+      2
+    ],
     "test/no-conditional-expect": [
       2,
       {
@@ -114230,9 +114600,6 @@ exports[`expected eslint config 28`] = `
       {
         "fixable": true
       }
-    ],
-    "test/no-commented-out-tests": [
-      2
     ],
     "test/no-identical-title": [
       2
@@ -114986,9 +115353,6 @@ exports[`expected eslint config 28`] = `
     "comments/no-unused-enable": [
       2
     ],
-    "comments/no-unused-disable": [
-      2
-    ],
     "comments/require-description": [
       2
     ],
@@ -115277,6 +115641,9 @@ exports[`expected eslint config 28`] = `
         "checkArrowFunctions": true
       }
     ],
+    "unicorn/consistent-template-literal-escape": [
+      2
+    ],
     "unicorn/custom-error-definition": [
       2
     ],
@@ -115299,6 +115666,7 @@ exports[`expected eslint config 28`] = `
           "xxx"
         ],
         "ignore": [],
+        "ignoreDates": false,
         "ignoreDatesOnPullRequests": true,
         "allowWarningComments": true
       }
@@ -115322,6 +115690,7 @@ exports[`expected eslint config 28`] = `
           "AUTHORS.md",
           "BUILD.md",
           "CHANGELOG.md",
+          "CLAUDE.md",
           "CODE_OF_CONDUCT.md",
           "CODEOWNERS.md",
           "CODING_STANDARDS.md",
@@ -115363,6 +115732,7 @@ exports[`expected eslint config 28`] = `
           "RELEASING.md",
           "RESEARCH.md",
           "ROADMAP.md",
+          "SKILL.md",
           "SPEC.md",
           "SECURITY_POLICY.md",
           "SECURITY.md",
@@ -115561,6 +115931,9 @@ exports[`expected eslint config 28`] = `
       2
     ],
     "unicorn/no-useless-fallback-in-spread": [
+      2
+    ],
+    "unicorn/no-useless-iterator-to-array": [
       2
     ],
     "unicorn/no-useless-length-check": [
@@ -115771,6 +116144,9 @@ exports[`expected eslint config 28`] = `
     "unicorn/prefer-set-size": [
       2
     ],
+    "unicorn/prefer-simple-condition-first": [
+      2
+    ],
     "unicorn/prefer-single-call": [
       2,
       {
@@ -115854,6 +116230,9 @@ exports[`expected eslint config 28`] = `
       2,
       "always"
     ],
+    "unicorn/switch-case-break-position": [
+      2
+    ],
     "unicorn/template-indent": [
       2,
       {
@@ -115879,7 +116258,7 @@ exports[`expected eslint config 28`] = `
     "unicorn/text-encoding-identifier-case": [
       2,
       {
-        "withDash": false
+        "withDash": true
       }
     ],
     "unicorn/throw-new-error": [
@@ -116898,31 +117277,31 @@ exports[`expected eslint config 28`] = `
     "@",
     "antfu:antfu@3.2.2",
     "unused:unused-imports",
-    "ts:@typescript-eslint/eslint-plugin@8.57.1",
-    "test:vitest@1.6.12",
+    "ts:@typescript-eslint/eslint-plugin@8.58.2",
+    "test:vitest@1.6.15",
     "jsdoc",
-    "examples:eslint-plugin-jsdoc/processor@62.8.0",
+    "examples:eslint-plugin-jsdoc/processor@62.9.0",
     "node:eslint-plugin-n@17.24.0",
     "brnshkr:brnshkr@<version>",
     "comments",
     "regexp:eslint-plugin-regexp@3.1.0",
-    "unicorn:eslint-plugin-unicorn@63.0.0",
+    "unicorn:eslint-plugin-unicorn@64.0.0",
     "import:eslint-plugin-import-x@4.16.2",
     "style:@stylistic/eslint-plugin@5.10.0",
-    "perfectionist:eslint-plugin-perfectionist@5.7.0",
-    "svelte:eslint-plugin-svelte@3.15.2",
-    "json:@eslint/json@1.1.0",
+    "perfectionist:eslint-plugin-perfectionist@5.8.0",
+    "svelte:eslint-plugin-svelte@3.17.0",
+    "json:@eslint/json@1.2.0",
     "jsonc:eslint-plugin-jsonc@3.1.2",
     "toml:eslint-plugin-toml@1.3.1",
     "yaml:eslint-plugin-yml@3.3.1",
-    "css:@eslint/css@1.0.0",
-    "markdown:@eslint/markdown@7.5.1"
+    "css:@eslint/css@1.1.0",
+    "markdown:@eslint/markdown@8.0.1"
   ],
   "language": "@/js",
   "languageOptions": {
     "sourceType": "module",
     "ecmaVersion": 2026,
-    "parser": "typescript-eslint/parser@8.57.1",
+    "parser": "typescript-eslint/parser@8.58.2",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": "latest",
@@ -116966,6 +117345,7 @@ exports[`expected eslint config 28`] = `
       "AudioNode": false,
       "AudioParam": false,
       "AudioParamMap": false,
+      "AudioPlaybackStats": false,
       "AudioProcessingEvent": false,
       "AudioScheduledSourceNode": false,
       "AudioSinkInfo": false,
@@ -117757,6 +118137,7 @@ exports[`expected eslint config 28`] = `
       "RTCSessionDescription": false,
       "RTCStatsReport": false,
       "RTCTrackEvent": false,
+      "Sanitizer": false,
       "scheduler": false,
       "Scheduler": false,
       "Scheduling": false,
@@ -117958,6 +118339,9 @@ exports[`expected eslint config 28`] = `
       "TextTrackList": false,
       "TextUpdateEvent": false,
       "TimeEvent": false,
+      "TimelineTrigger": false,
+      "TimelineTriggerRange": false,
+      "TimelineTriggerRangeList": false,
       "TimeRanges": false,
       "ToggleEvent": false,
       "toolbar": false,
@@ -118178,7 +118562,7 @@ exports[`expected eslint config 28`] = `
       "setImmediate": false
     }
   },
-  "processor": "eslint-plugin-jsdoc/preprocessor@62.8.0"
+  "processor": "eslint-plugin-jsdoc/preprocessor@62.9.0"
 }
 "
 `;

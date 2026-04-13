@@ -5,22 +5,20 @@ exports[`expected typescript config 1`] = `
     "compilerOptions": {
         "lib": [
             "esnext",
-            "dom",
-            "dom.iterable"
+            "dom"
         ],
         "moduleDetection": "force",
-        "target": "esnext",
         "allowImportingTsExtensions": true,
-        "module": "esnext",
         "moduleResolution": "bundler",
-        "noUncheckedSideEffectImports": true,
         "resolveJsonModule": true,
+        "types": [
+            "bun"
+        ],
         "noEmit": true,
         "sourceMap": true,
         "skipLibCheck": true,
         "allowJs": true,
         "checkJs": true,
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "verbatimModuleSyntax": true,
         "allowUnreachableCode": false,
@@ -32,22 +30,8 @@ exports[`expected typescript config 1`] = `
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "strict": true,
         "isolatedModules": true,
-        "allowSyntheticDefaultImports": true,
-        "resolvePackageJsonExports": true,
-        "resolvePackageJsonImports": true,
-        "preserveConstEnums": true,
-        "useDefineForClassFields": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "strictBindCallApply": true,
-        "strictPropertyInitialization": true,
-        "strictBuiltinIteratorReturn": true,
-        "alwaysStrict": true,
-        "useUnknownInCatchVariables": true
+        "preserveConstEnums": true
     },
     "files": [
         "./conf/commitlint.config.mjs",
