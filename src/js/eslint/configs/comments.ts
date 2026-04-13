@@ -31,7 +31,6 @@ export const comments = async (): Promise<Config[]> => {
         ...renameRules(recommendedRules, {
           '@eslint-community/eslint-comments': 'comments',
         }),
-        'comments/no-unused-disable': 'error',
         'comments/require-description': 'error',
       },
     },
