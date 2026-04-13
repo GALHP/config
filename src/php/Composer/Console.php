@@ -14,6 +14,7 @@ use Symfony\Component\Console\Helper\Helper;
 use Throwable;
 
 use function array_any;
+use function array_filter;
 use function array_map;
 use function array_merge;
 use function implode;
@@ -132,7 +133,7 @@ final readonly class Console
         foreach ($commands as $command) {
             $name         = $command->getName();
             $spacingWidth = $width - Helper::width($name);
-            $aliases      = $command->getAliases();
+            $aliases      = array_filter($command->getAliases(), is_string(...));
 
             $this->writeRaw(sprintf(
                 '  <info>%s</info>%s%s%s',

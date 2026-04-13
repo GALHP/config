@@ -253,9 +253,7 @@ final class SetupCommand extends AbstractCommand
             static fn (string $package): bool => $doForceUpdate ? true : !Module::isPackageInstalled($package),
         ));
 
-        $allOptionalPackages = count($moduleInfo['packages']['optional'] ?? []) === 1
-            ? [array_first($moduleInfo['packages']['optional'])]
-            : $moduleInfo['packages']['optional'] ?? [];
+        $allOptionalPackages = $moduleInfo['packages']['optional'] ?? [];
 
         if ($doForceUpdate && $doIncludeOptionalPackagesAutomatically) {
             $optionalPackagesToInstall = $allOptionalPackages;

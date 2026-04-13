@@ -180,10 +180,7 @@ final class UpdatePhpExtensionsCommand extends AbstractCommand
             static fn (PackageInterface $package): bool => $package->getName() === $packageName,
         );
 
-        /**
-         * @param list<string> $packageNameTrail
-         */
-        $walkPackages = function (?PackageInterface $package, array $packageNameTrail = []) use (
+        $walkPackages = function (?PackageInterface $package, ?array $packageNameTrail = null) use (
             &$walkPackages,
             &$findPackage,
             &$visitedPackageNames,
@@ -194,6 +191,11 @@ final class UpdatePhpExtensionsCommand extends AbstractCommand
             if (!((bool) $packageName) || isset($visitedPackageNames[$packageName])) {
                 return;
             }
+
+            /**
+             * @var ?list<string> $packageNameTrail
+             */
+            $packageNameTrail ??= [];
 
             $packageNameTrail[]                = $packageName;
             $visitedPackageNames[$packageName] = true;
