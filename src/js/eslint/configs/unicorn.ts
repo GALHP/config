@@ -111,6 +111,9 @@ export const unicorn = async (): Promise<Config[]> => {
             '^http:\\/\\/': String.raw`^https:\/\/`,
           },
         }],
+        'unicorn/text-encoding-identifier-case': ['error', {
+          withDash: true,
+        }],
       },
     },
   ];
