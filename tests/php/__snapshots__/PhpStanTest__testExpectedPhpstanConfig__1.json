@@ -11,7 +11,6 @@
             "analyseAndScan": [
                 "./tests/php/Fixtures/ApiOrInternalTagRuleFixture.php",
                 "./tests/php/Fixtures/BoolishPrefixRuleFixture.php",
-                "./tests/php/Fixtures/IgnoreDirectiveRuleFixture.php",
                 "./tests/php/Fixtures/Internal/InternalClass.php",
                 "./tests/php/Fixtures/Internal/ScopedInternalClass.php",
                 "./tests/php/Fixtures/InternalUsageRuleFixture.php",
@@ -32,6 +31,7 @@
         "rememberPossiblyImpureFunctionValues": false,
         "reportAlwaysTrueInLastCondition": true,
         "reportAnyTypeWideningInVarTag": true,
+        "reportIgnoresWithoutComments": true,
         "reportNonIntStringArrayKey": true,
         "reportPossiblyNonexistentConstantArrayOffset": true,
         "reportPossiblyNonexistentGeneralArrayOffset": true,
@@ -69,7 +69,6 @@
     "rules": [
         "Brnshkr\\Config\\PhpStan\\Rule\\ApiOrInternalTagRule",
         "Brnshkr\\Config\\PhpStan\\Rule\\BoolishPrefixRule",
-        "Brnshkr\\Config\\PhpStan\\Rule\\IgnoreDirectiveRule",
         "Brnshkr\\Config\\PhpStan\\Rule\\NoNamedArgumentsTagRule",
         "Symplify\\PHPStanRules\\Rules\\Complexity\\ForbiddenArrayMethodCallRule",
         "Symplify\\PHPStanRules\\Rules\\Complexity\\ForeachCeptionRule",
@@ -139,9 +138,6 @@
                 "phpstan.rules.rule"
             ],
             "arguments": {
-                "allowedDeclaringNamespaces": [
-                    "/^Symfony\\\\Component\\\\Console\\\\Descriptor/"
-                ],
                 "allowedCallingNamespaces": [
                     "/^Brnshkr\\\\Config\\\\Tests/"
                 ]
