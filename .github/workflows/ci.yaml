@@ -528,13 +528,13 @@ jobs:
 
               await exec.exec('git', ['config', 'user.name', actor]);
               await exec.exec('git', ['config', 'user.email', `${actor}@users.noreply.github.com`]);
-              await exec.exec('git', ['tag', '-a', tag, '-m', `Release ${tag}`]);
-              await exec.exec('git', ['push', 'origin', `refs/tags/${tag}`], { timeout: 15000 });
+              await exec.exec('git', ['tag', '-a', `v${tag}`, '-m', tag]);
+              await exec.exec('git', ['push', 'origin', `refs/tags/v${tag}`], { timeout: 15000 });
             } else {
-              core.info(`Skipping creation of tag "${tag}" since \`is_dry_run\` is set to "true".`);
+              core.info(`Skipping creation of tag "v${tag}" since \`is_dry_run\` is set to "true".`);
             }
 
-            core.setOutput('release_tag', tag);
+            core.setOutput('release_tag', `v${tag}`);
             core.setOutput('is_prerelease', tag.includes('-'));
 
       - name: Create GitHub Release
