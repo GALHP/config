@@ -7,7 +7,7 @@
   "stylelint.configFile": "./conf/stylelint.config.mjs",
 
   // JS/TS
-  "typescript.tsdk": "./node_modules/typescript/lib",
+  "js/ts.tsdk.path": "./node_modules/typescript/lib",
   "eslint.options": {
     "overrideConfigFile": "./conf/eslint.config.ts"
   },

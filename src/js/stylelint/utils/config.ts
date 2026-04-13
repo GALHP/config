@@ -17,7 +17,6 @@ const isValidGlobalAdditionalConfigKey = (
 ): key is keyof Omit<Config, 'ignorePatterns' | '_processorFunctions'> => (<const>[
   'extends',
   'plugins',
-  'pluginFunctions',
   'ignoreFiles',
   'rules',
   'quiet',
@@ -88,13 +87,6 @@ export const includeConfigs = (config: Config, configsToInclude: Config[]): void
           ? (configToInclude.plugins ?? [])
           : [configToInclude.plugins].filter(Boolean)),
       ])];
-    }
-
-    if (configToInclude.pluginFunctions !== undefined) {
-      config.pluginFunctions = {
-        ...config.pluginFunctions,
-        ...configToInclude.pluginFunctions,
-      };
     }
 
     if (configToInclude.ignoreFiles !== undefined) {
