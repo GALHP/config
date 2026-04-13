@@ -18,6 +18,7 @@ use LogicException;
 use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -157,6 +158,12 @@ EOF;
 
         self::assertSame(0, $exitCode);
         self::assertStringContainsString('All packages are already installed.', $outputString);
+
+        try {
+            ComposerJson::forThisLibrary()->getVersionConstraintsOfOptionalPackages();
+        } catch (RuntimeException $exception) {
+            self::fail($exception->getMessage());
+        }
     }
 
     /**
