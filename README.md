@@ -58,7 +58,7 @@ _[☄️ Bug Reports / Feature Requests »][issues-url]_
 
 ### 🧰 Prerequisites
 
-- Node.js >= v24 or Bun >= 1.3 (Older versions may work, but are untested)
+- Node.js >= v24 or Bun >= v1.3 (Older versions may work, but are untested)
 - Any JavaScript package manager (Bun, Yarn, PNPM, NPM)
 
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
