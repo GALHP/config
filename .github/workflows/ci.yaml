@@ -510,7 +510,7 @@ jobs:
             let gitRevParse;
 
             try {
-              gitRevParse = await exec.exec('git', ['rev-parse', tag], {
+              gitRevParse = await exec.exec('git', ['rev-parse', `v${tag}`], {
                 ignoreReturnCode: true,
               });
             } catch {
@@ -518,7 +518,7 @@ jobs:
             }
 
             if (gitRevParse && gitRevParse.exitCode === 0) {
-              core.setFailed(`Tag "${tag}" already exists.`);
+              core.setFailed(`Tag "v${tag}" already exists.`);
 
               return;
             }
