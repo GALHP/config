@@ -295,6 +295,9 @@
             "dir": "./src/php/"
         },
         "regular_callable_call": true,
+        "return_assignment": {
+            "skip_named_var_tags": true
+        },
         "self_static_accessor": true,
         "simplified_if_return": true,
         "single_quote": {

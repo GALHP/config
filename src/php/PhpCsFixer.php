@@ -75,6 +75,7 @@ final readonly class PhpCsFixer
             'php_unit_internal_class'           => ['types' => ['abstract', 'final', 'normal']],
             'psr_autoloading'                   => ['dir' => ComposerJson::forProjectUsingThisLibrary()->getFirstAutoloadDirectory()],
             'regular_callable_call'             => true,
+            'return_assignment'                 => ['skip_named_var_tags' => true],
             'self_static_accessor'              => true,
             'simplified_if_return'              => true,
             'single_quote'                      => ['strings_containing_single_quote_chars' => true],
