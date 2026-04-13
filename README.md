@@ -18,7 +18,7 @@ _[☄️ Bug Reports / Feature Requests »][issues-url]_
 <!-- omit in toc -->
 ## Table of Contents
 
-<!-- NOTICE: All anchors must not include the emoji to work on github, the ❤️ and ⚙️ for some reason must be url encoded though -->
+<!-- NOTICE: GitHub strips emojis in anchors, but multi-codepoint characters may leave invisible remnants, causing anchors to differ and require URL encoding. -->
 - [👋 About the Project](#-about-the-project)
 - [☕ JS](#-js)
   - [🧰 Prerequisites](#-prerequisites)
