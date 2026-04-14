@@ -189,6 +189,9 @@ final class PhpStan
                     ],
                 ]),
             ])
+            ->setServices([
+                self::configureStaticThrowTypeExtension(GetConfigThrowTypeExtension::class),
+            ])
         ;
 
         if (Module::isPackageInstalled(Module::PACKAGE_PHP_STAN_STRICT_RULES)) {
