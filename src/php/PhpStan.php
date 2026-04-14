@@ -671,7 +671,7 @@ final class PhpStan
      */
     private static function getAnalysisPaths(Finder $finder): array
     {
-        $finderResults = PhpFileFinder::get($finder) |> iterator_to_array(...);
+        $finderResults = FileFinder::get($finder) |> iterator_to_array(...);
         $directories   = array_values($finderResults) |> self::convertFilesToMinimalDirectoryPaths(...);
 
         if ($directories === []) {
@@ -681,7 +681,7 @@ final class PhpStan
             ];
         }
 
-        $allFilesInDirectories = PhpFileFinder::configure(new Finder()->in($directories))
+        $allFilesInDirectories = FileFinder::get(new Finder()->in($directories))
             |> iterator_to_array(...)
             |> array_keys(...);
 

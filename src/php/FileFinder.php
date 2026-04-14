@@ -22,7 +22,7 @@ use function sprintf;
  *
  * @no-named-arguments
  */
-final class PhpFileFinder
+final class FileFinder
 {
     public const string EXTENSION_PHP  = 'php';
     public const string EXTENSION_TWIG = 'twig';
