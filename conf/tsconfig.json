@@ -37,6 +37,7 @@
 
     // Modules
     "allowImportingTsExtensions": true,
+    "module": "preserve",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "types": ["bun"],

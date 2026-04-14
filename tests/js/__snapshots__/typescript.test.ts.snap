@@ -9,6 +9,7 @@ exports[`expected typescript config 1`] = `
         ],
         "moduleDetection": "force",
         "allowImportingTsExtensions": true,
+        "module": "preserve",
         "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "types": [
