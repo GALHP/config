@@ -8,11 +8,14 @@ use Brnshkr\Config\PhpStan\Rule\ApiOrInternalTagRule;
 use Brnshkr\Config\PhpStan\Rule\BoolishPrefixRule;
 use Brnshkr\Config\PhpStan\Rule\InternalUsageRule;
 use Brnshkr\Config\PhpStan\Rule\NoNamedArgumentsTagRule;
+use Brnshkr\Config\PhpStan\ThrowTypeExtension\GetConfigThrowTypeExtension;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use DateTimeImmutable;
 use PhpCsFixer\Finder as PhpCsFixerFinder;
 use PhpParser\Node;
+use PHPStan\Rules\Rule;
+use PHPStan\Type\DynamicStaticMethodThrowTypeExtension;
 use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
@@ -47,6 +50,7 @@ use function Symfony\Component\String\s;
 use function usort;
 
 use const PATH_SEPARATOR;
+use const SORT_REGULAR;
 
 Module::warnMissingPackages(Module::MODULE_PHP_STAN);
 
@@ -57,8 +61,14 @@ Module::warnMissingPackages(Module::MODULE_PHP_STAN);
  *
  * @phpstan-type Service array{
  *     class: class-string,
- *     tags?: self::RULE_TAG,
+ *     tags?: list<string>,
  *     arguments?: array<array-key, mixed>,
+ * }
+ * @phpstan-type RuleService Service&array{
+ *     tags?: self::TAG_RULE,
+ * }
+ * @phpstan-type StaticThrowTypeExtensionService Service&array{
+ *     tags?: self::TAG_STATIC_THROW_TYPE_EXTENSION,
  * }
  * @phpstan-type Config array{
  *     includes: list<string>,
@@ -86,7 +96,8 @@ final class PhpStan
         ],
     ];
 
-    private const array RULE_TAG = ['phpstan.rules.rule'];
+    private const array TAG_RULE                        = ['phpstan.rules.rule'];
+    private const array TAG_STATIC_THROW_TYPE_EXTENSION = ['phpstan.dynamicStaticMethodThrowTypeExtension'];
 
     private const string PLACEHOLDER_CWD  = '%currentWorkingDirectory%';
     private const string PLACEHOLDER_FILE = '%%relFile%%';
@@ -237,14 +248,13 @@ final class PhpStan
     }
 
     /**
-     * @param list<class-string|Service> $rules
+     * @param list<class-string|RuleService> $rules
      */
     public function setRules(array $rules): self
     {
-        $this->config['rules']    = [...array_values(array_unique([...$this->config['rules'], ...array_filter($rules, is_string(...))]))];
-        $this->config['services'] = [...$this->config['services'], ...array_filter($rules, is_array(...))];
+        $this->config['rules'] = [...array_values(array_unique([...$this->config['rules'], ...array_filter($rules, is_string(...))]))];
 
-        return $this;
+        return $this->setServices(array_values(array_filter($rules, is_array(...))));
     }
 
     /**
@@ -257,9 +267,27 @@ final class PhpStan
             static fn (string $existingRule): bool => !in_array($existingRule, $rules, true),
         ));
 
+        return $this->removeServices($rules);
+    }
+
+    /**
+     * @param list<Service> $services
+     */
+    public function setServices(array $services): self
+    {
+        $this->config['services'] = [...array_values(array_unique([...$this->config['services'], ...$services], SORT_REGULAR))];
+
+        return $this;
+    }
+
+    /**
+     * @param list<class-string> $services
+     */
+    public function removeServices(array $services): self
+    {
         $this->config['services'] = array_values(array_filter(
             $this->config['services'],
-            static fn (array $existingService): bool => !in_array($existingService['class'], $rules, true),
+            static fn (array $existingService): bool => !in_array($existingService['class'], $services, true),
         ));
 
         return $this;
@@ -424,18 +452,33 @@ final class PhpStan
     }
 
     /**
-     * @template TClass of object
+     * @template TNode of Node
      *
-     * @param class-string<TClass> $class
+     * @param class-string<Rule<TNode>> $class
      * @param array<array-key, mixed> $arguments
      *
-     * @return Service
+     * @return RuleService
      */
     public static function configureRule(string $class, array $arguments = []): array
     {
         return [
             'class'     => $class,
-            'tags'      => self::RULE_TAG,
+            'tags'      => self::TAG_RULE,
+            'arguments' => $arguments,
+        ];
+    }
+
+    /**
+     * @param class-string<DynamicStaticMethodThrowTypeExtension> $class
+     * @param array<array-key, mixed> $arguments
+     *
+     * @return StaticThrowTypeExtensionService
+     */
+    public static function configureStaticThrowTypeExtension(string $class, array $arguments = []): array
+    {
+        return [
+            'class'     => $class,
+            'tags'      => self::TAG_STATIC_THROW_TYPE_EXTENSION,
             'arguments' => $arguments,
         ];
     }
@@ -474,7 +517,7 @@ final class PhpStan
     }
 
     /**
-     * @return list<class-string|Service>
+     * @return list<class-string|RuleService>
      *
      * @throws RuntimeException
      */
