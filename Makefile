@@ -38,7 +38,7 @@ test: #~~ runs tests
 test-update: #~~ runs tests with snapshot update
 	$(DEBUG_PREFIX)$(PHP_UNIT) --configuration $(PHP_UNIT_CONFIG) $(PHP_UNIT_FLAGS) --update-snapshots $(ARGS)
 
-check: rector php-cs-fixer phpstan test #~~ runs rector, php-cs-fixer, phpstan and phpunit
+check: rector php-cs-fixer twig-cs-fixer phpstan test #~~ runs rector, php-cs-fixer, twig-cs-fixer, phpstan and phpunit
 
 #--- package
 

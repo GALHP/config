@@ -406,6 +406,19 @@ final class SetupCommand extends AbstractCommand
                     'target'      => $projectRootPath . '/conf/rector.php',
                     'isVersioned' => false,
                 ]],
+                Module::NAME_TWIG_CS_FIXER => [[
+                    'source'      => $libraryRootPath . '/conf/twig-cs-fixer.dist.php.example',
+                    'target'      => $projectRootPath . '/conf/twig-cs-fixer.dist.php',
+                    'isVersioned' => true,
+                ], [
+                    'source'      => $libraryRootPath . '/conf/twig-cs-fixer.php.example',
+                    'target'      => $projectRootPath . '/conf/twig-cs-fixer.php.example',
+                    'isVersioned' => true,
+                ], [
+                    'source'      => $libraryRootPath . '/conf/twig-cs-fixer.php.example',
+                    'target'      => $projectRootPath . '/conf/twig-cs-fixer.php',
+                    'isVersioned' => false,
+                ]],
             };
 
             $this->console->writeNotice(sprintf('Copying files for module "%s".', $moduleInfo['name']));

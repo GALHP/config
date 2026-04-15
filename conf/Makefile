@@ -141,6 +141,12 @@ RECTOR        ?= $(PWD)/vendor/bin/rector#~~ path to rector binary
 RECTOR_CONFIG ?= $(PWD)/conf/rector.php#~~ path to rector config
 RECTOR_FLAGS  ?= --memory-limit=-1#~~ additional flags passed to rector
 
+#--- twig-cs-fixer
+
+TWIG_CS_FIXER        ?= $(PWD)/vendor/bin/twig-cs-fixer#~~ path to twig-cs-fixer binary
+TWIG_CS_FIXER_CONFIG ?= $(PWD)/conf/twig-cs-fixer.php#~~ path to twig-cs-fixer config
+TWIG_CS_FIXER_FLAGS  ?= -v#~~ additional flags passed to twig-cs-fixer
+
 #---v tools
 
 MAKE   ?= make#~~ path to make binary
@@ -317,6 +323,17 @@ rector-dry-run: #~~ runs rector process in dry run mode
 
 rector-list: #~~ lists all files that are processed by rector
 	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) '/\[file\]/ { sub(".*\\[file\\] $(PWD)/", ""); if (/\.php$$/) print }'
+
+#--- twig-cs-fixer
+
+twig-cs-fixer: #~~ runs twig-cs-fixer fix
+	$(DEBUG_PREFIX)$(TWIG_CS_FIXER) lint --fix --config $(TWIG_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(TWIG_CS_FIXER_FLAGS) $(ARGS)
+
+twig-cs-fixer-debug: #~~ runs twig-cs-fixer in debug mode
+	$(DEBUG_PREFIX)$(TWIG_CS_FIXER) lint --fix --debug --config $(TWIG_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(TWIG_CS_FIXER_FLAGS) $(ARGS)
+
+twig-cs-fixer-dry-run: #~~ runs twig-cs-fixer in dry run mode
+	$(DEBUG_PREFIX)$(TWIG_CS_FIXER) lint --config $(TWIG_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(TWIG_CS_FIXER_FLAGS) $(ARGS)
 
 # NOTICE: Create dummy targets for all non-target tokens
 $(if $(filter $(TARGET),$(_ALL_TARGETS)), \
