@@ -161,8 +161,8 @@ EOF;
 
         try {
             ComposerJson::forThisLibrary()->getVersionConstraintsOfOptionalPackages();
-        } catch (RuntimeException $exception) {
-            self::fail($exception->getMessage());
+        } catch (RuntimeException $runtimeException) {
+            self::fail($runtimeException->getMessage());
         }
     }
 

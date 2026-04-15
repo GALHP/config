@@ -53,20 +53,22 @@ final readonly class GetConfigThrowTypeExtension implements DynamicStaticMethodT
         $type = $scope->getType($extensionsArgument->value);
 
         $values = array_map(
-            static fn (ConstantStringType $type) => $type->getValue(),
+            static fn (ConstantStringType $constantStringType): string => $constantStringType->getValue(),
             $type->getConstantStrings(),
         );
 
-        foreach ($type->getConstantArrays() as $constantArray) {
-            foreach ($constantArray->getValueTypes() as $valueType) {
-                $subValues = array_map(static fn (ConstantStringType $stringType) => $stringType->getValue(), $valueType->getConstantStrings());
-                $values    = array_merge($values, $subValues);
+        foreach ($type->getConstantArrays() as $constantArrayType) {
+            foreach ($constantArrayType->getValueTypes() as $valueType) {
+                $values = array_merge($values, array_map(
+                    static fn (ConstantStringType $constantStringType): string => $constantStringType->getValue(),
+                    $valueType->getConstantStrings(),
+                ));
             }
         }
 
         return array_any(
             $values,
-            static fn (mixed $value) => !in_array($value, FileFinder::EXTENSIONS, true),
+            static fn (mixed $value): bool => !in_array($value, FileFinder::EXTENSIONS, true),
         )
             ? new ObjectType(InvalidArgumentException::class)
             : null;
