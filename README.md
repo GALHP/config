@@ -275,7 +275,7 @@ Here are some frequently used examples:
 #### Composer
 
 ```sh
-composer req --dev brnshkr/config
+composer r --dev brnshkr/config
 ```
 
 This repository provides two ways to integrate configuration files and setup tools into your project:
@@ -647,7 +647,7 @@ This project follows [Semantic Versioning 2.0.0][semver-2.0.0-url].
 The NPM and Composer packages are versioned in sync, so a version change does not necessarily indicate a change in a specific package.  
 
 > ❗ **Note** ❗  
-> Since changes to rules and dependencies are not considered breaking, even a patch release may introduce new errors in code that hasn't changed and break your CI without notice. We therefore strongly recommend pinning to an exact version (`-E` for the JS package managers, `composer req --dev brnshkr/config:X.Y.Z` for Composer) so updates stay opt-in and can be applied on your own schedule.
+> Since changes to rules and dependencies are not considered breaking, even a patch release may introduce new errors in code that hasn't changed and break your CI without notice. We therefore strongly recommend pinning to an exact version (`-E` for the JS package managers, `composer r --dev brnshkr/config:X.Y.Z` for Composer) so updates stay opt-in and can be applied on your own schedule.
 
 <!-- omit in toc -->
 ### Changes Considered as Breaking Changes

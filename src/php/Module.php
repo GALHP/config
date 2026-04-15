@@ -171,7 +171,7 @@ final class Module
         ));
 
         Logger::log('notice', sprintf(
-            'Run `%scomposer req --dev %s%s` to install.',
+            'Run `%scomposer r --dev %s%s` to install.',
             Logger::ANSI_WHITE_UNDERLINED,
             implode(' ', $packages),
             Logger::ANSI_RESET,
