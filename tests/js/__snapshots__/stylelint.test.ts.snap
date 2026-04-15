@@ -1100,9 +1100,6 @@ exports[`expected stylelint config > base: 1.css 1`] = `
     ],
     "defensive-css/require-custom-property-fallback": [
       true,
-      {
-        "severity": "error",
-      },
     ],
     "defensive-css/require-dynamic-viewport-height": [
       true,
@@ -1193,6 +1190,7 @@ exports[`expected stylelint config > base: 1.css 1`] = `
           "html",
           "body",
         ],
+        "strict": true,
       },
     ],
     "defensive-css/require-scrollbar-gutter": [

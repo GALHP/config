@@ -20,6 +20,7 @@ export const defensive = (): Config[] => {
         'defensive-css/require-pure-selectors': [true, {
           ignoreElements: ['*', 'html', 'body'],
           ignoreAttributeSelectors: true,
+          strict: true,
         }],
       },
     },
