@@ -116,37 +116,6 @@
       "phpstan/extension-installer": true
     }
   },
-  "archive": {
-    "exclude": [
-      ".*",
-      "conf/",
-      "!conf/.gitignore.example",
-      "Makefile",
-      "!conf/Makefile",
-      "!conf/Makefile.example",
-      "!conf/php-cs-fixer.dist.php.example",
-      "!conf/php-cs-fixer.php.example",
-      "!conf/phpstan.dist.php.example",
-      "!conf/phpstan.php.example",
-      "!conf/rector.dist.php.example",
-      "!conf/rector.php.example",
-      "!conf/twig-cs-fixer.dist.php.example",
-      "!conf/twig-cs-fixer.php.example",
-      "bun.lock",
-      "bunfig.toml",
-      "CHANGELOG.md",
-      "composer.lock",
-      "dist/",
-      ".local/",
-      "node_modules/",
-      "package.json",
-      "scripts/",
-      "src/js/",
-      "tests/",
-      "tsconfig.json",
-      "vendor/"
-    ]
-  },
   "keywords": [
     "dev",
     "brnshkr",
