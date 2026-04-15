@@ -29,6 +29,15 @@ export const imports = async (): Promise<Config[]> => {
         }),
     ].filter(Boolean);
 
+    settings['import-x/core-modules'] = [
+      'bun',
+      'bun:bundle',
+      'bun:ffi',
+      'bun:jsc',
+      'bun:sqlite',
+      'bun:test',
+    ];
+
     const pluginImportTsRules: Config['rules'] = isModuleEnabled(MODULES.typescript)
       ? renameRules(pluginImport.flatConfigs.typescript.rules, { 'import-x': 'import' })
       : {};

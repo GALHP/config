@@ -5236,6 +5236,14 @@ exports[`expected eslint config > base: 1.js 1`] = `
     ],
   },
   "settings": {
+    "import-x/core-modules": [
+      "bun",
+      "bun:bundle",
+      "bun:ffi",
+      "bun:jsc",
+      "bun:sqlite",
+      "bun:test",
+    ],
     "import-x/resolver-next": [
       {
         "interfaceVersion": 3,
