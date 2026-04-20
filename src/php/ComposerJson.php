@@ -149,13 +149,13 @@ final class ComposerJson
     /**
      * @throws RuntimeException
      */
-    public function getPackageFullName(): string
+    public function getPackageFullName(): ?string
     {
         $data = $this->read();
 
         return isset($data['name']) && is_string($data['name'])
             ? $data['name']
-            : throw new RuntimeException('Failed to read full package name from composer.json file.');
+            : null;
     }
 
     /**
@@ -163,7 +163,7 @@ final class ComposerJson
      */
     public function getPackageName(): string
     {
-        $packageName = explode('/', $this->getPackageFullName())[1] ?? null;
+        $packageName = explode('/', $this->getPackageFullName() ?? '')[1] ?? null;
 
         return is_string($packageName)
             ? $packageName
@@ -175,7 +175,7 @@ final class ComposerJson
      */
     public function getPackageOrganization(): string
     {
-        return explode('/', $this->getPackageFullName())[0]
+        return explode('/', $this->getPackageFullName() ?? '')[0]
             ?: throw new RuntimeException('Failed to read package organization from composer.json file.');
     }
 
@@ -313,7 +313,7 @@ final class ComposerJson
     public function getInstalledPackages(): array
     {
         $this->rawInstalledVersionData ??= InstalledVersions::getAllRawData();
-        $packageFullName = $this->getPackageFullName();
+        $packageFullName = $this->getPackageFullName() ?? '__root__';
 
         $data = array_find(
             $this->rawInstalledVersionData,

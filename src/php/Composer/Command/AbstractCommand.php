@@ -90,7 +90,7 @@ abstract class AbstractCommand extends BaseCommand
                 ->setName($isMainCommand ? $mainCommandName : ($mainCommandName . ':' . $kebabName->toString()))
                 ->setDescription(
                     s($this->getDescriptionTemplate())
-                        ->replace('{{ package_full_name }}', $this->libraryComposerJson->getPackageFullName())
+                        ->replace('{{ package_full_name }}', $packageOrganization . '/' . $packageName)
                         ->toString(),
                 )
                 ->setAliases([$alias])
