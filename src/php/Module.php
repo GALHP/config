@@ -42,11 +42,13 @@ final class Module
     public const string PACKAGE_PHP_STAN                   = 'phpstan/phpstan';
     public const string PACKAGE_RECTOR                     = 'rector/rector';
     public const string PACKAGE_PHP_STAN_ERROR_FORMATTER   = 'ticketswap/phpstan-error-formatter';
+    public const string PACKAGE_TWIG_CS_FIXER              = 'vincentlanglet/twig-cs-fixer';
     public const string PACKAGE_TYPE_PERFECT               = 'rector/type-perfect';
 
-    public const string NAME_PHP_CS_FIXER = 'phpcsfixer';
-    public const string NAME_PHP_STAN     = 'phpstan';
-    public const string NAME_RECTOR       = 'rector';
+    public const string NAME_PHP_CS_FIXER  = 'phpcsfixer';
+    public const string NAME_PHP_STAN      = 'phpstan';
+    public const string NAME_RECTOR        = 'rector';
+    public const string NAME_TWIG_CS_FIXER = 'twigcsfixer';
 
     /**
      * @phpstan-var ModuleInfo
@@ -103,12 +105,26 @@ final class Module
     ];
 
     /**
+     * @phpstan-var ModuleInfo
+     */
+    public const array MODULE_TWIG_CS_FIXER = [
+        'name'     => self::NAME_TWIG_CS_FIXER,
+        'packages' => [
+            'requiredAll' => [
+                self::PACKAGE_FINDER,
+                self::PACKAGE_TWIG_CS_FIXER,
+            ],
+        ],
+    ];
+
+    /**
      * @phpstan-var array<self::NAME_*, self::MODULE_*>
      */
     public const array NAME_TO_MODULE_MAP = [
-        self::NAME_PHP_CS_FIXER => self::MODULE_PHP_CS_FIXER,
-        self::NAME_PHP_STAN     => self::MODULE_PHP_STAN,
-        self::NAME_RECTOR       => self::MODULE_RECTOR,
+        self::NAME_PHP_CS_FIXER  => self::MODULE_PHP_CS_FIXER,
+        self::NAME_PHP_STAN      => self::MODULE_PHP_STAN,
+        self::NAME_RECTOR        => self::MODULE_RECTOR,
+        self::NAME_TWIG_CS_FIXER => self::MODULE_TWIG_CS_FIXER,
     ];
 
     private static ComposerJson $composerJson;
@@ -121,7 +137,7 @@ final class Module
     private function __construct() {}
 
     /**
-     * @phpstan-param ModuleInfo|self::PACKAGE_* $moduleInfoOrPackage
+     * @param ModuleInfo|self::PACKAGE_* $moduleInfoOrPackage
      *
      * @throws RuntimeException
      */
@@ -163,7 +179,7 @@ final class Module
     }
 
     /**
-     * @phpstan-param self::PACKAGE_* $package
+     * @param self::PACKAGE_* $package
      *
      * @throws RuntimeException
      */

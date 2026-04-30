@@ -100,42 +100,18 @@ help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-v
 		-f /tmp/brnshkr_config_help.awk \
 		$(MAKEFILE_LIST)
 
-# --- includes
+#--- includes
 
-_THIS_FILE     := $(abspath $(lastword $(MAKEFILE_LIST)))
-_CONF_MAKEFILE := $(filter-out $(_THIS_FILE),$(wildcard $(PWD)/conf/Makefile))
+_THIS_FILE := $(abspath $(lastword $(MAKEFILE_LIST)))
 
-ifneq ($(_CONF_MAKEFILE),)
-include $(_CONF_MAKEFILE)
-endif
+define _include_makefiles_in_directory
+$(eval -include $(filter-out $(_THIS_FILE),$(wildcard $1/Makefile $1/*.mk)))
+endef
 
-ifneq ($(wildcard $(PWD)/conf/*.mk),)
-include $(PWD)/conf/*.mk
-endif
-
-ifneq ($(wildcard $(PWD)/conf/make/Makefile),)
-include $(PWD)/conf/make/Makefile
-endif
-
-ifneq ($(wildcard $(PWD)/conf/make/*.mk),)
-include $(PWD)/conf/make/*.mk
-endif
-
-ifneq ($(wildcard $(PWD)/.local/Makefile),)
-include $(PWD)/.local/Makefile
-endif
-
-ifneq ($(wildcard $(PWD)/.local/*.mk),)
-include $(PWD)/.local/*.mk
-endif
-
-ifneq ($(wildcard $(PWD)/.local/make/Makefile),)
-include $(PWD)/.local/make/Makefile
-endif
-
-ifneq ($(wildcard $(PWD)/.local/make/*.mk),)
-include $(PWD)/.local/make/*.mk
-endif
+$(call _include_makefiles_in_directory,$(PWD)/conf)
+$(call _include_makefiles_in_directory,$(PWD)/conf/make)
+$(call _include_makefiles_in_directory,$(PWD)/.local)
+$(call _include_makefiles_in_directory,$(PWD)/.local/make)
 
 #---v general
 
@@ -143,7 +119,7 @@ PWD          ?= .#vvv #~~ current working directory
 SHELL        ?= /bin/sh#vv #~~ shell to use
 VENDOR       ?= brnshkr#~~ vendor name
 PACKAGE      ?= config#~~ package name
-VERSION      ?= 0.0.1-alpha.15#vv #~~ package version
+VERSION      ?= 0.0.1-beta.2#vv #~~ package version
 DEBUG        ?= #~~ whether debug mode is enabled
 DEBUG_PREFIX ?= $(if $(DEBUG),,@)#vvv #~~ prefix for all commands
 
@@ -161,9 +137,15 @@ PHP_CS_FIXER_FLAGS  ?= --show-progress=dots $(if $(DEBUG),-vvv,-v)#~~ additional
 
 #--- rector
 
-RECTOR        ?= $(PWD)/vendor/bin/rector process#~~ path to rector binary
+RECTOR        ?= $(PWD)/vendor/bin/rector#~~ path to rector binary
 RECTOR_CONFIG ?= $(PWD)/conf/rector.php#~~ path to rector config
 RECTOR_FLAGS  ?= --memory-limit=-1#~~ additional flags passed to rector
+
+#--- twig-cs-fixer
+
+TWIG_CS_FIXER        ?= $(PWD)/vendor/bin/twig-cs-fixer#~~ path to twig-cs-fixer binary
+TWIG_CS_FIXER_CONFIG ?= $(PWD)/conf/twig-cs-fixer.php#~~ path to twig-cs-fixer config
+TWIG_CS_FIXER_FLAGS  ?= -v#~~ additional flags passed to twig-cs-fixer
 
 #---v tools
 
@@ -256,26 +238,27 @@ COLOR_COMMAND         ?= $(COLOR_PRIMARY)
 COLOR_DESCRIPTION     ?= $(COLOR_TERTIARY)
 endif
 
-_COLORS := $(COLOR_BLACK) \
+_COLORS := $(COLOR_NORMAL) \
+	$(COLOR_WHITE) \
+	$(COLOR_BLACK) \
 	$(COLOR_RED) \
-	$(COLOR_GREEN) \
 	$(COLOR_YELLOW) \
-	$(COLOR_BLUE) \
-	$(COLOR_MAGENTA) \
+	$(COLOR_GREEN) \
 	$(COLOR_CYAN) \
-	$(COLOR_WHITE)
+	$(COLOR_BLUE) \
+	$(COLOR_MAGENTA)
 
 #----vvv modifiers
 
 MODIFIER_NORMAL    := normal
-MODIFIER_BRIGHT    := bright
 MODIFIER_UNDERLINE := underline
+MODIFIER_BRIGHT    := bright
 MODIFIER_BOLD      := bold
 MODIFIER_REVERSE   := reverse
 
 _MODIFIERS := $(MODIFIER_NORMAL) \
-	$(MODIFIER_BRIGHT) \
 	$(MODIFIER_UNDERLINE) \
+	$(MODIFIER_BRIGHT) \
 	$(MODIFIER_BOLD) \
 	$(MODIFIER_REVERSE)
 
@@ -288,15 +271,15 @@ _ALL_TARGETS := $(shell $(AWK) \
 )
 
 TARGET := $(firstword $(filter $(_ALL_TARGETS),$(MAKECMDGOALS)))
-ARG1 := $(word 2,$(MAKECMDGOALS)) #vv
-ARG2 := $(word 3,$(MAKECMDGOALS)) #vv
-ARG3 := $(word 4,$(MAKECMDGOALS)) #vv
-ARG4 := $(word 5,$(MAKECMDGOALS)) #vv
-ARG5 := $(word 6,$(MAKECMDGOALS)) #vv
-ARG6 := $(word 7,$(MAKECMDGOALS)) #vv
-ARG7 := $(word 8,$(MAKECMDGOALS)) #vv
-ARG8 := $(word 9,$(MAKECMDGOALS)) #vv
-ARG9 := $(word 10,$(MAKECMDGOALS)) #vv
+ARG1 := $(word 2,$(MAKECMDGOALS))#vv
+ARG2 := $(word 3,$(MAKECMDGOALS))#vv
+ARG3 := $(word 4,$(MAKECMDGOALS))#vv
+ARG4 := $(word 5,$(MAKECMDGOALS))#vv
+ARG5 := $(word 6,$(MAKECMDGOALS))#vv
+ARG6 := $(word 7,$(MAKECMDGOALS))#vv
+ARG7 := $(word 8,$(MAKECMDGOALS))#vv
+ARG8 := $(word 9,$(MAKECMDGOALS))#vv
+ARG9 := $(word 10,$(MAKECMDGOALS))#vv
 ARGS = $(strip $(filter-out $(_ALL_TARGETS),$(call _collect_args,$@,$(MAKECMDGOALS))))
 
 #--- phpstan
@@ -330,21 +313,34 @@ php-cs-fixer-list: #~~ lists all files that are processed by php-cs-fixer
 #--- rector
 
 rector: #~~ runs rector process
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) $(ARGS)
 
 rector-debug: #~~ runs rector process in debug mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --debug $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --debug $(ARGS)
 
 rector-dry-run: #~~ runs rector process in dry run mode
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --dry-run $(ARGS)
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) $(RECTOR_FLAGS) --dry-run $(ARGS)
 
 rector-list: #~~ lists all files that are processed by rector
-	$(DEBUG_PREFIX)$(RECTOR) --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) '/\[file\]/ { sub(".*\\[file\\] $(PWD)/", ""); if (/\.php$$/) print }'
+	$(DEBUG_PREFIX)$(RECTOR) process --config $(RECTOR_CONFIG) $(_NO_ANSI_OPTION) --debug --dry-run | $(AWK) '/\[file\]/ { sub(".*\\[file\\] $(PWD)/", ""); if (/\.php$$/) print }'
+
+#--- twig-cs-fixer
+
+twig-cs-fixer: #~~ runs twig-cs-fixer fix
+	$(DEBUG_PREFIX)$(TWIG_CS_FIXER) lint --fix --config $(TWIG_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(TWIG_CS_FIXER_FLAGS) $(ARGS)
+
+twig-cs-fixer-debug: #~~ runs twig-cs-fixer in debug mode
+	$(DEBUG_PREFIX)$(TWIG_CS_FIXER) lint --fix --debug --config $(TWIG_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(TWIG_CS_FIXER_FLAGS) $(ARGS)
+
+twig-cs-fixer-dry-run: #~~ runs twig-cs-fixer in dry run mode
+	$(DEBUG_PREFIX)$(TWIG_CS_FIXER) lint --config $(TWIG_CS_FIXER_CONFIG) $(_NO_ANSI_OPTION) $(TWIG_CS_FIXER_FLAGS) $(ARGS)
 
 # NOTICE: Create dummy targets for all non-target tokens
-$(if $(filter $(TARGET),$(_ALL_TARGETS)) \
-	,$(foreach ARG,$(sort $(filter-out $(_ALL_TARGETS),$(MAKECMDGOALS))),$(eval $(ARG):;@:) \
-))
+$(if $(filter $(TARGET),$(_ALL_TARGETS)), \
+	$(foreach ARG,$(sort $(filter-out $(_ALL_TARGETS),$(MAKECMDGOALS))), \
+		$(eval $(subst $$,$$$$,$(subst %,\%,$(subst \#,\\\#,$(subst :,\:,$(ARG))))):;@:) \
+	) \
+)
 
 .DEFAULT:
 	$(call log,Unknown command "$@".,$(COLOR_ERROR))
@@ -409,8 +405,9 @@ _UPPER_white   := WHITE
 #*
 #* parameters:
 #*   text: string
-#*   color: OneOf<normal | black | red | green | yellow | blue | magenta | cyan | white>
+#*   color: OneOf<normal | white | black | red | yellow | green | cyan | blue | magenta>
 #*   modifiers?: AnyOf<normal | bold | underline | reverse | bright>
+#*   color_and_or_modifiers?: @parameters.color & @parameters.modifiers
 #*
 #* returns: string
 #*
@@ -434,7 +431,7 @@ endef
 #*
 #* parameters:
 #* 	 message: string
-#* 	 color_and_or_modifiers?: AnyOf<normal | black | red | green | yellow | blue | magenta | cyan | white | bold | underline | reverse | bright>
+#* 	 color_and_or_modifiers?: AnyOf<normal | white | black | red | yellow | green | cyan | blue | magenta | bold | underline | reverse | bright>
 #*
 #* returns: void
 #*
@@ -474,7 +471,7 @@ endef
 #*   $(call _get_color,color,?modifiers)
 #*
 #* parameters:
-#*   color: OneOf<normal | black | red | green | yellow | blue | magenta | cyan | white>
+#*   color: OneOf<normal | white | black | red | yellow | green | cyan | blue | magenta>
 #*   modifiers?: AnyOf<normal | bold | underline | reverse | bright>
 #*
 #* returns: _ANSI_COLOR_*
@@ -494,7 +491,7 @@ endef
 #*   $(call _color,color,?modifiers)
 #*
 #* parameters:
-#*   color: OneOf<normal | black | red | green | yellow | blue | magenta | cyan | white>
+#*   color: OneOf<normal | white | black | red | yellow | green | cyan | blue | magenta>
 #*   modifiers?: AnyOf<normal | bold | underline | reverse | bright>
 #*
 #* returns: string
@@ -663,7 +660,7 @@ function handle_define(documentation, description) {
 	} else {
 		description = get_description();
 		if (documentation != "") add("functions", $$2, documentation, (description != "" ? description : derive_description(documentation)), "", FNR);
-		else if (description != "") add("functions", $$2, "", description, "", FNR);
+		else add("functions", $$2, "", description, "", FNR);
 	}
 }
 function has_content(scope_path, section, idx) {
@@ -749,16 +746,19 @@ function walk(scope_path, depth, section, column, padding, width, format, idx, e
 		walk(children[scope_path, idx], depth + 1, section, column);
 	}
 }
-function print_section(has_previous, section, label, column, top_idx, top_path, found) {
+function print_section(has_previous, section, label, column, top_idx, top_path, found, needs_separator) {
 	for (top_idx = 1; top_idx <= top_count; top_idx += 1) {
 		top_path = top_order[top_idx];
 		if (!has_content(top_path, section)) continue;
 		if (!found++) { if (has_previous) printf "\n"; printf "$(call text,%s,$(COLOR_SECTION_LABEL))\n", label }
+		else if (needs_separator) printf "\n";
 		if (top_path != "main") printf "%s$(call text,%s,$(COLOR_SECONDARY))\n", sprintf("%*s", INDENT, ""), leaf(top_path);
 		walk(top_path, 0, section, column);
+		needs_separator = (section == "functions" && VERBOSITY + 0 >= 2);
 	}
 	return found + 0;
 }
+BEGIN { seen_scope["main"] = 1; top_count = 1; top_order[1] = "main" }
 current_file != FILENAME { current_file = FILENAME; for (i in scope_at) delete scope_at[i]; scope_depth = 0; last_symbol_type = ""; is_in_define = 0; is_in_documentation = 0; condition_depth = 0 }
 /^endef([[:space:]].*)?$$/ { is_in_define = 0; next }
 is_in_define { next }

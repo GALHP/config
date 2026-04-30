@@ -37,7 +37,7 @@ final readonly class Rector
         return RectorConfig::configure()
             ->withCache('.cache/rector.cache')
             ->withRootFiles()
-            ->withPaths(PhpFileFinder::getFilePaths($finder))
+            ->withPaths(FileFinder::getFilePaths($finder))
             ->withPreparedSets(
                 deadCode: true,
                 codeQuality: true,

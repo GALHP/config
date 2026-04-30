@@ -32,16 +32,15 @@
   ],
   "compilerOptions": {
     // Language and Environment
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM"],
     "moduleDetection": "force",
-    "target": "esnext",
 
     // Modules
     "allowImportingTsExtensions": true,
-    "module": "esnext",
+    "module": "preserve",
     "moduleResolution": "bundler",
-    "noUncheckedSideEffectImports": true,
     "resolveJsonModule": true,
+    "types": ["bun"],
 
     // Emit
     "noEmit": true,
@@ -55,7 +54,6 @@
     "checkJs": true,
 
     // Interop Constraints
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,
 
@@ -68,7 +66,6 @@
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true
+    "noUnusedParameters": true
   }
 }

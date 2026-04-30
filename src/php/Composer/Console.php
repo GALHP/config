@@ -14,6 +14,7 @@ use Symfony\Component\Console\Helper\Helper;
 use Throwable;
 
 use function array_any;
+use function array_filter;
 use function array_map;
 use function array_merge;
 use function implode;
@@ -132,7 +133,7 @@ final readonly class Console
         foreach ($commands as $command) {
             $name         = $command->getName();
             $spacingWidth = $width - Helper::width($name);
-            $aliases      = $command->getAliases();
+            $aliases      = array_filter($command->getAliases(), is_string(...));
 
             $this->writeRaw(sprintf(
                 '  <info>%s</info>%s%s%s',
@@ -170,11 +171,11 @@ final readonly class Console
      * @template U of bool
      *
      * @param mixed $default
-     * @phpstan-param T $choices
-     * @phpstan-param key-of<T>|value-of<T>|list<value-of<T>>|list<key-of<T>>|array<key-of<T>, value-of<T>> $default
-     * @phpstan-param U $isMultiselect
+     * @param T $choices
+     * @param key-of<T>|value-of<T>|list<value-of<T>>|list<key-of<T>>|array<key-of<T>, value-of<T>> $default
+     * @param U $isMultiselect
      *
-     * @phpstan-return (U is false ? value-of<T> : list<value-of<T>>)
+     * @return (U is false ? value-of<T> : list<value-of<T>>)
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException

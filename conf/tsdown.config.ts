@@ -5,9 +5,8 @@ export default defineConfig((options) => {
 
   const commonOptions = <const>{
     outDir: '../dist',
-    format: 'esm',
+    clean: true,
     treeshake: !isWatchMode,
-    clean: !isWatchMode,
     outputOptions: {
       chunkFileNames: 'shared.mjs',
     },

@@ -31,14 +31,50 @@ function functionWithoutTag(): void {}
 /**
  * @api
  */
-const CONST_WITH_API_TAG = 'foo';
+const CONSTANT_WITH_API_TAG = 'foo';
 
 /**
  * @internal
  */
-const CONST_WITH_INTERNAL_TAG = 'bar';
+const CONSTANT_WITH_INTERNAL_TAG = 'bar';
 
-const CONST_WITHOUT_TAG_A = 'baz';
-const CONST_WITHOUT_TAG_B = 'qux';
+const CONSTANT_WITHOUT_TAG_A = 'baz';
+const CONSTANT_WITHOUT_TAG_B = 'qux';
 
 $anonymousClass = new class {};
+
+/**
+ * @api
+ */
+interface InterfaceWithApiTag {}
+
+/**
+ * @internal
+ */
+interface InterfaceWithInternalTag {}
+
+interface InterfaceWithoutTag {}
+
+/**
+ * @api
+ */
+enum EnumWithApiTag {}
+
+/**
+ * @internal
+ */
+enum EnumWithInternalTag {}
+
+enum EnumWithoutTag {}
+
+/**
+ * @api
+ */
+trait TraitWithApiTag {}
+
+/**
+ * @internal
+ */
+trait TraitWithInternalTag {}
+
+trait TraitWithoutTag {}

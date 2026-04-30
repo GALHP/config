@@ -6,7 +6,7 @@ namespace Brnshkr\Config\PhpStan\Rule\Trait;
 
 use Brnshkr\Config\ComposerJson;
 use Brnshkr\Config\Str;
-use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use RuntimeException;
@@ -48,8 +48,8 @@ trait RuleTrait
         return $ruleErrorBuilder->build();
     }
 
-    private static function getClassName(Class_ $class): string
+    private static function getClassLikeName(ClassLike $classLike): string
     {
-        return $class->name?->toString() ?: '<unknown>';
+        return $classLike->name?->toString() ?: '<unknown>';
     }
 }

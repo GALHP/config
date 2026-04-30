@@ -47,7 +47,7 @@ on:
         description: Bun version to use when JS is enabled
         required: false
         type: string
-        default: 1.3.10
+        default: 1.3.12
       node-version:
         description: Node version to use when JS is enabled
         required: false
@@ -107,7 +107,7 @@ on:
         description: Bun version to use when JS is enabled
         required: false
         type: string
-        default: 1.3.10
+        default: 1.3.12
       node-version:
         description: Node version to use when JS is enabled
         required: false
@@ -166,7 +166,7 @@ jobs:
             const inputs = ${{ toJSON(inputs) }};
             const isDryRun = String(inputs['is-dry-run'] ?? 'false') === 'true';
             const doEnsureSetSecrets = String(inputs['do-ensure-set-secrets'] ?? 'true') === 'true';
-            const bunVersion = String(inputs['bun-version'] ?? '1.3.10').trim();
+            const bunVersion = String(inputs['bun-version'] ?? '1.3.12').trim();
             const nodeVersion = String(inputs['node-version'] ?? '24.11.0').trim();
             const phpVersion = String(inputs['php-version'] ?? '8.5').trim();
             let doEnableJs = String(inputs['do-enable-js'] ?? 'false') === 'true';
@@ -403,6 +403,7 @@ jobs:
           cp ./conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php
           cp ./conf/rector.php.example ./conf/rector.php
           cp ./conf/phpstan.php.example ./conf/phpstan.php
+          cp ./conf/twig-cs-fixer.php.example ./conf/twig-cs-fixer.php
           make check
 
   build:
@@ -510,7 +511,7 @@ jobs:
             let gitRevParse;
 
             try {
-              gitRevParse = await exec.exec('git', ['rev-parse', tag], {
+              gitRevParse = await exec.exec('git', ['rev-parse', `v${tag}`], {
                 ignoreReturnCode: true,
               });
             } catch {
@@ -518,7 +519,7 @@ jobs:
             }
 
             if (gitRevParse && gitRevParse.exitCode === 0) {
-              core.setFailed(`Tag "${tag}" already exists.`);
+              core.setFailed(`Tag "v${tag}" already exists.`);
 
               return;
             }
@@ -528,13 +529,13 @@ jobs:
 
               await exec.exec('git', ['config', 'user.name', actor]);
               await exec.exec('git', ['config', 'user.email', `${actor}@users.noreply.github.com`]);
-              await exec.exec('git', ['tag', '-a', tag, '-m', `Release ${tag}`]);
-              await exec.exec('git', ['push', 'origin', `refs/tags/${tag}`], { timeout: 15000 });
+              await exec.exec('git', ['tag', '-a', `v${tag}`, '-m', tag]);
+              await exec.exec('git', ['push', 'origin', `refs/tags/v${tag}`], { timeout: 15000 });
             } else {
-              core.info(`Skipping creation of tag "${tag}" since \`is_dry_run\` is set to "true".`);
+              core.info(`Skipping creation of tag "v${tag}" since \`is_dry_run\` is set to "true".`);
             }
 
-            core.setOutput('release_tag', tag);
+            core.setOutput('release_tag', `v${tag}`);
             core.setOutput('is_prerelease', tag.includes('-'));
 
       - name: Create GitHub Release

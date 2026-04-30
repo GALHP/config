@@ -38,7 +38,7 @@ test: #~~ runs tests
 test-update: #~~ runs tests with snapshot update
 	$(DEBUG_PREFIX)$(PHP_UNIT) --configuration $(PHP_UNIT_CONFIG) $(PHP_UNIT_FLAGS) --update-snapshots $(ARGS)
 
-check: rector php-cs-fixer phpstan test #~~ runs rector, php-cs-fixer, phpstan and phpunit
+check: rector php-cs-fixer twig-cs-fixer phpstan test #~~ runs rector, php-cs-fixer, twig-cs-fixer, phpstan and phpunit
 
 #--- package
 
@@ -80,7 +80,7 @@ composer-pack: #~~ publishes the composer package to ./.local/<VENDOR>/<PACKAGE>
 _MODIFIER_COLUMNS := $(EMPTY)
 
 $(foreach MODIFIER,$(_MODIFIERS), \
-  $(eval _MODIFIER_COLUMNS := $(_MODIFIER_COLUMNS) $(MODIFIER))  \
+  $(eval _MODIFIER_COLUMNS := $(_MODIFIER_COLUMNS) $(MODIFIER)) \
   $(foreach MODIFIER_COLUMN,$(_MODIFIER_COLUMNS), \
     $(if $(filter $(MODIFIER),$(subst +, ,$(MODIFIER_COLUMN))),, \
       $(if $(filter $(MODIFIER_NORMAL),$(MODIFIER_COLUMN)),, \
@@ -100,26 +100,27 @@ _MODIFIER_COLUMN_WIDTH := $(shell $(PRINTF) '$(_MODIFIER_COLUMNS)' | $(AWK) '{ \
 	}' \
 )
 
-_COLOR_COLUMN_WIDTHS := $(foreach COLOR,$(_COLORS),$(shell $(PRINTF) '$(COLOR)' | $(AWK) '{ print length($$0) }'))
+_TABLE_COLORS        := $(filter-out $(COLOR_NORMAL),$(_COLORS))
+_COLOR_COLUMN_WIDTHS := $(foreach COLOR,$(_TABLE_COLORS),$(shell $(PRINTF) '$(COLOR)' | $(AWK) '{ print length($$0) }'))
 
 colors: #~~ prints a table of all supported colors with combinations with all supported modifiers
 	$(DEBUG_PREFIX)$(PRINTF) '%-$(_MODIFIER_COLUMN_WIDTH)s';
-	$(DEBUG_PREFIX)$(foreach INDEX,$(call _get_indices,$(_COLORS)), \
-		$(eval _COLOR := $(word $(INDEX),$(_COLORS))) \
+	$(DEBUG_PREFIX)$(foreach INDEX,$(call _get_indices,$(_TABLE_COLORS)), \
+		$(eval _COLOR := $(word $(INDEX),$(_TABLE_COLORS))) \
 		$(eval _WIDTH := $(word $(INDEX),$(_COLOR_COLUMN_WIDTHS))) \
 		$(PRINTF) ' %-$(_WIDTH)s' '$(_COLOR)'; \
 	)
 	$(DEBUG_PREFIX)$(PRINTF) '\n';
 	$(DEBUG_PREFIX)$(PRINTF) '%-$(_MODIFIER_COLUMN_WIDTH)s ' $(call _str_repeat,-,$(_MODIFIER_COLUMN_WIDTH))
-	$(DEBUG_PREFIX)$(foreach INDEX,$(call _get_indices,$(_COLORS)), \
+	$(DEBUG_PREFIX)$(foreach INDEX,$(call _get_indices,$(_TABLE_COLORS)), \
 		$(eval _WIDTH := $(word $(INDEX),$(_COLOR_COLUMN_WIDTHS))) \
 		$(PRINTF) '%-*s ' $(_WIDTH) $(call _str_repeat,-,$(_WIDTH)); \
 	)
 	$(DEBUG_PREFIX)$(PRINTF) '\n';
 	$(DEBUG_PREFIX)$(foreach MODIFIER_COLUMN,$(_MODIFIER_COLUMNS), \
 		$(PRINTF) '%-$(_MODIFIER_COLUMN_WIDTH)s ' '$(subst +, ,$(MODIFIER_COLUMN))'; \
-		$(foreach INDEX,$(call _get_indices,$(_COLORS)), \
-			$(eval _COLOR := $(word $(INDEX),$(_COLORS))) \
+		$(foreach INDEX,$(call _get_indices,$(_TABLE_COLORS)), \
+			$(eval _COLOR := $(word $(INDEX),$(_TABLE_COLORS))) \
 			$(eval _WIDTH := $(word $(INDEX),$(_COLOR_COLUMN_WIDTHS))) \
 			$(eval _TEXT := $(call text,$(_COLOR),$(_COLOR),$(subst +, ,$(MODIFIER_COLUMN)))) \
 			$(PRINTF) '%-*b ' $(_WIDTH) '$(_TEXT)'; \

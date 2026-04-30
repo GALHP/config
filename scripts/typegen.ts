@@ -1,4 +1,5 @@
 import { write } from 'bun';
+
 import { builtinRules } from 'eslint/use-at-your-own-risk';
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
 

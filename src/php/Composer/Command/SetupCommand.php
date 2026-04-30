@@ -93,7 +93,7 @@ final class SetupCommand extends AbstractCommand
     }
 
     /**
-     * @phpstan-return self::SUCCESS|self::FAILURE
+     * @return self::SUCCESS|self::FAILURE
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException
@@ -157,6 +157,8 @@ final class SetupCommand extends AbstractCommand
                 'All packages are already installed. Use the <fg=cyan>--force</fg=cyan> option to force an update to the latest package versions from %s.',
                 $this->libraryComposerJson->getPackageFullName(),
             ));
+
+            $this->copyFilesIfApplicable($modulesToInstall, $doCopyConfigFilesAutomatically, $doCreateMakeFileAutomatically, $doCreateGitignoreFileAutomatically);
 
             return self::SUCCESS;
         }
@@ -237,7 +239,7 @@ final class SetupCommand extends AbstractCommand
     }
 
     /**
-     * @phpstan-param Module::MODULE_* $moduleInfo
+     * @param Module::MODULE_* $moduleInfo
      *
      * @return list<Module::PACKAGE_*>
      *
@@ -251,54 +253,73 @@ final class SetupCommand extends AbstractCommand
             static fn (string $package): bool => $doForceUpdate ? true : !Module::isPackageInstalled($package),
         ));
 
-        $optionalPackages = array_values(array_filter(
-            count($moduleInfo['packages']['optional'] ?? []) === 1
-                ? [array_first($moduleInfo['packages']['optional'])]
-                : $moduleInfo['packages']['optional'] ?? [],
-            static fn (string $package): bool => $doForceUpdate ? true : !Module::isPackageInstalled($package),
-        ));
+        $allOptionalPackages = $moduleInfo['packages']['optional'] ?? [];
 
-        $optionalPackageCount      = count($optionalPackages);
-        $optionalPackagesToInstall = [];
-        $isAnswerValid             = false;
+        if ($doForceUpdate && $doIncludeOptionalPackagesAutomatically) {
+            $optionalPackagesToInstall = $allOptionalPackages;
+        } elseif ($doForceUpdate) {
+            $optionalPackagesToInstall = array_values(array_filter(
+                $allOptionalPackages,
+                Module::isPackageInstalled(...),
+            ));
+        } elseif ($doIncludeOptionalPackagesAutomatically) {
+            $optionalPackagesToInstall = array_values(array_filter(
+                $allOptionalPackages,
+                static fn (string $package): bool => !Module::isPackageInstalled($package),
+            ));
+        } else {
+            $optionalPackagesToInstall = $this->promptForOptionalPackages(
+                $moduleInfo,
+                array_values(array_filter(
+                    $allOptionalPackages,
+                    static fn (string $package): bool => !Module::isPackageInstalled($package),
+                )),
+            );
+        }
+
+        return [...$packages, ...$optionalPackagesToInstall];
+    }
+
+    /**
+     * @param Module::MODULE_* $moduleInfo
+     * @param list<Module::PACKAGE_*> $packages
+     *
+     * @return list<Module::PACKAGE_*>
+     *
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     */
+    private function promptForOptionalPackages(array $moduleInfo, array $packages): array
+    {
+        $packageCount = count($packages);
+
+        if ($packageCount === 0) {
+            return [];
+        }
+
+        if ($packageCount === 1) {
+            $optionalPackage = array_first($packages);
+
+            $doInstallOptionalPackage = $this->console->isConfirmed(sprintf(
+                'Install optional dependency "%s" for module "%s"?',
+                $optionalPackage,
+                $moduleInfo['name'],
+            ));
+
+            return $doInstallOptionalPackage ? [$optionalPackage] : [];
+        }
+
+        $isAnswerValid    = false;
+        $selectedPackages = [];
 
         while (!$isAnswerValid) {
-            if ($doIncludeOptionalPackagesAutomatically) {
-                $optionalPackagesToInstall = [self::ANSWER_ALL];
-
-                break;
-            }
-
-            if ($optionalPackageCount === 0) {
-                break;
-            }
-
-            if ($optionalPackageCount === 1) {
-                $optionalPackage = array_first($optionalPackages);
-
-                $doInstallOptionalPackage = $doForceUpdate ?: $this->console->isConfirmed(sprintf(
-                    'Module "%s" includes an optional dependency that is not yet installed ("%s"). Do you want to install it as well?',
-                    $moduleInfo['name'],
-                    $optionalPackage,
-                ));
-
-                if ($doInstallOptionalPackage) {
-                    $optionalPackagesToInstall = [$optionalPackage];
-                }
-
-                break;
-            }
-
-            $optionalPackagesToInstall = $this->console->select(
+            $selectedPackages = $this->console->select(
                 question: sprintf(
-                    $doForceUpdate
-                        ? 'Select the optional dependencies for module "%s" that you want to force update (%s).'
-                        : 'Module "%s" includes some optional dependencies that are not yet installed (%s). Select the ones you want install as well.',
+                    'Select optional dependencies to install for module "%s".',
                     $moduleInfo['name'],
-                    Str::joinAsQuotedList($optionalPackages),
                 ),
                 choices: [
-                    ...$optionalPackages,
+                    ...$packages,
                     self::ANSWER_ALL,
                     self::ANSWER_NONE,
                 ],
@@ -306,20 +327,17 @@ final class SetupCommand extends AbstractCommand
                 isMultiselect: true,
             );
 
-            $isAnswerValid = $this->isMultipleChoiceAnswerWithAllAndNoneValid($optionalPackagesToInstall);
+            $isAnswerValid = $this->isMultipleChoiceAnswerWithAllAndNoneValid($selectedPackages);
         }
 
-        return [
-            ...$packages,
-            ...array_values(array_filter(
-                array_first($optionalPackagesToInstall) === self::ANSWER_ALL ? $optionalPackages : $optionalPackagesToInstall,
-                $this->isNotAllOrNoneAnswer(...),
-            )),
-        ];
+        return array_values(array_filter(
+            array_first($selectedPackages) === self::ANSWER_ALL ? $packages : $selectedPackages,
+            $this->isNotAllOrNoneAnswer(...),
+        ));
     }
 
     /**
-     * @phpstan-param list<Module::MODULE_*> $moduleInfos
+     * @param list<Module::MODULE_*> $moduleInfos
      *
      * @throws IOException
      * @throws RuntimeException
@@ -386,6 +404,19 @@ final class SetupCommand extends AbstractCommand
                 ], [
                     'source'      => $libraryRootPath . '/conf/rector.php.example',
                     'target'      => $projectRootPath . '/conf/rector.php',
+                    'isVersioned' => false,
+                ]],
+                Module::NAME_TWIG_CS_FIXER => [[
+                    'source'      => $libraryRootPath . '/conf/twig-cs-fixer.dist.php.example',
+                    'target'      => $projectRootPath . '/conf/twig-cs-fixer.dist.php',
+                    'isVersioned' => true,
+                ], [
+                    'source'      => $libraryRootPath . '/conf/twig-cs-fixer.php.example',
+                    'target'      => $projectRootPath . '/conf/twig-cs-fixer.php.example',
+                    'isVersioned' => true,
+                ], [
+                    'source'      => $libraryRootPath . '/conf/twig-cs-fixer.php.example',
+                    'target'      => $projectRootPath . '/conf/twig-cs-fixer.php',
                     'isVersioned' => false,
                 ]],
             };

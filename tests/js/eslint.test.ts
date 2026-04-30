@@ -1,16 +1,12 @@
-import { execSync } from 'node:child_process';
+import { test } from 'vitest';
 
-import { expect, test } from 'vitest';
-
-import { traverseDirectory } from './utils/filesystem';
+import { snapshotConfigs } from './utils/config-snapshot';
 
 test('expected eslint config', () => {
-  traverseDirectory(`${process.cwd()}/tests/js/fixtures/eslint`, (filePath) => {
-    const result = execSync(`bun lint:js --print-config ${filePath}`, { encoding: 'utf8' })
-      .replaceAll(process.cwd(), '.')
-      // NOTICE: Replace version of builtin plugin to avoid snapshot updates on every release
-      .replaceAll(/"brnshkr:brnshkr@.*",/gv, '"brnshkr:brnshkr@<version>",');
-
-    expect(result).toMatchSnapshot();
+  snapshotConfigs({
+    command: (filePath) => `bun lint:js --print-config ${filePath}`,
+    fixturesDirectory: `${process.cwd()}/tests/js/fixtures/eslint`,
+    // NOTICE: Replace version of builtin plugin to avoid snapshot updates on every release
+    normalize: (output) => output.replaceAll(/"brnshkr:brnshkr@.*",/gv, '"brnshkr:brnshkr@<version>",'),
   });
 });

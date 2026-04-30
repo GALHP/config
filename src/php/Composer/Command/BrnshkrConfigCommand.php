@@ -16,6 +16,7 @@ final class BrnshkrConfigCommand extends AbstractCommand
 {
     // NOTICE: We use the internal TextDescriptor here since we want the exact same formatting as the default symfony/console output.
     // This avoids code duplication and keeps the output consistent. Potential future BC breaks in symfony/console might need to be addressed.
+    // @phpstan-ignore brnshkr.internalUsage (See above)
     private TextDescriptor $textDescriptor;
 
     #[Override]
@@ -27,11 +28,12 @@ final class BrnshkrConfigCommand extends AbstractCommand
     #[Override]
     protected function wrappedInitialize(): void
     {
+        // @phpstan-ignore brnshkr.internalUsage (See above)
         $this->textDescriptor = new TextDescriptor();
     }
 
     /**
-     * @phpstan-return self::SUCCESS
+     * @return self::SUCCESS
      *
      * @throws LogicException
      * @throws RuntimeException
@@ -40,7 +42,10 @@ final class BrnshkrConfigCommand extends AbstractCommand
     protected function wrappedExecute(): int
     {
         $this->console->writeLogo();
+
+        // @phpstan-ignore brnshkr.internalUsage (See above)
         $this->textDescriptor->describe($this->output, $this);
+
         $this->console->writeRaw('');
         $this->console->writeHelp(CommandProvider::getCommandInstances($this->composer));
 

@@ -18,7 +18,7 @@ _[☄️ Bug Reports / Feature Requests »][issues-url]_
 <!-- omit in toc -->
 ## Table of Contents
 
-<!-- NOTICE: All anchors must not include the emoji to work on github, the ❤️ and ⚙️ for some reason must be url encoded though -->
+<!-- NOTICE: GitHub strips emojis in anchors, but multi-codepoint characters may leave invisible remnants, causing anchors to differ and require URL encoding. -->
 - [👋 About the Project](#-about-the-project)
 - [☕ JS](#-js)
   - [🧰 Prerequisites](#-prerequisites)
@@ -58,7 +58,7 @@ _[☄️ Bug Reports / Feature Requests »][issues-url]_
 
 ### 🧰 Prerequisites
 
-- Node.js >= v24 or Bun >= 1.3 (Older versions may work, but are untested)
+- Node.js >= v24 or Bun >= v1.3 (Older versions may work, but are untested)
 - Any JavaScript package manager (Bun, Yarn, PNPM, NPM)
 
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
@@ -337,6 +337,15 @@ cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php \
 ```
 
 <!-- omit in toc -->
+##### Twig CS Fixer
+
+```sh
+cp -v ./vendor/brnshkr/config/conf/twig-cs-fixer.php.example ./conf/twig-cs-fixer.php \
+  && cp -v ./vendor/brnshkr/config/conf/twig-cs-fixer.php.example ./conf/twig-cs-fixer.php.example \
+  && cp -v ./vendor/brnshkr/config/conf/twig-cs-fixer.dist.php.example ./conf/twig-cs-fixer.dist.php
+```
+
+<!-- omit in toc -->
 ##### Makefile
 
 ```sh
@@ -363,6 +372,9 @@ cp -v ./vendor/brnshkr/config/conf/php-cs-fixer.php.example ./conf/php-cs-fixer.
   && cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php \
   && cp -v ./vendor/brnshkr/config/conf/phpstan.php.example ./conf/phpstan.php.example \
   && cp -v ./vendor/brnshkr/config/conf/phpstan.dist.php.example ./conf/phpstan.dist.php \
+  && cp -v ./vendor/brnshkr/config/conf/twig-cs-fixer.php.example ./conf/twig-cs-fixer.php \
+  && cp -v ./vendor/brnshkr/config/conf/twig-cs-fixer.php.example ./conf/twig-cs-fixer.php.example \
+  && cp -v ./vendor/brnshkr/config/conf/twig-cs-fixer.dist.php.example ./conf/twig-cs-fixer.dist.php \
   && cp -v ./vendor/brnshkr/config/conf/Makefile.example ./Makefile \
   && cp -v ./vendor/brnshkr/config/conf/.gitignore.example ./.gitignore
 ```
@@ -418,6 +430,21 @@ use Brnshkr\Config\PhpStan;
 return PhpStan::getConfig(/* customize */);
 ```
 
+<!-- omit in toc -->
+##### Twig CS Fixer
+
+```php
+// ./twig-cs-fixer.dist.php
+
+<?php
+
+declare(strict_types=1);
+
+use Brnshkr\Config\TwigCsFixer;
+
+return TwigCsFixer::getConfig(/* customize */);
+```
+
 <p align="right"><a href="#top" title="Back to top">&nbsp;&nbsp;&nbsp;⬆&nbsp;&nbsp;&nbsp;</a></p>
 
 ### 👀 Usage
@@ -459,6 +486,15 @@ php ./vendor/bin/phpstan analyze --configuration ./conf/phpstan.php -vv --memory
 ```
 
 <!-- omit in toc -->
+###### Twig CS Fixer
+
+Example call, adjust as needed
+
+```sh
+php ./vendor/bin/twig-cs-fixer fix --config ./conf/twig-cs-fixer.php -v
+```
+
+<!-- omit in toc -->
 ##### Option 2 — Run Helper Scripts (Make Only, @brnshkr Convention)
 
 For these scripts to work you need to follow the convention of putting your configuration files into the [`./conf`](./conf) directory (Exactly how it is done in this project as well).
@@ -497,6 +533,15 @@ make phpstan
 ```
 
 <!-- omit in toc -->
+###### Twig CS Fixer
+
+Expected configuration file: `./conf/twig-cs-fixer.php`
+
+```sh
+make twig-cs-fixer
+```
+
+<!-- omit in toc -->
 #### IDE Setup
 
 When using the recommended way of putting config files into the `./conf` directory it might be neccesary to instruct your IDE to read these files correctly.  
@@ -528,7 +573,8 @@ Install dependencies and setup project tooling with the following commands and a
 composer install \
   && cp -v ./conf/php-cs-fixer.php.example ./conf/php-cs-fixer.php \
   && cp -v ./conf/rector.php.example ./conf/rector.php \
-  && cp -v ./conf/phpstan.php.example ./conf/phpstan.php
+  && cp -v ./conf/phpstan.php.example ./conf/phpstan.php \
+  && cp -v ./conf/twig-cs-fixer.php.example ./conf/twig-cs-fixer.php
 ```
 
 <!-- omit in toc -->
@@ -551,7 +597,7 @@ Here are some frequently used examples (see `make help` for the complete list):
 - `make phpstan` — Run PHPStan static analysis
 - `make test` — Run PHPUnit test suite
 - `make test-update` — Run PHPUnit test suite and update snapshots
-- `make check` — Run Rector, PHP-CS-Fixer, PHPStan and PHPUnit
+- `make check` — Run Rector, PHP-CS-Fixer, Twig-CS-Fixer, PHPStan and PHPUnit
 
 ## 🔨 TODOs / Roadmap
 
@@ -632,8 +678,9 @@ Distributed under the MIT License. See [LICENSE](./LICENSE) for more information
 - [PHP](https://www.php.net)
 - [PHPStan](https://github.com/phpstan/phpstan)
 - [Rector](https://github.com/rectorphp/rector)
+- [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+- [Twig-CS-Fixer](https://github.com/VincentLanglet/Twig-CS-Fixer)
 - [GNU Make](https://www.gnu.org/software/make)
-- [PHP Coding Standards Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template) by [othneildrew](https://github.com/othneildrew)
 - [Choose an Open Source License](https://choosealicense.com)
 - [Shields.io](https://shields.io)

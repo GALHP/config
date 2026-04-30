@@ -9,15 +9,20 @@ use Brnshkr\Config\Str;
 use Override;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Enum_;
 use PhpParser\Node\Stmt\Function_;
+use PhpParser\Node\Stmt\Interface_;
+use PhpParser\Node\Stmt\Trait_;
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use RuntimeException;
 
+use function array_any;
 use function array_filter;
-use function array_values;
 use function sprintf;
 
 /**
@@ -31,9 +36,11 @@ final readonly class NoNamedArgumentsTagRule implements Rule
 {
     use RuleTrait;
 
-    private const string KIND_CLASS    = 'Class';
-    private const string KIND_FUNCTION = 'Function';
-    private const string KIND_METHOD   = 'Method';
+    private const string KIND_CLASS     = 'Class';
+    private const string KIND_ENUM      = 'Enum';
+    private const string KIND_FUNCTION  = 'Function';
+    private const string KIND_INTERFACE = 'Interface';
+    private const string KIND_TRAIT     = 'Trait';
 
     #[Override]
     public function getNodeType(): string
@@ -49,65 +56,63 @@ final readonly class NoNamedArgumentsTagRule implements Rule
     #[Override]
     public function processNode(Node $node, Scope $scope): array
     {
-        return array_values(array_filter(
+        return array_filter(
             match (true) {
-                $node instanceof Class_    => self::processClass($node),
+                $node instanceof ClassLike => [self::processClassLike($node)],
                 $node instanceof Function_ => [self::processFunction($node)],
                 default                    => [],
             },
             static fn (?IdentifierRuleError $identifierRuleError): bool => $identifierRuleError instanceof IdentifierRuleError,
-        ));
+        );
     }
 
     /**
-     * @return list<?IdentifierRuleError>
-     *
      * @throws RuntimeException
      */
-    private static function processClass(Class_ $class): array
+    private static function processClassLike(ClassLike $classLike): ?IdentifierRuleError
     {
-        if ($class->isAnonymous()) {
-            return [];
+        if ($classLike instanceof Class_ && $classLike->isAnonymous()) {
+            return null;
         }
 
-        $errors = [];
-
-        $hasInternalTag         = self::hasInternalTag($class);
-        $hasNoNamedArgumentsTag = self::hasNoNamedArgumentsTag($class);
-
-        if (!$hasInternalTag && !$hasNoNamedArgumentsTag) {
-            $errors[] = self::buildError(
-                self::KIND_CLASS,
-                self::getClassName($class),
-                $class->getStartLine(),
-            );
+        if (!self::hasMethodsWithParameters($classLike)) {
+            return null;
         }
 
-        foreach ($class->getMethods() as $classMethod) {
-            if ($hasInternalTag) {
-                continue;
-            }
-
-            if ($hasNoNamedArgumentsTag) {
-                continue;
-            }
-
-            if (self::hasInternalTag($classMethod)) {
-                continue;
-            }
-
-            if (self::hasNoNamedArgumentsTag($classMethod)) {
-                continue;
-            }
-
-            $errors[] = self::buildError(
-                self::KIND_METHOD,
-                self::getClassName($class) . '::' . $classMethod->name->toString(),
-                $classMethod->getStartLine(),
-            );
+        if (self::hasInternalTag($classLike)) {
+            return null;
         }
 
-        return $errors;
+        if (self::hasNoNamedArgumentsTag($classLike)) {
+            return null;
+        }
+
+        return self::buildError(
+            self::getKindForClassLike($classLike),
+            self::getClassLikeName($classLike),
+            $classLike->getStartLine(),
+        );
+    }
+
+    /**
+     * @return self::KIND_*
+     */
+    private static function getKindForClassLike(ClassLike $classLike): string
+    {
+        return match (true) {
+            $classLike instanceof Enum_      => self::KIND_ENUM,
+            $classLike instanceof Interface_ => self::KIND_INTERFACE,
+            $classLike instanceof Trait_     => self::KIND_TRAIT,
+            default                          => self::KIND_CLASS,
+        };
+    }
+
+    private static function hasMethodsWithParameters(ClassLike $classLike): bool
+    {
+        return array_any(
+            $classLike->getMethods(),
+            static fn (ClassMethod $classMethod): bool => !$classMethod->isPrivate() && $classMethod->getParams() !== [],
+        );
     }
 
     /**
@@ -115,13 +120,23 @@ final readonly class NoNamedArgumentsTagRule implements Rule
      */
     private static function processFunction(Function_ $function): ?IdentifierRuleError
     {
-        return self::hasInternalTag($function) || self::hasNoNamedArgumentsTag($function)
-            ? null
-            : self::buildError(
-                self::KIND_FUNCTION,
-                $function->name->toString(),
-                $function->getStartLine(),
-            );
+        if ($function->getParams() === []) {
+            return null;
+        }
+
+        if (self::hasInternalTag($function)) {
+            return null;
+        }
+
+        if (self::hasNoNamedArgumentsTag($function)) {
+            return null;
+        }
+
+        return self::buildError(
+            self::KIND_FUNCTION,
+            $function->name->toString(),
+            $function->getStartLine(),
+        );
     }
 
     private static function hasInternalTag(NodeAbstract $nodeAbstract): bool
@@ -135,7 +150,7 @@ final readonly class NoNamedArgumentsTagRule implements Rule
     }
 
     /**
-     * @phpstan-param self::KIND_* $kind
+     * @param self::KIND_* $kind
      *
      * @throws RuntimeException
      */

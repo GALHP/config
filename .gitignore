@@ -4,6 +4,7 @@
 /conf/phpstan.php
 /conf/phpunit.xml
 /conf/rector.php
+/conf/twig-cs-fixer.php
 /dist/
 /node_modules/
 /src/js/eslint/types/declarations/typegen.d.ts

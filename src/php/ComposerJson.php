@@ -11,11 +11,12 @@ use RuntimeException;
 use function array_all;
 use function array_any;
 use function array_diff;
-use function array_diff_key;
 use function array_filter;
 use function array_find;
+use function array_intersect_key;
 use function array_keys;
 use function array_map;
+use function array_merge;
 use function array_values;
 use function explode;
 use function file_get_contents;
@@ -254,7 +255,7 @@ final class ComposerJson
     }
 
     /**
-     * @phpstan-return array<string, string>
+     * @return array<string, string>
      *
      * @throws RuntimeException
      */
@@ -265,11 +266,10 @@ final class ComposerJson
         $suggests   = (isset($data['suggest']) && is_array($data['suggest'])) ? $data['suggest'] : [];
         $conflicts  = (isset($data['conflict']) && is_array($data['conflict'])) ? $data['conflict'] : [];
 
-        $differences = [
-            ...array_keys(array_diff_key($requireDev, $suggests, $conflicts)),
-            ...array_keys(array_diff_key($conflicts, $requireDev, $suggests)),
-            ...array_keys(array_diff_key($suggests, $conflicts, $requireDev)),
-        ];
+        $differences = array_diff(
+            array_keys(array_merge($requireDev, $suggests, $conflicts)),
+            array_keys(array_intersect_key($requireDev, $suggests, $conflicts)),
+        );
 
         $invalidDifferences = array_values(array_filter(
             array_map(
@@ -306,7 +306,7 @@ final class ComposerJson
     }
 
     /**
-     * @phpstan-return list<string>
+     * @return list<string>
      *
      * @throws RuntimeException
      */
