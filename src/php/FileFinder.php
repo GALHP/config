@@ -52,7 +52,7 @@ final class FileFinder
                 $finder->in('.');
             }
         } else {
-            $finder = new Finder()->in('.');
+            $finder = (new Finder())->in('.');
         }
 
         $namePatterns = array_map(static function (string $extension): string {
@@ -96,8 +96,6 @@ final class FileFinder
      */
     public static function getFilePaths(?Finder $finder = null, string|array $extensions = self::EXTENSION_PHP): array
     {
-        return self::get($finder, $extensions)
-            |> iterator_to_array(...)
-            |> array_keys(...);
+        return array_keys(iterator_to_array(self::get($finder, $extensions)));
     }
 }
