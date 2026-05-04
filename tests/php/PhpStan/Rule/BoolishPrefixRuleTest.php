@@ -25,7 +25,7 @@ final class BoolishPrefixRuleTest extends RuleTestCase
     {
         $prefixList = implode(', ', BoolishPrefixRule::BOOLISH_PREFIXES);
 
-        $this->analyse([__DIR__ . '/../../Fixtures/BoolishPrefixRuleFixture.php'], [
+        $this->analyse([__DIR__ . '/../../Fixtures/Rule/BoolishPrefixRuleFixture.php'], [
             [sprintf('Constant name `%s` must have one of the following prefixes: %s', 'ENABLED', $prefixList), 13],
             [sprintf('Property name `%s` must have one of the following prefixes: %s', 'active', $prefixList), 17],
             [sprintf('Property name `%s` must have one of the following prefixes: %s', 'ready', $prefixList), 21],

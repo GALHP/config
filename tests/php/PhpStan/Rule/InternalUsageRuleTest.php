@@ -24,13 +24,13 @@ final class InternalUsageRuleTest extends RuleTestCase
 {
     public function testRule(): void
     {
-        $internalNamespace = 'Brnshkr\Config\Tests\Fixtures\Internal';
+        $internalNamespace = 'Brnshkr\Config\Tests\Fixtures\Rule\Internal';
         $callerNamespace   = 'External\Consumer';
 
         $this->analyse([
-            __DIR__ . '/../../Fixtures/Internal/InternalClass.php',
-            __DIR__ . '/../../Fixtures/Internal/ScopedInternalClass.php',
-            __DIR__ . '/../../Fixtures/InternalUsageRuleFixture.php',
+            __DIR__ . '/../../Fixtures/Rule/Internal/InternalClass.php',
+            __DIR__ . '/../../Fixtures/Rule/Internal/ScopedInternalClass.php',
+            __DIR__ . '/../../Fixtures/Rule/InternalUsageRuleFixture.php',
         ], [
             [sprintf('Class `%s` is internal and must not be used from `%s`.', $internalNamespace . '\InternalClass', $callerNamespace), 12],
             [sprintf('Method `%s` is internal and must not be used from `%s`.', $internalNamespace . '\InternalClass::doSomething', $callerNamespace), 14],

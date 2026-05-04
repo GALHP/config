@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Brnshkr\Config\Tests\Fixtures\Internal;
+namespace Brnshkr\Config\Tests\Fixtures\Rule\Internal;
 
 /**
  * @internal

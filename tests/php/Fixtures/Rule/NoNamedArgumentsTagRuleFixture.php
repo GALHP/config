@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Brnshkr\Config\Tests\Fixtures;
+namespace Brnshkr\Config\Tests\Fixtures\Rule;
 
 /**
  * @no-named-arguments
