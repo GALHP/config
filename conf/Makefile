@@ -67,16 +67,25 @@
 #     #**      —  open a documentation block
 #     #* text  —  body line inside the block (leading '#* ' is stripped)
 #     The first non-comment, non-empty line after the block must be a 'define' statement.
+#
+#   Filtering by scope(s) is possible:
+#     make help brnshkr
+#     make help brnshkr.phpstan
+#     make help brnshkr.phpstan brnshkr.rector
+#     make help brnshkr app.foo -- -v
+#
+#   Listing all known scope dot-paths:
+#     make help list-scopes
+#     make help ls
+#     make help ls brnshkr
+#     make help ls brnshkr.theming app
 #==
 
 #-- brnshkr
 
 #!! Main Makefile of the brnshkr/config package
 
-help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-vvv | V=1/V=2/V=3)
-	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _escape_newlines,$(LOGO)),$(COLOR_LOGO))'
-	$(DEBUG_PREFIX)$(PRINTF) '$(call text,$(call _to_title_case,$(PACKAGE)) ($(strip $(VERSION))),$(COLOR_TITLE))\n\n'
-	$(DEBUG_PREFIX)$(PRINTF) '$(call text,Usage:,$(COLOR_SECTION_LABEL))\n  $(call text,make,$(COLOR_USAGE_PROGRAM)) $(call text,<command> [--] [arguments],$(COLOR_USAGE_ARGUMENTS))\n\n'
+help: #~~ show this help (optionally with scope filters and higher verbosity: v/vv/vvv | -v/-vv/-vvv | V=1/V=2/V=3)
 	$(DEBUG_PREFIX)$(PRINTF) '%s' "$$_HELP_AWK" > /tmp/brnshkr_config_help.awk
 	$(DEBUG_PREFIX)$(AWK) \
 		-v INDENT="$(INDENT)" \
@@ -87,6 +96,11 @@ help: #~~ show this help (optionally with higher verbosity: v/vv/vvv | -v/-vv/-v
 		-v EDITOR_URL_VSCODE_WSL="$(_EDITOR_URL_VSCODE_WSL)" \
 		-v EDITOR_URL_PHPSTORM="$(_EDITOR_URL_PHPSTORM)" \
 		-v WSL_DISTRO_NAME="$(or $(WSL_DISTRO_NAME),)" \
+		-v SCOPES="$(subst .,/,$(_HELP_SCOPES))" \
+		-v LIST_SCOPES="$(_HELP_LIST_SCOPES)" \
+		-v HEADER_LOGO="$$($(PRINTF) '%b' '$(call text,$(call _escape_newlines,$(LOGO)),$(COLOR_LOGO))' | sed 's/\\/\\\\/g')" \
+		-v HEADER_TITLE="$$($(PRINTF) '%b' '$(call text,$(call _to_title_case,$(PACKAGE)) ($(strip $(VERSION))),$(COLOR_TITLE))')" \
+		-v HEADER_USAGE="$$($(PRINTF) '%b' '$(call text,Usage:,$(COLOR_SECTION_LABEL))\n  $(call text,make,$(COLOR_USAGE_PROGRAM)) $(call text,<command> [--] [arguments],$(COLOR_USAGE_ARGUMENTS))')" \
 		-v VERBOSITY=$(or $(V),$(if $(filter -vvv vvv,$(ARGS)) \
 			,3 \
 			,$(if $(filter -vv vv,$(ARGS)) \
@@ -115,13 +129,14 @@ $(call _include_makefiles_in_directory,$(PWD)/.local/make)
 
 #---v general
 
-PWD          ?= .#vvv #~~ current working directory
-SHELL        ?= /bin/sh#vv #~~ shell to use
-VENDOR       ?= brnshkr#~~ vendor name
-PACKAGE      ?= config#~~ package name
-VERSION      ?= 0.0.1-beta.2#vv #~~ package version
-DEBUG        ?= #~~ whether debug mode is enabled
-DEBUG_PREFIX ?= $(if $(DEBUG),,@)#vvv #~~ prefix for all commands
+PWD                       ?= .#vvv #~~ current working directory
+SHELL                     ?= /bin/sh#vv #~~ shell to use
+VENDOR                    ?= brnshkr#~~ vendor name
+PACKAGE                   ?= config#~~ package name
+VERSION                   ?= 0.0.1-beta.2#vv #~~ package version
+DEBUG                     ?= #~~ whether debug mode is enabled
+DEBUG_PREFIX              ?= $(if $(DEBUG),,@)#vvv #~~ prefix for all commands
+BRNSHKR_CONFIG_ERROR_CODE ?= 69#vvv #~~ the error code for custom errors thrown by this Makefile
 
 #--- phpstan
 
@@ -215,6 +230,7 @@ COLOR_PRIMARY         ?= $(COLOR_CYAN)
 COLOR_SECONDARY       ?= $(COLOR_MAGENTA)
 COLOR_TERTIARY        ?= $(COLOR_BLACK) $(MODIFIER_BRIGHT)
 COLOR_ERROR           ?= $(COLOR_RED)
+COLOR_WARNING         ?= $(COLOR_YELLOW)
 COLOR_NOTICE          ?= $(COLOR_MAGENTA)
 COLOR_LOGO            ?= $(COLOR_SECONDARY)
 COLOR_TITLE           ?= $(COLOR_PRIMARY) $(MODIFIER_UNDERLINE)
@@ -228,6 +244,7 @@ COLOR_PRIMARY         ?= $(COLOR_GREEN)
 COLOR_SECONDARY       ?= $(COLOR_YELLOW)
 COLOR_TERTIARY        ?= $(COLOR_NORMAL)
 COLOR_ERROR           ?= $(COLOR_RED)
+COLOR_WARNING         ?= $(COLOR_YELLOW)
 COLOR_NOTICE          ?= $(COLOR_CYAN)
 COLOR_LOGO            ?= $(COLOR_SECONDARY)
 COLOR_TITLE           ?= $(COLOR_PRIMARY) $(MODIFIER_UNDERLINE)
@@ -265,8 +282,13 @@ _MODIFIERS := $(MODIFIER_NORMAL) \
 #---v arguments
 
 _ALL_TARGETS := $(shell $(AWK) \
-	'BEGIN { FS=":" } \
-	/^[a-zA-Z0-9_.-]+:/ { t=$$1; if (t !~ /^[.]/) $(PRINTF) "%s ", t; }' \
+	'/^[a-zA-Z0-9_.-]+([[:space:]]+[a-zA-Z0-9_.-]+)*:/ { \
+		n = index($$0, ":"); \
+		names = substr($$0, 1, n - 1); \
+		count = split(names, ns, /[[:space:]]+/); \
+		for (i = 1; i <= count; i += 1) \
+			if (ns[i] != "" && ns[i] !~ /^[.]/) $(PRINTF) "%s ", ns[i]; \
+	}' \
 	$(MAKEFILE_LIST) \
 )
 
@@ -281,6 +303,10 @@ ARG7 := $(word 8,$(MAKECMDGOALS))#vv
 ARG8 := $(word 9,$(MAKECMDGOALS))#vv
 ARG9 := $(word 10,$(MAKECMDGOALS))#vv
 ARGS = $(strip $(filter-out $(_ALL_TARGETS),$(call _collect_args,$@,$(MAKECMDGOALS))))
+
+_HELP_RESERVED_ARGS  := -vvv vvv -vv vv -v v -- list-scopes ls
+_HELP_SCOPES          = $(strip $(filter-out $(_HELP_RESERVED_ARGS),$(ARGS)))
+_HELP_LIST_SCOPES     = $(if $(filter list-scopes ls,$(ARGS)),1)
 
 #--- phpstan
 
@@ -343,14 +369,14 @@ $(if $(filter $(TARGET),$(_ALL_TARGETS)), \
 )
 
 .DEFAULT:
-	$(call log,Unknown command "$@".,$(COLOR_ERROR))
+	$(call log,Unknown command "$(call text,$@,$(COLOR_WARNING))".,$(COLOR_ERROR))
 	$(call log \
 		,Run "$(call text,make help,$(MODIFIER_UNDERLINE), \
 		)" or just "$(call text,make,$(MODIFIER_UNDERLINE), \
 		)" to see available commands., \
 		$(COLOR_NOTICE) \
 	)
-	$(DEBUG_PREFIX)exit 1
+	$(DEBUG_PREFIX)exit $(BRNSHKR_CONFIG_ERROR_CODE)
 
 .PHONY: $(_ALL_TARGETS)
 
@@ -616,6 +642,45 @@ function derive_description(documentation, line) {
 	sub(/\.[[:space:]]*$$/, "", line);
 	return line;
 }
+function scope_matches(path, i, f) {
+	if (scope_filter_count == 0) return 1;
+	if (path == "main") return 1;
+	for (i = 1; i <= scope_filter_count; i += 1) {
+		f = scope_filter[i];
+		if (f == "") continue;
+		if (path == f) return 1;
+		if (index(path, f "/") == 1) return 1;
+		if (index(f, path "/") == 1) return 1;
+	}
+	return 0;
+}
+function scope_is_target(path, i, f) {
+	if (scope_filter_count == 0) return 1;
+	for (i = 1; i <= scope_filter_count; i += 1) {
+		f = scope_filter[i];
+		if (f == "") continue;
+		if (path == f) return 1;
+		if (index(path, f "/") == 1) return 1;
+	}
+	return 0;
+}
+function scope_v_visible(path, i, f) {
+	for (i = 1; i <= scope_filter_count; i += 1) {
+		f = scope_filter[i];
+		if (f == "") continue;
+		if (path == f) return 1;
+		if (index(f, path "/") == 1) return 1;
+	}
+	return (scope_verbosity[path] + 0 <= VERBOSITY + 0);
+}
+function scope_has_visible_entries(scope_path, section, idx) {
+	if (!scope_matches(scope_path)) return 0;
+	if (!scope_is_target(scope_path)) return 0;
+	if (!scope_v_visible(scope_path)) return 0;
+	for (idx = 1; idx <= section_count[scope_path, section] + 0; idx += 1)
+		if (section_verbosity[scope_path, section, idx] + 0 <= VERBOSITY + 0) return 1;
+	return 0;
+}
 function push_scope(level, name, verbosity, current, parent_verbosity, parent) {
 	scope_at[level] = (level > 0 && scope_at[level - 1] != "" ? scope_at[level - 1] "/" name : name);
 	scope_depth = level;
@@ -639,7 +704,7 @@ function resolve_scope(symbol_type, current) {
 	last_symbol_type = symbol_type;
 	current = (scope_depth > 0 ? scope_at[scope_depth] : scope_at[0] != "" ? scope_at[0] : "main");
 	if (current == "main" && !("main" in seen_scope)) { seen_scope["main"] = 1; top_count += 1; top_order[top_count] = "main" }
-	return (scope_verbosity[current] + 0 > VERBOSITY + 0) ? "" : current;
+	return current;
 }
 function add(section, name, text, extra, description, line, current, idx) {
 	current = resolve_scope(section);
@@ -664,18 +729,21 @@ function handle_define(documentation, description) {
 	}
 }
 function has_content(scope_path, section, idx) {
-	for (idx = 1; idx <= section_count[scope_path, section] + 0; idx += 1)
-		if (section_verbosity[scope_path, section, idx] + 0 <= VERBOSITY + 0) return 1;
+	if (!scope_matches(scope_path)) return 0;
+	if (scope_has_visible_entries(scope_path, section)) return 1;
 	for (idx = 1; idx <= child_count[scope_path]; idx += 1)
 		if (has_content(children[scope_path, idx], section)) return 1;
 	return 0;
 }
 function tree_max(scope_path, depth, section, mode, best, idx, width, child_width) {
-	for (idx = 1; idx <= section_count[scope_path, section] + 0; idx += 1) {
-		if (section_verbosity[scope_path, section, idx] + 0 > VERBOSITY + 0) continue;
-		if (mode == "value" && section_description[scope_path, section, idx] == "") continue;
-		width = (mode == "value") ? length(section_text[scope_path, section, idx]) : (depth + 2) * INDENT + length(section_name[scope_path, section, idx]);
-		if (width > best) best = width;
+	if (!scope_matches(scope_path)) return 0;
+	if (scope_v_visible(scope_path) && scope_is_target(scope_path)) {
+		for (idx = 1; idx <= section_count[scope_path, section] + 0; idx += 1) {
+			if (section_verbosity[scope_path, section, idx] + 0 > VERBOSITY + 0) continue;
+			if (mode == "value" && section_description[scope_path, section, idx] == "") continue;
+			width = (mode == "value") ? length(section_text[scope_path, section, idx]) : (depth + 2) * INDENT + length(section_name[scope_path, section, idx]);
+			if (width > best) best = width;
+		}
 	}
 	for (idx = 1; idx <= child_count[scope_path]; idx += 1) {
 		child_width = tree_max(children[scope_path, idx], depth + 1, section, mode);
@@ -683,66 +751,73 @@ function tree_max(scope_path, depth, section, mode, best, idx, width, child_widt
 	}
 	return best;
 }
-function walk(scope_path, depth, section, column, padding, width, format, idx, entry, text, extra, description, count, lines, line_idx, blank, function_printed) {
-	padding = sprintf("%*s", (depth + 2) * INDENT, "");
-	width = column - (depth + 2) * INDENT;
-	for (idx = 1; idx <= section_count[scope_path, section] + 0; idx += 1) {
-		if (section_verbosity[scope_path, section, idx] + 0 > VERBOSITY + 0) continue;
-		entry = section_name[scope_path, section, idx];
-		text = section_text[scope_path, section, idx];
-		extra = section_extra[scope_path, section, idx];
-		description = section_description[scope_path, section, idx];
-		file = section_file[scope_path, section, idx];
-		line = section_line[scope_path, section, idx];
-		if (file != "" && file !~ /^\//) file = PWD "/" file;
-		url = "";
-		if (EDITOR == "vscode") {
-			if (WSL_DISTRO_NAME != "") url = sprintf(EDITOR_URL_VSCODE_WSL, WSL_DISTRO_NAME, file, line);
-			else url = sprintf(EDITOR_URL_VSCODE, file, line);
-		} else if (EDITOR == "phpstorm") url = sprintf(EDITOR_URL_PHPSTORM, file, line);
-		hyperlink = "";
-		hyperlink_end = "";
-		if (url != "" && !NO_ANSI) {
-			hyperlink = "\033]8;;" url "\033\\";
-			hyperlink_end = "\033]8;;\033\\";
-		}
-		entry_linked = hyperlink entry hyperlink_end;
-		entry_pad = width - length(entry);
-		if (entry_pad < 0) entry_pad = 0;
-		entry_padded = entry_linked sprintf("%*s", entry_pad, "");
-		if (section == "variables") {
-			if (description != "") {
-				format = sprintf("%2s  %-*s", extra, description_column, text);
-				printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s (%s),$(COLOR_TERTIARY))\n", padding, entry_padded, format, description;
-			} else {
-				printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%2s  %s,$(COLOR_TERTIARY))\n", padding, entry_padded, extra, text;
+function walk(scope_path, depth, section, column, render_scope, padding, width, format, idx, entry, text, extra, description, count, lines, line_idx, blank, function_printed) {
+	if (!scope_matches(scope_path)) return;
+	if (!has_content(scope_path, section)) return;
+	if (scope_path != "main") {
+		printf "%s$(call text,%s,$(COLOR_SECONDARY))\n", sprintf("%*s", (depth + 1) * INDENT, ""), leaf(scope_path);
+	}
+	render_scope = scope_has_visible_entries(scope_path, section);
+	if (render_scope) {
+		padding = sprintf("%*s", (depth + 2) * INDENT, "");
+		width = column - (depth + 2) * INDENT;
+		for (idx = 1; idx <= section_count[scope_path, section] + 0; idx += 1) {
+			if (section_verbosity[scope_path, section, idx] + 0 > VERBOSITY + 0) continue;
+			entry = section_name[scope_path, section, idx];
+			text = section_text[scope_path, section, idx];
+			extra = section_extra[scope_path, section, idx];
+			description = section_description[scope_path, section, idx];
+			file = section_file[scope_path, section, idx];
+			line = section_line[scope_path, section, idx];
+			if (file != "" && file !~ /^\//) file = PWD "/" file;
+			url = "";
+			if (EDITOR == "vscode") {
+				if (WSL_DISTRO_NAME != "") url = sprintf(EDITOR_URL_VSCODE_WSL, WSL_DISTRO_NAME, file, line);
+				else url = sprintf(EDITOR_URL_VSCODE, file, line);
+			} else if (EDITOR == "phpstorm") url = sprintf(EDITOR_URL_PHPSTORM, file, line);
+			hyperlink = "";
+			hyperlink_end = "";
+			if (url != "" && !NO_ANSI) {
+				hyperlink = "\033]8;;" url "\033\\";
+				hyperlink_end = "\033]8;;\033\\";
 			}
-		} else if (section == "commands") {
-			printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, entry_padded, text;
-		} else if (section == "functions") {
-			if (function_printed && VERBOSITY + 0 >= 2 && text != "") printf "\n";
-			function_printed = (text != "" && VERBOSITY + 0 >= 2);
-			if (extra != "" && (VERBOSITY + 0 < 2 || text == "")) {
-				printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, entry_padded, extra;
-			} else {
-				printf "%s$(call text,%s,$(COLOR_PRIMARY))\n", padding, entry_linked;
-			}
-			if (VERBOSITY + 0 >= 2 && text != "") {
-				count = split(text, lines, "\n");
-				blank = 0;
-				for (line_idx = 1; line_idx <= count; line_idx += 1) {
-					if (lines[line_idx] == "") { if (VERBOSITY + 0 < 3) break; blank = 1; continue }
-					if (blank) { printf "\n"; blank = 0 }
-					printf "%s$(call text,%s,$(COLOR_TERTIARY))\n", padding " ", lines[line_idx];
+			entry_linked = hyperlink entry hyperlink_end;
+			entry_pad = width - length(entry);
+			if (entry_pad < 0) entry_pad = 0;
+			entry_padded = entry_linked sprintf("%*s", entry_pad, "");
+			if (section == "variables") {
+				if (description != "") {
+					format = sprintf("%2s  %-*s", extra, description_column, text);
+					printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s (%s),$(COLOR_TERTIARY))\n", padding, entry_padded, format, description;
+				} else {
+					printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%2s  %s,$(COLOR_TERTIARY))\n", padding, entry_padded, extra, text;
 				}
+			} else if (section == "commands") {
+				printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, entry_padded, text;
+			} else if (section == "functions") {
+				if (function_printed && VERBOSITY + 0 >= 2 && text != "") printf "\n";
+				function_printed = (text != "" && VERBOSITY + 0 >= 2);
+				if (extra != "" && (VERBOSITY + 0 < 2 || text == "")) {
+					printf "%s$(call text,%s,$(COLOR_PRIMARY))  $(call text,%s,$(COLOR_TERTIARY))\n", padding, entry_padded, extra;
+				} else {
+					printf "%s$(call text,%s,$(COLOR_PRIMARY))\n", padding, entry_linked;
+				}
+				if (VERBOSITY + 0 >= 2 && text != "") {
+					count = split(text, lines, "\n");
+					blank = 0;
+					for (line_idx = 1; line_idx <= count; line_idx += 1) {
+						if (lines[line_idx] == "") { if (VERBOSITY + 0 < 3) break; blank = 1; continue }
+						if (blank) { printf "\n"; blank = 0 }
+						printf "%s$(call text,%s,$(COLOR_TERTIARY))\n", padding " ", lines[line_idx];
+					}
+				}
+			} else {
+				printf "%s$(call text,%s,$(COLOR_TERTIARY))\n", padding, text;
 			}
-		} else {
-			printf "%s$(call text,%s,$(COLOR_TERTIARY))\n", padding, text;
 		}
 	}
 	for (idx = 1; idx <= child_count[scope_path]; idx += 1) {
 		if (!has_content(children[scope_path, idx], section)) continue;
-		printf "%s$(call text,%s,$(COLOR_SECONDARY))\n", padding, leaf(children[scope_path, idx]);
 		walk(children[scope_path, idx], depth + 1, section, column);
 	}
 }
@@ -752,13 +827,12 @@ function print_section(has_previous, section, label, column, top_idx, top_path, 
 		if (!has_content(top_path, section)) continue;
 		if (!found++) { if (has_previous) printf "\n"; printf "$(call text,%s,$(COLOR_SECTION_LABEL))\n", label }
 		else if (needs_separator) printf "\n";
-		if (top_path != "main") printf "%s$(call text,%s,$(COLOR_SECONDARY))\n", sprintf("%*s", INDENT, ""), leaf(top_path);
 		walk(top_path, 0, section, column);
 		needs_separator = (section == "functions" && VERBOSITY + 0 >= 2);
 	}
 	return found + 0;
 }
-BEGIN { seen_scope["main"] = 1; top_count = 1; top_order[1] = "main" }
+BEGIN { seen_scope["main"] = 1; top_count = 1; top_order[1] = "main"; scope_filter_count = (SCOPES != "" ? split(SCOPES, scope_filter, /[[:space:]]+/) : 0) }
 current_file != FILENAME { current_file = FILENAME; for (i in scope_at) delete scope_at[i]; scope_depth = 0; last_symbol_type = ""; is_in_define = 0; is_in_documentation = 0; condition_depth = 0 }
 /^endef([[:space:]].*)?$$/ { is_in_define = 0; next }
 is_in_define { next }
@@ -778,31 +852,99 @@ is_in_documentation {
 /^define[[:space:]]+/ { handle_define(""); is_in_define = 1; next }
 /^#!!/ { sub(/^#!![ ]*/, ""); add("description", "", strip_verbosity($$0), "", "", FNR); next }
 /^[A-Za-z0-9_]+[ \t]*[:?+]?=/ {
-	match($$0, /^[A-Za-z0-9_]+/);
-	var_name = substr($$0, RSTART, RLENGTH);
-	var_rest = substr($$0, RSTART + RLENGTH);
+	line_number = FNR;
+	var_source = $$0;
+	var_description = "";
+	if (match(var_source, /#~~[ ]*/)) {
+		var_description = trim(strip_verbosity(substr(var_source, RSTART + RLENGTH)));
+		var_source = substr(var_source, 1, RSTART - 1);
+	}
+	match(var_source, /^[A-Za-z0-9_]+/);
+	var_name = substr(var_source, RSTART, RLENGTH);
+	var_rest = substr(var_source, RSTART + RLENGTH);
 	match(var_rest, /^[ \t]*[:?+]?=/);
 	var_operator = substr(var_rest, RSTART, RLENGTH);
 	gsub(/[ \t]/, "", var_operator);
 	if (var_name !~ /^_/) {
-		if (match($$0, /#~~[ ]*/)) {
-			var_description = trim(strip_verbosity(substr($$0, RSTART + RLENGTH)));
-			add("variables", var_name, trim(strip_verbosity(substr($$0, index($$0, "=") + 1, RSTART - index($$0, "=") - 1))), var_operator, var_description, FNR);
-		} else {
-			add("variables", var_name, trim(strip_verbosity(substr($$0, index($$0, "=") + 1))), var_operator, "", FNR);
+		raw = substr(var_source, index(var_source, "=") + 1);
+		while (raw ~ /\\[ \t]*$$/) {
+			sub(/[ \t]*\\[ \t]*$$/, "", raw);
+			if ((getline continuation) <= 0) break;
+			sub(/^[ \t]+/, "", continuation);
+			if (match(continuation, /#~~[ ]*/)) {
+				if (var_description == "")
+					var_description = trim(strip_verbosity(substr(continuation, RSTART + RLENGTH)));
+				continuation = substr(continuation, 1, RSTART - 1);
+				sub(/[ \t]*\\[ \t]*$$/, "", continuation);
+				if (continuation != "") raw = raw " " continuation;
+				break;
+			}
+			raw = raw " " continuation;
+		}
+		add("variables", var_name, trim(strip_verbosity(raw)), var_operator, var_description, line_number);
+	}
+	next;
+}
+/^[A-Za-z0-9_.-]+([ \t]+[A-Za-z0-9_.-]+)*:([^=]|$$)/ {
+	split($$0, parts, ":");
+	description = get_description();
+	count = split(parts[1], names, /[ \t]+/);
+	for (i = 1; i <= count; i += 1) {
+		name = names[i];
+		if (name == "" || name ~ /^[_\.]/) continue;
+		if (!(name in command_seen)) {
+			command_seen[name] = 1;
+			add("commands", name, description, "", "", FNR);
 		}
 	}
 	next;
 }
-/^[A-Za-z0-9_.-]+:([^=]|$$)/ {
-	split($$0, parts, ":");
-	if (parts[1] !~ /^_/ && parts[1] !~ /^[.]/ && !(parts[1] in command_seen)) {
-		command_seen[parts[1]] = 1;
-		add("commands", parts[1], get_description(), "", "", FNR);
-	}
-	next;
-}
 END {
+	unknown_filter_count = 0;
+	for (filter_idx = 1; filter_idx <= scope_filter_count; filter_idx += 1) {
+		filter = scope_filter[filter_idx];
+		if (filter == "") continue;
+		filter_found = 0;
+		for (scope_path in seen_scope)
+			if (scope_path == filter || index(scope_path, filter "/") == 1) { filter_found = 1; break }
+		if (!filter_found) {
+			filter_display = filter; gsub(/\//, ".", filter_display);
+			unknown_filters[++unknown_filter_count] = filter_display;
+		}
+	}
+	if (unknown_filter_count > 0) {
+		unknown_message = sprintf("$(call text,%s,$(COLOR_WARNING))", unknown_filters[1]);
+		for (filter_idx = 2; filter_idx <= unknown_filter_count; filter_idx += 1)
+			unknown_message = unknown_message ", " sprintf("$(call text,%s,$(COLOR_WARNING))", unknown_filters[filter_idx]);
+		unknown_label = (unknown_filter_count == 1 ? "scope" : "scopes");
+		printf "$(call text,[$(VENDOR)/$(PACKAGE)],$(COLOR_ERROR)) Unknown %s: %s.\n", unknown_label, unknown_message;
+		exit $(BRNSHKR_CONFIG_ERROR_CODE);
+	}
+	if (LIST_SCOPES) {
+		listed_count = 0;
+		for (scope_path in seen_scope) {
+			if (scope_path == "main") continue;
+			if (!scope_matches(scope_path)) continue;
+			if (!scope_is_target(scope_path) && scope_filter_count > 0) continue;
+			listed_paths[++listed_count] = scope_path;
+		}
+		for (sort_idx = 2; sort_idx <= listed_count; sort_idx += 1) {
+			current_path = listed_paths[sort_idx]; compare_idx = sort_idx - 1;
+			while (compare_idx >= 1 && listed_paths[compare_idx] > current_path) {
+				listed_paths[compare_idx + 1] = listed_paths[compare_idx];
+				compare_idx -= 1;
+			}
+			listed_paths[compare_idx + 1] = current_path;
+		}
+		for (listed_idx = 1; listed_idx <= listed_count; listed_idx += 1) {
+			gsub(/\//, ".", listed_paths[listed_idx]);
+			print listed_paths[listed_idx];
+		}
+		exit 0;
+	}
+	printf "%s", HEADER_LOGO;
+	printf "%s\n\n", HEADER_TITLE;
+	printf "%s\n", HEADER_USAGE;
 	for (top_idx = 1; top_idx <= top_count; top_idx += 1) {
 		top_path = top_order[top_idx];
 		column = tree_max(top_path, 0, "variables", "name"); if (column > variable_column) variable_column = column;
@@ -810,7 +952,7 @@ END {
 		column = tree_max(top_path, 0, "functions", "name"); if (column > function_column) function_column = column;
 		column = tree_max(top_path, 0, "commands", "name"); if (column > command_column) command_column = column;
 	}
-	has_printed = 0;
+	has_printed = 1;
 	has_printed += print_section(has_printed, "description", "Description:", 0);
 	has_printed += print_section(has_printed, "variables", "Variables:", variable_column);
 	has_printed += print_section(has_printed, "functions", "Functions:", function_column);
