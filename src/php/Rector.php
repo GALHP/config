@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
+use Brnshkr\Config\Trait\EditorUrlTrait;
 use Rector\CodeQuality\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector;
 use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
+use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector;
 use Rector\Config\RectorConfig;
 use Rector\Configuration\RectorConfigBuilder;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+use Rector\Php82\Rector\Param\AddSensitiveParameterAttributeRector;
+use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use RuntimeException;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
+
+use function array_map;
 
 Module::warnMissingPackages(Module::MODULE_RECTOR);
 
@@ -25,6 +31,95 @@ Module::warnMissingPackages(Module::MODULE_RECTOR);
  */
 final readonly class Rector
 {
+    private const array SENSITIVE_PARAMETERS = [
+        'accessKey',
+        'accessKeyId',
+        'accessToken',
+        'accountKey',
+        'accountSecret',
+        'amqpDsn',
+        'apiKey',
+        'apiKeyId',
+        'apiSecret',
+        'apiSecretKey',
+        'apiToken',
+        'appSecret',
+        'authenticationToken',
+        'authHeader',
+        'authorization',
+        'authorizationHeader',
+        'authorizationToken',
+        'authToken',
+        'basicAuthPassword',
+        'basicAuthUsername',
+        'bcc',
+        'bccAddress',
+        'bccEmailAddress',
+        'bearerToken',
+        'cc',
+        'ccAddress',
+        'ccEmailAddress',
+        'certificate',
+        'certificateKey',
+        'clientAssertion',
+        'clientId',
+        'clientSecret',
+        'connectionString',
+        'consumerKey',
+        'consumerSecret',
+        'credentials',
+        'csrfToken',
+        'databasePassword',
+        'dbPassword',
+        'decryptionKey',
+        'doctrineDsn',
+        'dsn',
+        'email',
+        'emailAddress',
+        'encryptionKey',
+        'fromAddress',
+        'fromEmailAddress',
+        'idToken',
+        'jwt',
+        'jwtToken',
+        'keyStorePassword',
+        'lockDsn',
+        'mailerDsn',
+        'oAuthToken',
+        'passphrase',
+        'password',
+        'privateKey',
+        'redisDsn',
+        'refreshToken',
+        'replyAddress',
+        'replyToAddress',
+        'secret',
+        'secretAccessKey',
+        'secretKey',
+        'secretToken',
+        'serviceAccountJson',
+        'serviceAccountKey',
+        'sessionId',
+        'sessionToken',
+        'signature',
+        'signatureKey',
+        'signedUrl',
+        'signingKey',
+        'sshKey',
+        'sshPrivateKey',
+        'tlsCertificate',
+        'tlsKey',
+        'tlsPrivateKey',
+        'toAddress',
+        'toEmailAddress',
+        'token',
+        'tokenId',
+        'trustStorePassword',
+        'username',
+        'verificationKey',
+        'webhookSecret',
+    ];
+
     private function __construct() {}
 
     /**
@@ -69,6 +164,24 @@ final readonly class Rector
                 importShortClasses: false,
                 removeUnusedImports: true,
             )
+            ->withConfiguredRule(AddOverrideAttributeToOverriddenMethodsRector::class, [
+                AddOverrideAttributeToOverriddenMethodsRector::ADD_TO_INTERFACE_METHODS    => true,
+                AddOverrideAttributeToOverriddenMethodsRector::ALLOW_OVERRIDE_EMPTY_METHOD => true,
+            ])
+            ->withConfiguredRule(AddSensitiveParameterAttributeRector::class, [
+                AddSensitiveParameterAttributeRector::SENSITIVE_PARAMETERS => [
+                    ...self::SENSITIVE_PARAMETERS,
+                    ...array_map(
+                        static fn (string $parameter): string => Str::doesEndWith($parameter, 's')
+                            ? ($parameter . 'es')
+                            : ($parameter . 's'),
+                        self::SENSITIVE_PARAMETERS,
+                    ),
+                ],
+            ])
+            ->withConfiguredRule(EncapsedStringsToSprintfRector::class, [
+                EncapsedStringsToSprintfRector::ALWAYS => true,
+            ])
         ;
     }
 }
