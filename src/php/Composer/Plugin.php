@@ -7,14 +7,12 @@ namespace Brnshkr\Config\Composer;
 use Brnshkr\Config\Composer\Command\CommandProvider;
 use Brnshkr\Config\ComposerJson;
 use Composer\Composer;
-use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\Installer\PackageEvent;
-use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Plugin\Capability\CommandProvider as BaseCommandProvider;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
+use Composer\Script\ScriptEvents;
 use Override;
 use RuntimeException;
 
@@ -61,25 +59,15 @@ final class Plugin implements Capable, EventSubscriberInterface, PluginInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PackageEvents::POST_PACKAGE_INSTALL => 'onPostPackageInstall',
+            ScriptEvents::POST_INSTALL_CMD => 'onPostInstall',
         ];
     }
 
     /**
      * @throws RuntimeException
      */
-    public function onPostPackageInstall(PackageEvent $packageEvent): void
+    public function onPostInstall(): void
     {
-        foreach ($packageEvent->getOperations() as $operation) {
-            if (!$operation instanceof InstallOperation) {
-                continue;
-            }
-
-            if ($this->libraryComposerJson->getPackageFullName() === $operation->getPackage()->getName()) {
-                $this->console->writeNotice('Composer plugin activated.');
-
-                break;
-            }
-        }
+        $this->console->writeNotice('Composer plugin activated.');
     }
 }
