@@ -9,12 +9,12 @@
         ],
         "excludePaths": {
             "analyseAndScan": [
-                "./tests/php/Fixtures/ApiOrInternalTagRuleFixture.php",
-                "./tests/php/Fixtures/BoolishPrefixRuleFixture.php",
-                "./tests/php/Fixtures/Internal/InternalClass.php",
-                "./tests/php/Fixtures/Internal/ScopedInternalClass.php",
-                "./tests/php/Fixtures/InternalUsageRuleFixture.php",
-                "./tests/php/Fixtures/NoNamedArgumentsTagRuleFixture.php"
+                "./tests/php/Fixtures/Rule/ApiOrInternalTagRuleFixture.php",
+                "./tests/php/Fixtures/Rule/BoolishPrefixRuleFixture.php",
+                "./tests/php/Fixtures/Rule/Internal/InternalClass.php",
+                "./tests/php/Fixtures/Rule/Internal/ScopedInternalClass.php",
+                "./tests/php/Fixtures/Rule/InternalUsageRuleFixture.php",
+                "./tests/php/Fixtures/Rule/NoNamedArgumentsTagRuleFixture.php"
             ]
         },
         "tmpDir": ".cache/phpstan.cache",

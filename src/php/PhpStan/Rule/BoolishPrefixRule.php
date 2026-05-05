@@ -20,6 +20,7 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\NodeAbstract;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use RuntimeException;
@@ -80,11 +81,10 @@ final readonly class BoolishPrefixRule implements Rule
     {
         return array_values(array_filter(
             match (true) {
-                $node instanceof Function_   => [self::processFunctionOrClassMethod($node, self::KIND_FUNCTION)],
-                $node instanceof ClassMethod => [self::processFunctionOrClassMethod($node, self::KIND_METHOD)],
+                $node instanceof Function_   => self::processFunctionOrClassMethod($node, self::KIND_FUNCTION, $scope),
+                $node instanceof ClassMethod => self::processFunctionOrClassMethod($node, self::KIND_METHOD, $scope),
                 $node instanceof ClassConst  => self::processClassConst($node),
                 $node instanceof Property    => self::processProperty($node),
-                $node instanceof Param       => [self::processParam($node)],
                 $node instanceof Assign      => [self::processAssign($node, $scope)],
                 default                      => [],
             },
@@ -95,15 +95,22 @@ final readonly class BoolishPrefixRule implements Rule
     /**
      * @param self::KIND_FUNCTION|self::KIND_METHOD $kind
      *
+     * @return list<?IdentifierRuleError>
+     *
      * @throws RuntimeException
      */
-    private static function processFunctionOrClassMethod(Function_|ClassMethod $functionOrMethod, string $kind): ?IdentifierRuleError
+    private static function processFunctionOrClassMethod(Function_|ClassMethod $functionOrMethod, string $kind, Scope $scope): array
     {
-        return $functionOrMethod->returnType instanceof Identifier
-            && Str::toLowerCase($functionOrMethod->returnType->name) === 'bool'
-            && !self::hasBoolishPrefix($functionOrMethod->name->toString())
-            ? self::buildError($kind, $functionOrMethod->name->toString(), $functionOrMethod->getStartLine())
-            : null;
+        return !$functionOrMethod instanceof ClassMethod || !self::isMethodLocked($functionOrMethod, $scope)
+            ? [
+                $functionOrMethod->returnType instanceof Identifier
+                    && Str::toLowerCase($functionOrMethod->returnType->name) === 'bool'
+                    && !self::hasBoolishPrefix($functionOrMethod->name->toString())
+                    ? self::buildError($kind, $functionOrMethod->name->toString(), $functionOrMethod->getStartLine())
+                    : null,
+                ...array_values(array_map(self::processParam(...), $functionOrMethod->params)),
+            ]
+            : [];
     }
 
     /**
@@ -113,17 +120,15 @@ final readonly class BoolishPrefixRule implements Rule
      */
     private static function processClassConst(ClassConst $classConst): array
     {
-        if (!$classConst->type instanceof Identifier || Str::toLowerCase($classConst->type->name) !== 'bool') {
-            return [];
-        }
-
-        return array_map(
-            static fn (Const_ $const): IdentifierRuleError => self::buildError(self::KIND_CONSTANT, $const->name->toString(), $const->getStartLine()),
-            array_values(array_filter(
-                $classConst->consts,
-                static fn (Const_ $const): bool => !self::hasBoolishPrefix($const->name->toString()),
-            )),
-        );
+        return $classConst->type instanceof Identifier && Str::toLowerCase($classConst->type->name) === 'bool'
+            ? array_map(
+                static fn (Const_ $const): IdentifierRuleError => self::buildError(self::KIND_CONSTANT, $const->name->toString(), $const->getStartLine()),
+                array_values(array_filter(
+                    $classConst->consts,
+                    static fn (Const_ $const): bool => !self::hasBoolishPrefix($const->name->toString()),
+                )),
+            )
+            : [];
     }
 
     /**
@@ -133,8 +138,7 @@ final readonly class BoolishPrefixRule implements Rule
      */
     private static function processProperty(Property $property): array
     {
-        return $property->type instanceof Identifier
-            && Str::toLowerCase($property->type->name) === 'bool'
+        return $property->type instanceof Identifier && Str::toLowerCase($property->type->name) === 'bool'
             ? array_map(
                 static fn (PropertyItem $propertyItem): IdentifierRuleError => self::buildError(self::KIND_PROPERTY, $propertyItem->name->toString(), $propertyItem->getStartLine()),
                 array_values(array_filter(
@@ -175,6 +179,57 @@ final readonly class BoolishPrefixRule implements Rule
             && !self::hasBoolishPrefix($assign->var->name)
             ? self::buildError(self::KIND_VARIABLE, $assign->var->name, $assign->getStartLine())
             : null;
+    }
+
+    private static function isMethodLocked(ClassMethod $classMethod, Scope $scope): bool
+    {
+        $methodName = $classMethod->name->toString();
+
+        if (Str::doesStartWith($methodName, '__') && $methodName !== '__construct') {
+            return true;
+        }
+
+        $classReflection = $scope->getClassReflection();
+
+        if (!$classReflection instanceof ClassReflection
+            || $classReflection->isTrait()
+            || $classReflection->isInterface()) {
+            return false;
+        }
+
+        return $scope->getFile() === $classReflection->getFileName()
+            && self::hasExternalUpstreamMethod($methodName, $classReflection);
+    }
+
+    private static function hasExternalUpstreamMethod(string $methodName, ClassReflection $classReflection): bool
+    {
+        $parentClass = $classReflection->getParentClass();
+
+        while ($parentClass instanceof ClassReflection) {
+            if ($parentClass->hasNativeMethod($methodName) && self::isExternal($parentClass)) {
+                return true;
+            }
+
+            $parentClass = $parentClass->getParentClass();
+        }
+
+        foreach ($classReflection->getInterfaces() as $interface) {
+            if ($interface->hasMethod($methodName) && self::isExternal($interface)) {
+                return true;
+            }
+        }
+
+        return array_any(
+            $classReflection->getTraits(recursive: true),
+            static fn (ClassReflection $classReflection): bool => $classReflection->hasNativeMethod($methodName) && self::isExternal($classReflection),
+        );
+    }
+
+    private static function isExternal(ClassReflection $classReflection): bool
+    {
+        $fileName = $classReflection->getFileName();
+
+        return $fileName === null || Str::doesContain($fileName, '/vendor/');
     }
 
     private static function hasBoolishPrefix(string $name): bool
