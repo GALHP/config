@@ -81,6 +81,7 @@
 
   // Telemetry
   "gitlens.telemetry.enabled": false,
+  "partialDiff.enableTelemetry": false,
   "redhat.telemetry.enabled": false,
   "telemetry.telemetryLevel": "off", // NOTICE: Can only be turned off in the default settings
   "intelephense.telemetry.enabled": false,
