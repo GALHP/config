@@ -19,6 +19,7 @@
         "./src/php/Composer/Installer.php",
         "./src/php/Composer/Plugin.php",
         "./src/php/ComposerJson.php",
+        "./src/php/EditorUrl.php",
         "./src/php/FileFinder.php",
         "./src/php/Json.php",
         "./src/php/Logger.php",

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Brnshkr\Config;
 
-use Brnshkr\Config\Trait\EditorUrlTrait;
 use Rector\CodeQuality\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector;
 use Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector;
 use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
@@ -129,7 +128,7 @@ final readonly class Rector
     public static function getConfig(?Finder $finder = null): RectorConfigBuilder
     {
         /** @disregard P1009 Some skipped classes come bundled with rector and are not picked up by intelephense */
-        return RectorConfig::configure()
+        $rectorConfigBuilder = RectorConfig::configure()
             ->withCache('.cache/rector.cache')
             ->withRootFiles()
             ->withPaths(FileFinder::getFilePaths($finder))
@@ -183,6 +182,14 @@ final readonly class Rector
                 EncapsedStringsToSprintfRector::ALWAYS => true,
             ])
         ;
+
+        $editorUrl = EditorUrl::forRector();
+
+        if ($editorUrl !== null) {
+            $rectorConfigBuilder->withEditorUrl($editorUrl);
+        }
+
+        return $rectorConfigBuilder;
     }
 }
 
