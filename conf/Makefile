@@ -889,14 +889,15 @@ is_in_documentation {
 	split($$0, parts, ":");
 	description = get_description();
 	count = split(parts[1], names, /[ \t]+/);
+	joined_commands = "";
 	for (i = 1; i <= count; i += 1) {
 		name = names[i];
 		if (name == "" || name ~ /^[_\.]/) continue;
-		if (!(name in command_seen)) {
-			command_seen[name] = 1;
-			add("commands", name, description, "", "", FNR);
-		}
+		if (name in command_seen) continue;
+		command_seen[name] = 1;
+		joined_commands = (joined_commands == "" ? name : joined_commands "/" name);
 	}
+	if (joined_commands != "") add("commands", joined_commands, description, "", "", FNR);
 	next;
 }
 END {
