@@ -18,6 +18,8 @@ const command = [
   'stylelint',
   '--config',
   './conf/stylelint.config.mjs',
+  '--config-basedir',
+  './',
   '--cache',
   '--cache-location',
   './.cache/stylelint.cache.json',
