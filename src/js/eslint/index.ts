@@ -101,7 +101,7 @@ export const getConfig = (
   }
 
   if (isModuleEnabled(MODULES[packageOrganization])) {
-    appendToComposer(configs[packageOrganization]());
+    appendToComposer(configs[packageOrganization](resolvedOptions.typescript));
   }
 
   if (isModuleEnabled(MODULES.comments)) {

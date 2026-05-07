@@ -604,7 +604,6 @@ Here are some frequently used examples (see `make help` for the complete list):
 - Add setup command for JS package (like `composer brnshkr:config:setup`)
 - Expand [`⚙️ Worflows`](#️-workflows) section in readme
 - Write sections about custom PHPStan and ESLint rules
-- Add all around support for enforcing TypeScript aliases with ESLint
 - Add Vue support
 - Add React support
 - Add Tailwind support via <https://github.com/schoero/eslint-plugin-better-tailwindcss>
