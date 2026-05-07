@@ -276,6 +276,7 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.preferences.quoteStyle": "single",
   "typescript.preferences.quoteStyle": "single",
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
   "svelte.enable-ts-plugin": true,
   "eslint.validate": [
     "css",
