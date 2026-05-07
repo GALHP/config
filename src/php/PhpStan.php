@@ -75,7 +75,6 @@ Module::warnMissingPackages(Module::MODULE_PHP_STAN);
  */
 final class PhpStan
 {
-    use EditorUrlTrait;
     private const array TAG_RULE                        = ['phpstan.rules.rule'];
     private const array TAG_STATIC_THROW_TYPE_EXTENSION = ['phpstan.dynamicStaticMethodThrowTypeExtension'];
 
