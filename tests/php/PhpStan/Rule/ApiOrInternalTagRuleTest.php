@@ -22,7 +22,7 @@ final class ApiOrInternalTagRuleTest extends RuleTestCase
 {
     public function testRule(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/ApiOrInternalTagRuleFixture.php'], [
+        $this->analyse([__DIR__ . '/../../Fixtures/Rule/ApiOrInternalTagRuleFixture.php'], [
             [sprintf('Class `%s` must be annotated with either @internal or @api.', 'ClassWithoutTag'), 17],
             [sprintf('Function `%s` must be annotated with either @internal or @api.', 'functionWithoutTag'), 29],
             [sprintf('Constant `%s` must be annotated with either @internal or @api.', 'CONSTANT_WITHOUT_TAG_A'), 41],

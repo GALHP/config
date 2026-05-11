@@ -59,8 +59,8 @@ export default getConfig(undefined, {
   },
 }, {
   files: [
-    'src/js/eslint/configs/*',
-    'src/js/stylelint/configs/*',
+    'src/js/eslint/configs/**',
+    'src/js/stylelint/configs/**',
   ],
   rules: {
     'max-lines': 'off',

@@ -27,7 +27,6 @@ use Symfony\Component\String\AbstractString;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symplify\PHPStanRules\Rules as SymplifyPhpStanRules;
 
-use function array_any;
 use function array_diff;
 use function array_filter;
 use function array_is_list;
@@ -38,18 +37,15 @@ use function array_reduce;
 use function array_unique;
 use function array_values;
 use function class_exists;
-use function explode;
 use function getcwd;
 use function in_array;
 use function interface_exists;
-use function is_executable;
 use function is_string;
 use function iterator_to_array;
 use function sprintf;
 use function Symfony\Component\String\s;
 use function usort;
 
-use const PATH_SEPARATOR;
 use const SORT_REGULAR;
 
 Module::warnMissingPackages(Module::MODULE_PHP_STAN);
@@ -79,29 +75,8 @@ Module::warnMissingPackages(Module::MODULE_PHP_STAN);
  */
 final class PhpStan
 {
-    public const string EDITOR_VSCODE   = 'vscode';
-    public const string EDITOR_PHPSTORM = 'phpstorm';
-
-    private const array EDITORS = [
-        self::EDITOR_VSCODE => [
-            'command' => 'code',
-            'url'     => [
-                'default' => 'vscode://file/%s/%s:%s',
-                'wsl'     => 'vscode://vscode-remote/wsl+%s%s/%s:%s',
-            ],
-        ],
-        self::EDITOR_PHPSTORM => [
-            'command' => ['pstorm', 'phpstorm'],
-            'url'     => 'phpstorm://open?file=%s/%s&line=%s',
-        ],
-    ];
-
     private const array TAG_RULE                        = ['phpstan.rules.rule'];
     private const array TAG_STATIC_THROW_TYPE_EXTENSION = ['phpstan.dynamicStaticMethodThrowTypeExtension'];
-
-    private const string PLACEHOLDER_CWD  = '%currentWorkingDirectory%';
-    private const string PLACEHOLDER_FILE = '%%relFile%%';
-    private const string PLACEHOLDER_LINE = '%%line%%';
 
     /**
      * @param Config $config
@@ -138,7 +113,7 @@ final class PhpStan
             ->setPaths($analysisPaths['paths'], $analysisPaths['excludedPaths'])
             ->setTemporaryDirectory('.cache/phpstan.cache')
             ->setParameters([
-                'editorUrl'                                          => self::getEditorUrl(),
+                'editorUrl'                                          => EditorUrl::forPhpStan(),
                 'editorUrlTitle'                                     => '%%relFile%%:%%line%%',
                 'errorFormat'                                        => Module::isPackageInstalled(Module::PACKAGE_PHP_STAN_ERROR_FORMATTER) ? 'ticketswap' : null,
                 'checkBenevolentUnionTypes'                          => true,
@@ -419,11 +394,11 @@ final class PhpStan
     }
 
     /**
-     * @param self::EDITOR_* $editor
+     * @param EditorUrl::EDITOR_* $editor
      */
     public function setEditor(string $editor): self
     {
-        return $this->setParameter('editorUrl', self::getEditorUrl($editor));
+        return $this->setParameter('editorUrl', EditorUrl::forPhpStan($editor));
     }
 
     /**
@@ -768,103 +743,6 @@ final class PhpStan
         );
 
         return array_values(array_filter($paths, is_string(...)));
-    }
-
-    /**
-     * @template TEditor of ?self::EDITOR_*
-     *
-     * @param TEditor $editor
-     *
-     * @return (TEditor is null ? ?string : string)
-     */
-    private static function getEditorUrl(?string $editor = null): ?string
-    {
-        $environment = array_merge($_SERVER, $_ENV);
-        $editor ??= self::getEditor($environment);
-
-        if ($editor === null) {
-            $paths = explode(PATH_SEPARATOR, is_string($environment['PATH'] ?? null) ? $environment['PATH'] : '');
-
-            foreach (self::EDITORS as $editorCandidate => $config) {
-                if (self::isCommandAvailable($config['command'], $paths)) {
-                    $editor = $editorCandidate;
-
-                    break;
-                }
-            }
-        }
-
-        if ($editor === null || !isset(self::EDITORS[$editor])) {
-            return null;
-        }
-
-        $config = self::EDITORS[$editor];
-
-        if (is_string($config['url'])) {
-            return sprintf($config['url'], self::PLACEHOLDER_CWD, self::PLACEHOLDER_FILE, self::PLACEHOLDER_LINE);
-        }
-
-        $wslDistro = self::getWslDistroName($environment);
-
-        return $wslDistro === null
-            ? sprintf($config['url']['default'], self::PLACEHOLDER_CWD, self::PLACEHOLDER_FILE, self::PLACEHOLDER_LINE)
-            : sprintf($config['url']['wsl'], $wslDistro, self::PLACEHOLDER_CWD, self::PLACEHOLDER_FILE, self::PLACEHOLDER_LINE);
-    }
-
-    /**
-     * @param array<array-key, mixed> $environment
-     */
-    private static function getEditor(array $environment): ?string
-    {
-        foreach ($environment as $key => $value) {
-            $key = (string) $key;
-
-            $editor = match (true) {
-                Str::doesStartWith($key, 'VSCODE_')                             => self::EDITOR_VSCODE,
-                Str::doesStartWith($key, 'PHPSTORM')                            => self::EDITOR_PHPSTORM,
-                $key === 'TERMINAL_EMULATOR' && $value === 'JetBrains-JediTerm' => self::EDITOR_PHPSTORM,
-                default                                                         => null,
-            };
-
-            if ($editor !== null) {
-                return $editor;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @param array<array-key, mixed> $environment
-     */
-    private static function getWslDistroName(array $environment): ?string
-    {
-        return (isset($environment['WSL_DISTRO_NAME']) && is_string($environment['WSL_DISTRO_NAME']))
-            ? $environment['WSL_DISTRO_NAME']
-            : null;
-    }
-
-    /**
-     * @param string|list<string> $command
-     * @param list<string> $paths
-     */
-    private static function isCommandAvailable(string|array $command, array $paths): bool
-    {
-        $commands = is_string($command) ? [$command] : $command;
-        $isFound  = false;
-
-        foreach ($commands as $cmd) {
-            if (array_any(
-                $paths,
-                static fn (string $path): bool => is_executable(Str::trim($path, '/', 'end') . '/' . $cmd),
-            )) {
-                $isFound = true;
-
-                break;
-            }
-        }
-
-        return $isFound;
     }
 }
 

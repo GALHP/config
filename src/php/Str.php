@@ -22,6 +22,7 @@ use function mb_trim;
 use function preg_match;
 use function sprintf;
 use function str_contains;
+use function str_ends_with;
 use function str_replace;
 use function str_starts_with;
 
@@ -61,6 +62,12 @@ final readonly class Str
             $needles,
             static fn (string $needle): bool => self::doesStartWith($haystack, $needle),
         );
+    }
+
+    public static function doesEndWith(string $haystack, string $needle): bool
+    {
+        // @phpstan-ignore symplify.forbiddenFuncCall (Avoid using symfony/string here to keep package as lighweight as possible)
+        return str_ends_with($haystack, $needle);
     }
 
     /**

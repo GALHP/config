@@ -22,7 +22,7 @@ use function sprintf;
  *
  * @no-named-arguments
  */
-final class FileFinder
+final readonly class FileFinder
 {
     public const string EXTENSION_PHP  = 'php';
     public const string EXTENSION_TWIG = 'twig';
@@ -55,16 +55,26 @@ final class FileFinder
             $finder = (new Finder())->in('.');
         }
 
+        $extensions = is_array($extensions) ? $extensions : [$extensions];
+
         $namePatterns = array_map(static function (string $extension): string {
             if (!in_array($extension, self::EXTENSIONS, true)) {
                 throw new InvalidArgumentException(sprintf('Unsupported extension "%s". Supported extensions are: %s.', $extension, implode(', ', self::EXTENSIONS)));
             }
 
             return '/\.' . $extension . '$/';
-        }, is_array($extensions) ? $extensions : [$extensions]);
+        }, $extensions);
 
         if ($namePatterns !== []) {
             $finder->name($namePatterns);
+        }
+
+        if (in_array(self::EXTENSION_PHP, $extensions, true)) {
+            try {
+                $finder->append(new Finder()->files()->in('bin')->name('console'));
+            } catch (DirectoryNotFoundException) {
+                // Ignore
+            }
         }
 
         return $finder

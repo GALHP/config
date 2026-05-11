@@ -190,7 +190,7 @@ bun eslint --config ./conf/eslint.config.mjs --cache --cache-location ./.cache/e
 Example call, adjust as needed
 
 ```sh
-bun stylelint --config ./conf/stylelint.config.mjs --cache --cache-location ./.cache/stylelint.cache.json **/*.{css,ejs,html,less,postcss,scss,svelte,svg,vue}
+bun stylelint --config ./conf/stylelint.config.mjs --config-basedir ./ --cache --cache-location ./.cache/stylelint.cache.json **/*.{css,ejs,html,less,postcss,scss,svelte,svg,vue}
 ```
 
 <!-- omit in toc -->
@@ -275,7 +275,7 @@ Here are some frequently used examples:
 #### Composer
 
 ```sh
-composer req --dev brnshkr/config
+composer r --dev brnshkr/config
 ```
 
 This repository provides two ways to integrate configuration files and setup tools into your project:
@@ -604,7 +604,6 @@ Here are some frequently used examples (see `make help` for the complete list):
 - Add setup command for JS package (like `composer brnshkr:config:setup`)
 - Expand [`⚙️ Worflows`](#️-workflows) section in readme
 - Write sections about custom PHPStan and ESLint rules
-- Add all around support for enforcing TypeScript aliases with ESLint
 - Add Vue support
 - Add React support
 - Add Tailwind support via <https://github.com/schoero/eslint-plugin-better-tailwindcss>
@@ -645,7 +644,9 @@ See [./.github/workflows](https://github.com/brnshkr/config/blob/master/.github/
 
 This project follows [Semantic Versioning 2.0.0][semver-2.0.0-url].  
 The NPM and Composer packages are versioned in sync, so a version change does not necessarily indicate a change in a specific package.  
-Also please note the following additional information:
+
+> ❗ **Note** ❗  
+> Since changes to rules and dependencies are not considered breaking, even a patch release may introduce new errors in code that hasn't changed and break your CI without notice. We therefore strongly recommend pinning to an exact version (`-E` for the JS package managers, `composer r --dev brnshkr/config:X.Y.Z` for Composer) so updates stay opt-in and can be applied on your own schedule.
 
 <!-- omit in toc -->
 ### Changes Considered as Breaking Changes

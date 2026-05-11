@@ -46,7 +46,8 @@ final class RectorTest extends TestCase
         $configArray     = [];
 
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            $value = $reflectionProperty->getValue($rectorConfigBuilder);
+            $value        = $reflectionProperty->getValue($rectorConfigBuilder);
+            $propertyName = $reflectionProperty->getName();
 
             if (is_iterable($value)) {
                 $value = array_map(
@@ -55,7 +56,7 @@ final class RectorTest extends TestCase
                 );
             }
 
-            $configArray[$reflectionProperty->getName()] = $value;
+            $configArray[$propertyName] = $propertyName === 'editorUrl' ? null : $value;
         }
 
         $result = Json::encode($configArray);

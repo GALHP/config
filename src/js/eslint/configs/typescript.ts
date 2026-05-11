@@ -1,10 +1,8 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-
 import { MAIN_SCOPES, SUB_SCOPES } from '../types/scopes';
 import { buildConfigName, renameRules } from '../utils/config';
 import { GLOB_MD, GLOB_SCRIPT_FILES, GLOB_TS } from '../utils/globs';
 import { isModuleEnabled, MODULES, resolvePackages } from '../utils/module';
+import { doesTsConfigExist, resolveTsConfigPath } from '../utils/tsconfig';
 
 import type { ESLint } from 'eslint';
 import type { Maybe } from '../../shared/types/core';
@@ -164,15 +162,7 @@ export const typescript = async (options?: Partial<TypescriptOptions>): Promise<
   } = await resolvePackages(MODULES.javascript);
 
   const cwd = process.cwd();
-  let hasTsConfig = false;
-
-  try {
-    await fs.access(path.resolve(cwd, 'tsconfig.json'), fs.constants.R_OK);
-
-    hasTsConfig = true;
-  } catch {
-    // Do nothing
-  }
+  const hasTsConfig = doesTsConfigExist(resolveTsConfigPath(options));
 
   const resolvedOptions = <const>{
     extraFileExtensions: [],

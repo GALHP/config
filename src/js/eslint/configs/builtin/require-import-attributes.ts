@@ -1,15 +1,9 @@
-import { objectFreeze, objectFromEntries, objectKeys } from '../../shared/utils/object';
-import { packageOrganization, packageOrganizationUpper, packageVersion } from '../../shared/utils/package-json';
-import { MAIN_SCOPES, SUB_SCOPES } from '../types/scopes';
-import { buildConfigName } from '../utils/config';
-import { GLOB_SCRIPT_FILES } from '../utils/globs';
-
 import type { TSESTree } from '@typescript-eslint/utils';
-import type { ESLint } from 'eslint';
-import type { Config } from '../types/config';
+import type { RuleDefinition } from '.';
 
-type ExtractValueTypeFromRecord<TRecord> = TRecord extends Record<string, infer U> ? U : never;
-type RuleDefinition = ExtractValueTypeFromRecord<ESLint.Plugin['rules']>;
+const MESSAGE_ID_MISSING_WITH_KEYWORD = 'missingWithKeyword';
+const MESSAGE_ID_MISSING_TYPE_PROPERTY = 'missingTypeProperty';
+const MESSAGE_ID_WRONG_TYPE_VALUE = 'wrongTypeValue';
 
 const FILE_TYPE_MAP: Record<string, string> = <const>{
   '.json': 'json',
@@ -23,11 +17,7 @@ const FILE_TYPE_MAP: Record<string, string> = <const>{
   '.wasm': 'webassembly',
 };
 
-const MESSAGE_ID_MISSING_WITH_KEYWORD = 'missingWithKeyword';
-const MESSAGE_ID_MISSING_TYPE_PROPERTY = 'missingTypeProperty';
-const MESSAGE_ID_WRONG_TYPE_VALUE = 'wrongTypeValue';
-
-const requireImportAttributesRule = <const>{
+export const requireImportAttributesRule = <const>{
   meta: {
     type: 'problem',
     docs: {
@@ -106,35 +96,3 @@ const requireImportAttributesRule = <const>{
     },
   }),
 } satisfies RuleDefinition;
-
-const RULE_DEFINITIONS = <const>{
-  'require-import-attributes': requireImportAttributesRule,
-} satisfies Record<string, RuleDefinition>;
-
-const RULES = objectFreeze(objectFromEntries(objectKeys(RULE_DEFINITIONS).map(
-  (ruleName) => <const>[`${packageOrganization}/${ruleName}`, 'error'],
-)));
-
-const builtin = (): Config[] => [
-  {
-    name: buildConfigName(MAIN_SCOPES[packageOrganizationUpper], SUB_SCOPES.SETUP),
-    plugins: {
-      [packageOrganization]: {
-        meta: {
-          name: packageOrganization,
-          version: packageVersion,
-        },
-        rules: RULE_DEFINITIONS,
-      },
-    },
-  },
-  {
-    name: buildConfigName(MAIN_SCOPES[packageOrganizationUpper], SUB_SCOPES.RULES),
-    files: GLOB_SCRIPT_FILES,
-    rules: RULES,
-  },
-];
-
-export const builtinConfig = {
-  [packageOrganization]: builtin,
-};

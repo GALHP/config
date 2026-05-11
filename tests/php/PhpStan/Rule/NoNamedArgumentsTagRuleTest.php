@@ -22,7 +22,7 @@ final class NoNamedArgumentsTagRuleTest extends RuleTestCase
 {
     public function testRule(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/NoNamedArgumentsTagRuleFixture.php'], [
+        $this->analyse([__DIR__ . '/../../Fixtures/Rule/NoNamedArgumentsTagRuleFixture.php'], [
             [sprintf('Class `%s` must be annotated with @no-named-arguments.', 'ClassWithoutTag'), 23],
             [sprintf('Class `%s` must be annotated with @no-named-arguments.', 'ClassWithoutTagPrivateAndPublicParameters'), 48],
             [sprintf('Class `%s` must be annotated with @no-named-arguments.', 'ClassWithoutTagConstructorParameters'), 55],

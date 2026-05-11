@@ -81,6 +81,7 @@
 
   // Telemetry
   "gitlens.telemetry.enabled": false,
+  "partialDiff.enableTelemetry": false,
   "redhat.telemetry.enabled": false,
   "telemetry.telemetryLevel": "off", // NOTICE: Can only be turned off in the default settings
   "intelephense.telemetry.enabled": false,
@@ -271,10 +272,9 @@
   ],
 
   // JS/TS
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "javascript.preferences.quoteStyle": "single",
-  "typescript.preferences.quoteStyle": "single",
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
+  "js/ts.preferences.quoteStyle": "single",
   "svelte.enable-ts-plugin": true,
   "eslint.validate": [
     "css",
