@@ -71,7 +71,7 @@ final readonly class FileFinder
 
         if (in_array(self::EXTENSION_PHP, $extensions, true)) {
             try {
-                $finder->append(new Finder()->files()->in('bin')->name('console'));
+                $finder->append((new Finder())->files()->in('bin')->name('console'));
             } catch (DirectoryNotFoundException) {
                 // Ignore
             }
